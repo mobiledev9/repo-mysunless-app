@@ -1,0 +1,145 @@
+PODS:
+  - Alamofire (5.4.3)
+  - Charts (4.0.2):
+    - Charts/Core (= 4.0.2)
+  - Charts/Core (4.0.2):
+    - SwiftAlgorithms (~> 1.0)
+  - CropViewController (2.6.0)
+  - DKCamera (1.6.7)
+  - DKImagePickerController (4.3.2):
+    - DKImagePickerController/Camera (= 4.3.2)
+    - DKImagePickerController/Core (= 4.3.2)
+    - DKImagePickerController/ImageDataManager (= 4.3.2)
+    - DKImagePickerController/InlineCamera (= 4.3.2)
+    - DKImagePickerController/PhotoEditor (= 4.3.2)
+    - DKImagePickerController/PhotoGallery (= 4.3.2)
+    - DKImagePickerController/Resource (= 4.3.2)
+  - DKImagePickerController/Camera (4.3.2):
+    - DKCamera
+    - DKImagePickerController/Core
+  - DKImagePickerController/Core (4.3.2):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.2)
+  - DKImagePickerController/InlineCamera (4.3.2):
+    - DKCamera
+    - DKImagePickerController/Core
+  - DKImagePickerController/PhotoEditor (4.3.2):
+    - CropViewController (~> 2.5)
+    - DKImagePickerController/Core
+  - DKImagePickerController/PhotoGallery (4.3.2):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.2)
+  - DKPhotoGallery (0.0.17):
+    - DKPhotoGallery/Core (= 0.0.17)
+    - DKPhotoGallery/Model (= 0.0.17)
+    - DKPhotoGallery/Preview (= 0.0.17)
+    - DKPhotoGallery/Resource (= 0.0.17)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - FSCalendar (2.8.4)
+  - iOSDropDown (0.3.4)
+  - IQKeyboardManager (6.5.9)
+  - Kingfisher (7.1.1)
+  - MBCircularProgressBar (0.3.5)
+  - ReachabilitySwift (5.0.0)
+  - SCLAlertView (0.8)
+  - ScrollableSegmentedControl (1.5.0)
+  - SDWebImage (5.12.1):
+    - SDWebImage/Core (= 5.12.1)
+  - SDWebImage/Core (5.12.1)
+  - SideMenu (6.5.0)
+  - StepView (1.0.5)
+  - SVProgressHUD (2.2.5)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftSignatureView (3.2.0)
+  - SwiftyGif (5.4.3)
+  - TreeTableView (0.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Charts
+  - DKImagePickerController
+  - FSCalendar
+  - iOSDropDown
+  - IQKeyboardManager
+  - Kingfisher
+  - MBCircularProgressBar
+  - ReachabilitySwift
+  - SCLAlertView
+  - ScrollableSegmentedControl
+  - SideMenu
+  - StepView
+  - SVProgressHUD
+  - SwiftSignatureView
+  - TreeTableView
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Charts
+    - CropViewController
+    - DKCamera
+    - DKImagePickerController
+    - DKPhotoGallery
+    - FSCalendar
+    - iOSDropDown
+    - IQKeyboardManager
+    - Kingfisher
+    - MBCircularProgressBar
+    - ReachabilitySwift
+    - SCLAlertView
+    - ScrollableSegmentedControl
+    - SDWebImage
+    - SideMenu
+    - StepView
+    - SVProgressHUD
+    - SwiftAlgorithms
+    - SwiftSignatureView
+    - SwiftyGif
+    - TreeTableView
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
+  CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
+  DKCamera: a902b66921fca14b7a75266feb8c7568aa7caa71
+  DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
+  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
+  iOSDropDown: c10a761f9a00c3f1cc9d3bce43ae504628e2f692
+  IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
+  Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  ScrollableSegmentedControl: 2e64bbe8968a7fcd8aae5014434481464fcdfe60
+  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  StepView: e69413ca377b42c5777d446854bb036ff8e988fd
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftSignatureView: cd8cca297cc2ca6a6c174da22fb908c33d03d3c0
+  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
+  TreeTableView: 869484f5db96b1b6b8cc35a639a485fade7e83bd
+
+PODFILE CHECKSUM: 4f3de13feab6743b12c599af4555a4668377d3f2
+
+COCOAPODS: 1.11.2
