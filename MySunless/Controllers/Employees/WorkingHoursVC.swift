@@ -119,7 +119,7 @@ class WorkingHoursVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        callShowEmployeeTime()
     }
     
     //MARK:- UserDefined Functions
@@ -206,6 +206,155 @@ class WorkingHoursVC: UIViewController {
         return false
     }
     
+    func callShowEmployeeTime() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization": token]
+        var params = NSDictionary()
+        params = [:]
+        if (APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + SHOW_EMPLOYEE_TIME, param: params, header: headers) { (respnse, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
+                        if let response = res.value(forKey: "response") as? NSDictionary {
+                            if let mon = response.value(forKey: "0") as? NSDictionary {
+                                if let Day = mon.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = mon.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = mon.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = mon.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let tue = response.value(forKey: "1") as? NSDictionary {
+                                if let Day = tue.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = tue.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = tue.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = tue.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let wed = response.value(forKey: "2") as? NSDictionary {
+                                if let Day = wed.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = wed.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = wed.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = wed.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let thu = response.value(forKey: "3") as? NSDictionary {
+                                if let Day = thu.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = thu.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = thu.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = thu.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let fri = response.value(forKey: "4") as? NSDictionary {
+                                if let Day = fri.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = fri.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = fri.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = fri.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let sat = response.value(forKey: "5") as? NSDictionary {
+                                if let Day = sat.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = sat.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = sat.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = sat.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            if let sun = response.value(forKey: "6") as? NSDictionary {
+                                if let Day = sun.value(forKey: "Day") as? String {
+                                    self.day = Day
+                                }
+                                if let Status = sun.value(forKey: "Status") as? String {
+                                    self.status = Status
+                                }
+                                if let starttime = sun.value(forKey: "starttime") as? String {
+                                    self.startTime = starttime
+                                }
+                                if let endtime = sun.value(forKey: "endtime") as? String {
+                                    self.endTime = endtime
+                                }
+                                self.arrWorkingHours.append(WorkingHoursData(day: self.day, status: self.status, Starttime: self.startTime, Endtime: self.endTime))
+                            }
+                            self.isFirst = true
+                            
+                            if let block_time = response.value(forKey: "block_time") as? [[String:Any]] {
+                                for dic in block_time {
+                                    self.arrBlockTime.append(BlockTime(dict: dic))
+                                }
+                                for dict in self.arrBlockTime {
+                                    if dict.Customdate != "" {
+                                        UserDefaults.standard.set(true, forKey: "setCustomDateTime")
+                                    }
+                                    self.lblDate.text = dict.Customdate
+                                    self.lblTime.text = "(" + dict.starttime + " " + "-" + " " + dict.endtime + ")"
+                                }
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.tblWorkingHours.reloadData()
+                            }
+                            //   print(self.arrWorkingHours.count)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func callSetCustomDateTimeAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
@@ -281,18 +430,6 @@ class WorkingHoursVC: UIViewController {
         }
     }
     
-//    func alert() {
-//        let alert = UIAlertController(title: "", message: "Login Successfully", preferredStyle: UIAlertController.Style.alert)
-//        let action1 = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { (dd) -> Void in
-//
-//            let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-//            self.navigationController?.pushViewController(VC, animated: true)
-//
-//        }
-//        alert.addAction(action1)
-//        self.present(alert, animated: true, completion: nil)
-//    }
-    
     func callDeleteBlockTimeAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
@@ -358,13 +495,11 @@ class WorkingHoursVC: UIViewController {
                 if let success = res.value(forKey: "success") as? Int {
                     if (success == 1) {
                         if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                            
+                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: message)
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-
+                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: message)
                         }
                     }
                 }
