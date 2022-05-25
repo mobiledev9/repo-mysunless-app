@@ -49,8 +49,6 @@ class EventCalendarVC: UIViewController {
         fsCalendar.appearance.borderRadius = 5
         fsCalendar.appearance.subtitleFont = UIFont(name: "Roboto-Bold", size: 10)
         fsCalendar.appearance.subtitleOffset = CGPoint(x: 0, y: 0)
-        fsCalendar.scrollDirection = .vertical
-        fsCalendar.pagingEnabled = true
     }
     
     func setEventDate(arrAppointment :[ShowAppointmentList]) {
@@ -112,6 +110,7 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
         let day = dateFormatter.string(from: date)
         return day
     }
+    
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         let dateString = self.dateFormatter2.string(from: date)
         if arrEventDate.contains(dateString) {
@@ -139,7 +138,9 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
             
             if arr.count > 0 {
                 self.arrEvents = arr
-                tblCalendarEvent.reloadData()
+                DispatchQueue.main.async {
+                    self.tblCalendarEvent.reloadData()
+                }
                 return
             } else {
                 self.arrEvents.removeAll()
@@ -159,7 +160,7 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let dateString = self.dateFormatter2.string(from: date)
-        if arrEventDate.contains(dateString){
+        if arrEventDate.contains(dateString) {
             return arrEventDate.filter{$0 == dateString}.count
         }
         return 0
@@ -167,7 +168,7 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
 }
 
 //MARK:- UITableview Delegate and Datasource Methods
-extension EventCalendarVC : UITableViewDataSource,UITableViewDelegate {
+extension EventCalendarVC : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.arrEvents.count
     }
@@ -201,20 +202,25 @@ class CalendarCell : UITableViewCell {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var cellView: UIView!
     
-    func setViewColor(eventStatus:String){
+    func setViewColor(eventStatus:String) {
         switch eventStatus.lowercased() {
             case "completed" :
-                self.cellView.backgroundColor = UIColor.init("￼#000000")
+                self.cellView.backgroundColor = UIColor.black
             case "pending" :
-                self.cellView.backgroundColor = UIColor.init("￼#FFE604")
+              //  self.cellView.backgroundColor = UIColor.init("￼#FFE604")
+                self.cellView.backgroundColor = UIColor.systemYellow
             case "confirmed" :
-                self.cellView.backgroundColor = UIColor.init("￼#00D33C")
+              //  self.cellView.backgroundColor = UIColor.init("￼#00D33C")
+                self.cellView.backgroundColor = UIColor.systemGreen
             case "canceled" :
-                self.cellView.backgroundColor = UIColor.init("￼#FF0004")
+             //   self.cellView.backgroundColor = UIColor.init("￼#FF0004")
+                cellView.backgroundColor = UIColor.systemPink
             case "pending-payment" :
-                self.cellView.backgroundColor = UIColor.init("￼#4A54AA")
+              //  self.cellView.backgroundColor = UIColor.init("￼#4A54AA")
+                self.cellView.backgroundColor = UIColor.systemIndigo
             case "in-progress" :
-                self.cellView.backgroundColor = UIColor.init("￼#FF8224")
+               // self.cellView.backgroundColor = UIColor.init("￼#FF8224")
+                self.cellView.backgroundColor = UIColor.orange
             default:
                 // cellView.backgroundColor = UIColor.init("￼#FF0004")
                 print("nothing")

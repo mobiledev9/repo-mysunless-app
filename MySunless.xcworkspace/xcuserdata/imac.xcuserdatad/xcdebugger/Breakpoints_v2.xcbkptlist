@@ -1089,102 +1089,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "26DB256F-5C0D-418C-B010-97B579F61521"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/Employees/WorkingHoursVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "callSetCustomDateTimeAPI()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "26DB256F-5C0D-418C-B010-97B579F61521 - 6128016eab8794af"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in closure #1 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.WorkingHoursVC.callSetCustomDateTimeAPI() -&gt; ()"
-                  moduleName = "MySunless"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Employees/WorkingHoursVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "220"
-                  endingLineNumber = "220"
-                  offsetFromSymbolStart = "395">
-               </Location>
-               <Location
-                  uuid = "26DB256F-5C0D-418C-B010-97B579F61521 - 7d24cfca5a657a51"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in closure #1 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.WorkingHoursVC.callSetCustomDateTimeAPI() -&gt; ()"
-                  moduleName = "MySunless"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Employees/WorkingHoursVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "221"
-                  endingLineNumber = "221"
-                  offsetFromSymbolStart = "25">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C89093C7-F236-4447-9F76-FD93F08623D7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/Employees/WorkingHoursVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "callSetCustomDateTimeAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "41461DC0-7D74-415E-AF2C-3FA5288580FD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/Employees/WorkingHoursVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "callSetCustomDateTimeAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "31071CA1-EBB7-47E8-9EC5-AC98C9623B72"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/Employees/WorkingHoursVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
-            landmarkName = "callSetCustomDateTimeAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FB4B8920-7019-4190-A79A-7EA98252D98E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -2270,14 +2174,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C1D4BADE-686B-473C-B7CF-99B447B5B820 - 9b3656a119468214"
+                  uuid = "C1D4BADE-686B-473C-B7CF-99B447B5B820 - 568b051e7e86c35f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MySunless.SendSMSVC.callSendSmsToClientAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Clients/SendSMSVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Clients/SendSMSVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "105"
@@ -2285,14 +2189,14 @@
                   offsetFromSymbolStart = "2314">
                </Location>
                <Location
-                  uuid = "C1D4BADE-686B-473C-B7CF-99B447B5B820 - 7bf8f8ff9c43dece"
+                  uuid = "C1D4BADE-686B-473C-B7CF-99B447B5B820 - b645ab40fb839f87"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.SendSMSVC.callSendSmsToClientAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Clients/SendSMSVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Clients/SendSMSVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "106"
@@ -2318,14 +2222,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "096713E5-8115-4699-8C26-3EC0DB938A17 - 35ae6aa99288687f"
+                  uuid = "096713E5-8115-4699-8C26-3EC0DB938A17 - bdb1aaa9c8ab86a6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MySunless.MemberShipListVC.callUpcomingRenewalsAPI(inDays: Swift.Int) -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Membership/MemberShipListVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Membership/MemberShipListVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "243"
@@ -2333,14 +2237,14 @@
                   offsetFromSymbolStart = "939">
                </Location>
                <Location
-                  uuid = "096713E5-8115-4699-8C26-3EC0DB938A17 - 66785e24db3289f9"
+                  uuid = "096713E5-8115-4699-8C26-3EC0DB938A17 - ee679e24811166a6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.MemberShipListVC.callUpcomingRenewalsAPI(inDays: Swift.Int) -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Membership/MemberShipListVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Membership/MemberShipListVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "244"
@@ -2398,14 +2302,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E3691725-CF22-4B56-A5D9-023FF73A938D - f5b8b19222af1c45"
+                  uuid = "E3691725-CF22-4B56-A5D9-023FF73A938D - c7fe33ccdd677c87"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MySunless.StripePaymentVC.callShowStripeAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "142"
@@ -2413,14 +2317,14 @@
                   offsetFromSymbolStart = "816">
                </Location>
                <Location
-                  uuid = "E3691725-CF22-4B56-A5D9-023FF73A938D - d80e74b9439dcc19"
+                  uuid = "E3691725-CF22-4B56-A5D9-023FF73A938D - ea48f6e7bc55af5b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.StripePaymentVC.callShowStripeAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "143"
@@ -2446,14 +2350,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E35C8037-1A4C-4307-BABA-32AF8E5A4EA5 - eff81e303b6ea83a"
+                  uuid = "E35C8037-1A4C-4307-BABA-32AF8E5A4EA5 - ddbe9c6ec4a6cb7c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MySunless.StripePaymentVC.callAddstripeAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "112"
@@ -2461,14 +2365,14 @@
                   offsetFromSymbolStart = "2135">
                </Location>
                <Location
-                  uuid = "E35C8037-1A4C-4307-BABA-32AF8E5A4EA5 - e5d6dcbec3ebdf4d"
+                  uuid = "E35C8037-1A4C-4307-BABA-32AF8E5A4EA5 - d7905ee03c23bc0b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Swift.Optional&lt;Swift.AnyObject&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MySunless.StripePaymentVC.callAddstripeAPI() -&gt; ()"
                   moduleName = "MySunless"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/imac/Desktop/MySunless/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
+                  urlString = "file:///Users/imac/repo-mysunless-app/MySunless/Controllers/Payment%20Setup/StripePaymentVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
@@ -2491,22 +2395,6 @@
             startingLineNumber = "115"
             endingLineNumber = "115"
             landmarkName = "callAddstripeAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5FC29B57-AAB4-4494-8107-94CE1ABE632B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/ Reports/ Reports/AddOrderVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
-            landmarkName = "callOrderServiceAPI(clientId:serviceId:serviceProviderId:startTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2588,22 +2476,6 @@
             endingLineNumber = "35"
             landmarkName = "unknown"
             landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "84929D88-F355-4067-8E21-CDA45DCF6148"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MySunless/Controllers/Employees/WorkingHoursVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

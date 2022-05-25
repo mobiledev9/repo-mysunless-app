@@ -21,18 +21,24 @@ class ProductsListVC: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblProductList: UITableView!
     @IBOutlet var btnFilter: UIButton!
+    @IBOutlet var vw_sort: UIView!
+    @IBOutlet var tblProductSort: UITableView!
     
     var token = String()
     var arrShowProducts = [ShowProducts]()
     var arrFilterShowProducts = [ShowProducts]()
     var searching = false
     var salesTax = String()
+    var arrSortTitle = ["Created Date", "Product Name", "Selling Cost", "Stock"]
+    var sortName = String()
+    var sortType = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setInitially()
         tblProductList.tableFooterView = UIView()
+        tblProductSort.tableFooterView = UIView()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         tblProductList.refreshControl = UIRefreshControl()
         tblProductList.refreshControl?.addTarget(self, action: #selector(callPullToRefresh), for: .valueChanged)
