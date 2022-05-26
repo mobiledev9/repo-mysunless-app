@@ -54,13 +54,20 @@ class ProductsListVC: UIViewController {
         vw_searchBar.layer.cornerRadius = 12
         btnFilter.layer.cornerRadius = 12
         searchBar.delegate = self
+        vw_sort.isHidden = true
+        vw_sort.layer.cornerRadius = 12
+        tblProductSort.layer.cornerRadius = 12
+        vw_sort.layer.borderWidth = 0.5
+        vw_sort.layer.borderColor = UIColor.init("#15B0DA").cgColor
     }
     
     func callShowProductsAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
-        params = [:]
+        params = ["sort_name": sortName,
+                  "sort_type": sortType
+        ]
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -136,44 +143,113 @@ class ProductsListVC: UIViewController {
     }
     
     @IBAction func btnFilterClick(_ sender: UIButton) {
-        
+        if sender.isSelected {
+            vw_sort.isHidden = true
+        } else {
+            vw_sort.isHidden = false
+        }
+        sender.isSelected.toggle()
     }
     
-    @objc func callPullToRefresh(){
+    @objc func callPullToRefresh() {
         DispatchQueue.main.async {
             self.callShowProductsAPI()
             self.tblProductList.refreshControl?.endRefreshing()
             self.tblProductList.reloadData()
         }
     }
+    
+    @objc func btnForwardClick(_ sender: UIButton) {
+        switch sender.tag {
+            case 0:
+                sortName = "id"
+            case 1:
+                sortName = "ProductTitle"
+            case 2:
+                sortName = "SellingPrice"
+            case 3:
+                sortName = "NoofPorduct"
+            default:
+                sortName = ""
+        }
+        sortType = "DESC"
+        callShowProductsAPI()
+      //  vw_sort.isHidden = true
+    }
+    
+    @objc func btnBackwardClick(_ sender: UIButton) {
+        switch sender.tag {
+            case 0:
+                sortName = "id"
+            case 1:
+                sortName = "ProductTitle"
+            case 2:
+                sortName = "SellingPrice"
+            case 3:
+                sortName = "NoofPorduct"
+            default:
+                sortName = ""
+        }
+        sortType = "ASC"
+        callShowProductsAPI()
+      //  vw_sort.isHidden = true
+    }
 }
 
 //MARK:- TableView Delegate and Datasource Methods
 extension ProductsListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching {
-            return arrFilterShowProducts.count
-        } else {
-            return arrShowProducts.count
+        switch tableView {
+            case tblProductList:
+                if searching {
+                    return arrFilterShowProducts.count
+                } else {
+                    return arrShowProducts.count
+                }
+            case tblProductSort:
+                return 4
+            default:
+                return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tblProductList.dequeueReusableCell(withIdentifier: "ProductsListCell", for: indexPath) as! ProductsListCell
-        if searching {
-            cell.model = arrFilterShowProducts[indexPath.row]
-        } else {
-            cell.model = arrShowProducts[indexPath.row]
+        switch tableView {
+            case tblProductList:
+                let cell = tblProductList.dequeueReusableCell(withIdentifier: "ProductsListCell", for: indexPath) as! ProductsListCell
+                if searching {
+                    cell.model = arrFilterShowProducts[indexPath.row]
+                } else {
+                    cell.model = arrShowProducts[indexPath.row]
+                }
+                cell.setCell(index: indexPath.row, salesTax: salesTax)
+                cell.delegate = self
+                return cell
+            case tblProductSort:
+                let cell = tblProductSort.dequeueReusableCell(withIdentifier: "ProductSortCell", for: indexPath) as! ProductSortCell
+                cell.lblName.text = arrSortTitle[indexPath.row]
+                cell.btnForward.tag = indexPath.row
+                cell.btnBackward.tag = indexPath.row
+                cell.btnForward.addTarget(self, action: #selector(btnForwardClick(_:)), for: .touchUpInside)
+                cell.btnBackward.addTarget(self, action: #selector(btnBackwardClick(_:)), for: .touchUpInside)
+                return cell
+            default:
+                return UITableViewCell()
         }
-        cell.setCell(index: indexPath.row, salesTax: salesTax)
-        cell.delegate = self
-        return cell
+        
     }
 }
 
 extension ProductsListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch tableView {
+            case tblProductList:
+                return UITableView.automaticDimension
+            case tblProductSort:
+                return 40
+            default:
+                return UITableView.automaticDimension
+        }
     }
 }
 

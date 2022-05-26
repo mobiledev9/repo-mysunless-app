@@ -238,8 +238,8 @@
             filePath = "MySunless/Controllers/Register/ChoosePackageVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "btnRadioClicckk(_:)"
             landmarkType = "7">
          </BreakpointContent>

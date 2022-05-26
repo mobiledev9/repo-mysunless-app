@@ -198,7 +198,20 @@ class ChoosePackageVC: UIViewController {
                         self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
                         UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
                         if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            AppData.sharedInstance.alert(message: message, viewController: self) { (alert) in
+                                let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                                self.navigationController?.pushViewController(VC, animated: true)
+                            }
+                        }
+                    } else if (success == 2) {
+                        UserDefaults.standard.set(true, forKey: "setUser")
+                        self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
+                        UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
+                        if let message = res.value(forKey: "message") as? String {
+                            AppData.sharedInstance.alert(message: message, viewController: self) { (alert) in
+                                let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                                self.navigationController?.pushViewController(VC, animated: true)
+                            }
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {
