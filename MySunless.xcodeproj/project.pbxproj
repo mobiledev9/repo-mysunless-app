@@ -22,7 +22,6 @@
 		88121A882798105F0092AA80 /* MemberShipListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88121A872798105F0092AA80 /* MemberShipListVC.swift */; };
 		8819B08227C9DEBA0090E763 /* AddOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819B08127C9DEBA0090E763 /* AddOrderCell.swift */; };
 		881A50FF271569CB00D32BD6 /* CompanyInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A50FE271569CB00D32BD6 /* CompanyInfoVC.swift */; };
-		881B62EF270D7E0E003883B9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881B62EE270D7E0E003883B9 /* MainVC.swift */; };
 		881B62F2270D7F49003883B9 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881B62F1270D7F49003883B9 /* SideMenuVC.swift */; };
 		881B62F6270D8594003883B9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881B62F5270D8594003883B9 /* Model.swift */; };
 		881B62FB270D85DD003883B9 /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881B62F9270D85DD003883B9 /* SideMenuCell.xib */; };
@@ -114,6 +113,8 @@
 		88B6B60B28115CC10025EB40 /* InvoiceTemplateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B6B60928115CC00025EB40 /* InvoiceTemplateVC.swift */; };
 		88B9BAAE27394DF2007BCF7E /* ChoosePackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9BAAD27394DF2007BCF7E /* ChoosePackageCell.swift */; };
 		88B9C39C271D8ADC007D6E1C /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9C39B271D8ADC007D6E1C /* ForgotPasswordVC.swift */; };
+		88C88A5B2840CF8800557D4A /* SubscriptionPackageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C88A5A2840CF8800557D4A /* SubscriptionPackageVC.swift */; };
+		88C88A5E2840D32500557D4A /* SubscriptionPackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C88A5D2840D32500557D4A /* SubscriptionPackageCell.swift */; };
 		88CCB63F2834BC190009D153 /* EventsGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CCB63D2834BC190009D153 /* EventsGraphVC.swift */; };
 		88CCB6402834BC190009D153 /* EventsTableListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CCB63E2834BC190009D153 /* EventsTableListVC.swift */; };
 		88CCB6442834BCC60009D153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CCB6422834BCC60009D153 /* Main.storyboard */; };
@@ -224,7 +225,6 @@
 		88121A872798105F0092AA80 /* MemberShipListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberShipListVC.swift; sourceTree = "<group>"; };
 		8819B08127C9DEBA0090E763 /* AddOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderCell.swift; sourceTree = "<group>"; };
 		881A50FE271569CB00D32BD6 /* CompanyInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoVC.swift; sourceTree = "<group>"; };
-		881B62EE270D7E0E003883B9 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		881B62F1270D7F49003883B9 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		881B62F5270D8594003883B9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		881B62F9270D85DD003883B9 /* SideMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuCell.xib; sourceTree = "<group>"; };
@@ -316,6 +316,8 @@
 		88B6B60928115CC00025EB40 /* InvoiceTemplateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceTemplateVC.swift; sourceTree = "<group>"; };
 		88B9BAAD27394DF2007BCF7E /* ChoosePackageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePackageCell.swift; sourceTree = "<group>"; };
 		88B9C39B271D8ADC007D6E1C /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		88C88A5A2840CF8800557D4A /* SubscriptionPackageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPackageVC.swift; sourceTree = "<group>"; };
+		88C88A5D2840D32500557D4A /* SubscriptionPackageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPackageCell.swift; sourceTree = "<group>"; };
 		88CCB63D2834BC190009D153 /* EventsGraphVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsGraphVC.swift; path = " Reports/EventsGraphVC.swift"; sourceTree = "<group>"; };
 		88CCB63E2834BC190009D153 /* EventsTableListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsTableListVC.swift; path = " Reports/EventsTableListVC.swift"; sourceTree = "<group>"; };
 		88CCB6432834BCC60009D153 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 				88D16D7527D61C4C00938792 /* GallaryImagesCell.swift */,
 				8887FD8C28165C5900F3C75C /* PaymentHistoryCell.swift */,
 				887393DB282CFF9D00C8B3B8 /* OverviewCell.swift */,
+				88C88A5D2840D32500557D4A /* SubscriptionPackageCell.swift */,
 				88D4FDC127D8BC3400DEF7B5 /* ArchiveListCell */,
 				88398BDB27ED911900FED89C /* ViewClientProfileCells */,
 				88FD35D527E2FEE90085231A /* UserDetailCell */,
@@ -861,10 +864,10 @@
 				88E217342711682800D66BA4 /* Register */,
 				88FDA46A270C2D4D008040E9 /* LoginVC.swift */,
 				88B9C39B271D8ADC007D6E1C /* ForgotPasswordVC.swift */,
-				881B62EE270D7E0E003883B9 /* MainVC.swift */,
 				881B62F1270D7F49003883B9 /* SideMenuVC.swift */,
 				88E60A53276B013800D652A8 /* TblProfileVC.swift */,
 				881CB15827211DDB007844D6 /* ProfileVC.swift */,
+				88C88A5A2840CF8800557D4A /* SubscriptionPackageVC.swift */,
 				882928262755E309000EF543 /* Clients */,
 				8822C427275A33EE00F0B6BF /* Employees */,
 				880060DC275B225E0006E9DB /* Company */,
@@ -1136,9 +1139,9 @@
 				88ECCF96281261A9001F68B5 /* CategoryReportCell.swift in Sources */,
 				881B62F2270D7F49003883B9 /* SideMenuVC.swift in Sources */,
 				88ECDC5B2817D3F100DB89EF /* ProductCategoryListVC.swift in Sources */,
-				881B62EF270D7E0E003883B9 /* MainVC.swift in Sources */,
 				88ECDC5A2817D3F100DB89EF /* AddBrandVC.swift in Sources */,
 				881D34EB2754CCCB0023CA54 /* ClientsVC.swift in Sources */,
+				88C88A5E2840D32500557D4A /* SubscriptionPackageCell.swift in Sources */,
 				8829283527564FE5000EF543 /* ClientListCell.swift in Sources */,
 				884BE20227CDFAD500C60DC6 /* LoginLogVC.swift in Sources */,
 				88FD365627E33F120085231A /* ClientsFilterVC.swift in Sources */,
@@ -1158,6 +1161,7 @@
 				887393DC282CFF9D00C8B3B8 /* OverviewCell.swift in Sources */,
 				88ECDC582817D3F100DB89EF /* ProductsListVC.swift in Sources */,
 				88FD35DA27E2FF200085231A /* AppointmentCell.swift in Sources */,
+				88C88A5B2840CF8800557D4A /* SubscriptionPackageVC.swift in Sources */,
 				88B6B60A28115CC10025EB40 /* TemplatesVC.swift in Sources */,
 				88D9DD2E27C5123300E2796A /* CompletedOrderCell.swift in Sources */,
 				8894E0EA27DC65AC00CF411B /* Archive_UserCell.swift in Sources */,

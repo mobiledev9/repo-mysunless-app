@@ -50,7 +50,6 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     var token = String()
     var clientsVC: ClientsVC?
     var clients = Bool()
-    var main: MainVC?
     var arrTopSellingProducts = [TopSellingProducts]()
     var arrRecentTransaction = [RecentTransaction]()
     var arrRevenueReport = [RevenuReport]()
@@ -386,15 +385,6 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     }
 
     //MARK:- Actions
-    @IBAction func btnArchiveClick(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as! MainVC
-        self.navigationController?.pushViewController(VC, animated: true)
-    }
-    
-    @IBAction func btnHelpClick(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func btnTotalClientsClick(_ sender: UIButton) {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "ClientsVC") as! ClientsVC
         self.navigationController?.pushViewController(VC, animated: true)

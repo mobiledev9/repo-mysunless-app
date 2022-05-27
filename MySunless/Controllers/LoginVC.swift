@@ -171,8 +171,6 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func btnLoginClick(_ sender: UIButton) {
-//        let VC = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as! MainVC
-//        self.navigationController?.pushViewController(VC, animated: true)
         if (self.validation()) {
             callLoginAPI()
         }

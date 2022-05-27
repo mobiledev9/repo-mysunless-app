@@ -254,8 +254,8 @@
             filePath = "MySunless/Controllers/ProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1186"
-            endingLineNumber = "1186"
+            startingLineNumber = "1193"
+            endingLineNumber = "1193"
             landmarkName = "headerViewTapped(tapped:)"
             landmarkType = "7">
          </BreakpointContent>

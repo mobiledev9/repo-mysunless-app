@@ -174,7 +174,12 @@ class ProductsListVC: UIViewController {
         }
         sortType = "DESC"
         callShowProductsAPI()
-      //  vw_sort.isHidden = true
+        if vw_sort.isHidden == true {
+            vw_sort.isHidden = false
+        } else {
+            vw_sort.isHidden = true
+        }
+        btnFilter.isSelected.toggle()
     }
     
     @objc func btnBackwardClick(_ sender: UIButton) {
@@ -192,7 +197,12 @@ class ProductsListVC: UIViewController {
         }
         sortType = "ASC"
         callShowProductsAPI()
-      //  vw_sort.isHidden = true
+        if vw_sort.isHidden == true {
+            vw_sort.isHidden = false
+        } else {
+            vw_sort.isHidden = true
+        }
+        btnFilter.isSelected.toggle()
     }
 }
 
