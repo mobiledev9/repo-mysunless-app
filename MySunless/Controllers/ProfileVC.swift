@@ -1029,6 +1029,14 @@ class ProfileVC: UIViewController {
         setHeight()
     }
     
+    @IBAction func btnBuySubscriptionClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "SubscriptionPackageVC") as! SubscriptionPackageVC
+        VC.modalTransitionStyle = .crossDissolve
+        VC.modalPresentationStyle = .overCurrentContext
+        self.present(VC, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
     @IBAction func btnMySignatureClick(_ sender: UIButton) {
 //        if (showSignature == true) {
 //            self.vw_mySignature.isHidden = false

@@ -36,6 +36,7 @@
 		882BCCB42742793900ADD40F /* SubscriptionDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882BCCB22742793900ADD40F /* SubscriptionDataCell.swift */; };
 		882BCCB52742793900ADD40F /* SubscriptionDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882BCCB32742793900ADD40F /* SubscriptionDataCell.xib */; };
 		88357A4A27B39746009F774C /* EventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88357A4927B39746009F774C /* EventListCell.swift */; };
+		8837B6CB2841F2EA00082368 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8837B6CA2841F2EA00082368 /* StoreKit.framework */; };
 		88398BE127ED933800FED89C /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88398BE027ED915C00FED89C /* NoteCell.swift */; };
 		88398BE327ED933B00FED89C /* EventHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88398BDE27ED915C00FED89C /* EventHistoryCell.swift */; };
 		88398BE427ED933D00FED89C /* DocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88398BDF27ED915C00FED89C /* DocumentCell.swift */; };
@@ -239,6 +240,7 @@
 		882BCCB22742793900ADD40F /* SubscriptionDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDataCell.swift; sourceTree = "<group>"; };
 		882BCCB32742793900ADD40F /* SubscriptionDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionDataCell.xib; sourceTree = "<group>"; };
 		88357A4927B39746009F774C /* EventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListCell.swift; sourceTree = "<group>"; };
+		8837B6CA2841F2EA00082368 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		88398BDC27ED915C00FED89C /* Client_PackageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client_PackageCell.swift; sourceTree = "<group>"; };
 		88398BDD27ED915C00FED89C /* ContactClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactClientCell.swift; sourceTree = "<group>"; };
 		88398BDE27ED915C00FED89C /* EventHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryCell.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				772097CC6DA15F5C973F8E72 /* Pods_MySunless.framework in Frameworks */,
+				8837B6CB2841F2EA00082368 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +921,7 @@
 		B14ED2135C4EA957066E7175 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8837B6CA2841F2EA00082368 /* StoreKit.framework */,
 				9BEBBCC10B55A9F87EC8547A /* Pods_MySunless.framework */,
 			);
 			name = Frameworks;
