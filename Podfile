@@ -23,5 +23,7 @@ target 'MySunless' do
     pod 'MBCircularProgressBar'
     pod 'FSCalendar'
     pod 'IQKeyboardManager'
+    pod 'SwiftyStoreKit'
+    pod 'Toast-Swift'
 
 end

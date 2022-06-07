@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -41,14 +43,22 @@
                             <constraint firstAttribute="width" constant="15" id="WxE-uL-fWC"/>
                         </constraints>
                     </imageView>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCu-UZ-K1R">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="axk-Rv-C8V" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2Il-bl-JFa"/>
+                    <constraint firstAttribute="bottom" secondItem="fCu-UZ-K1R" secondAttribute="bottom" id="AHc-G5-6UR"/>
                     <constraint firstItem="yhK-6W-tuh" firstAttribute="leading" secondItem="zV4-RC-3jU" secondAttribute="trailing" constant="10" id="Cfu-h0-YLh"/>
                     <constraint firstItem="zV4-RC-3jU" firstAttribute="centerY" secondItem="axk-Rv-C8V" secondAttribute="centerY" id="Dys-CO-v9I"/>
+                    <constraint firstItem="fCu-UZ-K1R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FbU-fr-Hbp"/>
                     <constraint firstAttribute="trailing" secondItem="yhK-6W-tuh" secondAttribute="trailing" constant="15" id="HTa-r2-Wds"/>
                     <constraint firstItem="zV4-RC-3jU" firstAttribute="leading" secondItem="axk-Rv-C8V" secondAttribute="trailing" constant="13" id="M0Y-mL-buK"/>
+                    <constraint firstItem="fCu-UZ-K1R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hkJ-la-ZtB"/>
+                    <constraint firstAttribute="trailing" secondItem="fCu-UZ-K1R" secondAttribute="trailing" id="kHR-N8-W6l"/>
                     <constraint firstItem="axk-Rv-C8V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="njM-cj-uG7"/>
                     <constraint firstItem="yhK-6W-tuh" firstAttribute="centerY" secondItem="axk-Rv-C8V" secondAttribute="centerY" id="zMr-uV-Y3l"/>
                 </constraints>
@@ -60,11 +70,15 @@
                 <outlet property="iconImageLeadingConstraint" destination="njM-cj-uG7" id="xBY-5S-Hhh"/>
                 <outlet property="iconImageView" destination="axk-Rv-C8V" id="mIQ-bD-Jng"/>
                 <outlet property="titleLabel" destination="zV4-RC-3jU" id="ETN-7z-OB3"/>
+                <outlet property="vw_lock" destination="fCu-UZ-K1R" id="WLP-zc-2sU"/>
             </connections>
             <point key="canvasLocation" x="-155.07246376811597" y="99.776785714285708"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="down-arrow" width="512" height="512"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

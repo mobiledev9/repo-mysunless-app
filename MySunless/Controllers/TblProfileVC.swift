@@ -85,6 +85,7 @@ class TblProfileVC: UIViewController {
                     if success == true {
                         if let message = res.value(forKey: "message") as? String {
                             self.showSCLAlert(alertMainTitle: "", alertTitle: message)
+                            UserDefaults.standard.setValue(false, forKey: "currentSubscription")
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {
@@ -108,6 +109,7 @@ extension TblProfileVC: UITableViewDataSource {
         cell.titleLabel.text = arrData[indexPath.row].name
         cell.iconImageView.image = arrData[indexPath.row].image
         cell.expandImageView.isHidden = true
+        cell.vw_lock.isHidden = true
         
         return cell
     }

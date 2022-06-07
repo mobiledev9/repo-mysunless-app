@@ -158,71 +158,175 @@ extension SideMenuVC: TreeTableViewDelegate {
             
         if usertype == "subscriber" {
             switch node.name {
+                case "Dashboard", "Clients", "ToDo", "Inventory":
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Analytics":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    cell.vw_lock.isHidden = true
                 case "API Setting":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Import/Export":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Export Contacts":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Import Contacts":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Orders":
                     cell.iconImageLeadingConstraint.constant = 35
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Member's Package":
                     cell.iconImageLeadingConstraint.constant = 35
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Company Settings":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    cell.vw_lock.isHidden = true
                 case "My Account":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Order":
                     cell.iconImageLeadingConstraint.constant = 16
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Sales Report":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Payment List":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Performance":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Login Log":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
+                    cell.isUserInteractionEnabled = true
                 case "Information":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Templates":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Website":
                     cell.iconImageLeadingConstraint.constant = 35
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "List Of Services":
                     cell.iconImageLeadingConstraint.constant = 35
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Memberships":
                     cell.iconImageLeadingConstraint.constant = 16
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Communication":
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = false
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Archive List":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Manage Employee":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Email":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Email Templates":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Appointments":
                     cell.iconImageLeadingConstraint.constant = 16
+                    if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+                        cell.vw_lock.isHidden = true
+                        cell.isUserInteractionEnabled = true
+                    } else {
+                        cell.vw_lock.isHidden = false
+                        cell.isUserInteractionEnabled = false
+                    }
                 case "Appointment":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "SMS":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 case "Payment Setup":
                     cell.iconImageLeadingConstraint.constant = 35
+                    cell.vw_lock.isHidden = true
                 default:
                     cell.iconImageLeadingConstraint.constant = 16
                     cell.expandImageView.isHidden = true
+                    cell.vw_lock.isHidden = false
             }
         } else if usertype == "Admin" {
             switch node.name {

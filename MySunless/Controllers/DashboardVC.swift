@@ -43,7 +43,8 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     @IBOutlet weak var revenueBarChatView: BarChartView!
     @IBOutlet weak var productPieChartView: PieChartView!
     @IBOutlet var vw_container: UIView!
-   
+    @IBOutlet weak var vw_lock: UIView!
+    
     //MARK:- Variable Declarations
    // var arrData = [Category]()
     var profileVC: ProfileVC?
@@ -58,6 +59,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lockView()
         setInitially()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
       
@@ -101,6 +103,14 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         tblRecentTransctionList.layer.borderWidth = 0.5
         tblRecentTransctionList.layer.borderColor = UIColor.init("#15B0DA").cgColor
         tblRecentTransctionList.layer.cornerRadius = 12
+    }
+    
+    func lockView() {
+        if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+            vw_lock.isHidden = true
+        } else {
+            vw_lock.isHidden = false
+        }
     }
     
     func customizePieChart(productData: ProductSalesReport) {

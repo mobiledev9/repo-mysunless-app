@@ -1239,10 +1239,12 @@ struct ChooseUser {
 }
 
 struct ChooseCustomerList {
+    let id: Int
     let FirstName: String
     let LastName: String
     
     init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
         self.FirstName = dict["FirstName"] as? String ?? ""
         self.LastName = dict["LastName"] as? String ?? ""
     }

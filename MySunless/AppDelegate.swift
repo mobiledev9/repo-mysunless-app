@@ -7,6 +7,7 @@
 
 import UIKit
 import IQKeyboardManager
+import SwiftyStoreKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,9 +19,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared().isEnabled = true
         
+        //For running in siumulator
+        UserDefaults.standard.set(true, forKey: "currentSubscription")
+        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    print("purchased or restored")
+                    UserDefaults.standard.set(true, forKey: "currentSubscription")
+                case .failed, .purchasing, .deferred:
+                    print("failed or purchasing or deferred")
+                    UserDefaults.standard.set(false, forKey: "currentSubscription")
+                    break
+                @unknown default:
+                    print("error")
+                }
+            }
+        }
+        getInAppPrice()
+        
         return true
     }
-
+    
+    func getInAppPrice() {
+        SwiftyStoreKit.retrieveProductsInfo(Set<String>(ProductType.all.map({$0.rawValue}))) { (result) in
+            let products = result.retrievedProducts
+            var arrProduct = [[String:String]]()
+            for p in products {
+                let dict = [p.productIdentifier : p.localizedPrice]
+                arrProduct.append(dict as! [String : String])
+            }
+//            UserDefaults.standard.set(arrProduct, forKey: "kAllPlans")
+//            UserDefaults.standard.synchronize()
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
