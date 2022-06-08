@@ -44,6 +44,7 @@ class ProfileVC: UIViewController {
     @IBOutlet var lblStreetAddress: UILabel!
     @IBOutlet var lblCity: UILabel!
     @IBOutlet var imgStateDropdown: UIImageView!
+    
     @IBOutlet var btnChangeAvatar: UIButton!
     @IBOutlet var vw_changeAvatar: UIView!
     @IBOutlet var btnSelectImageClick: UIButton!
@@ -208,6 +209,7 @@ class ProfileVC: UIViewController {
         vw_state.layer.borderColor = UIColor.init("15B0DA").cgColor
         vw_city.layer.borderWidth = 0.5
         vw_city.layer.borderColor = UIColor.init("15B0DA").cgColor
+        
         vw_currentPassword.layer.borderWidth = 0.5
         vw_currentPassword.layer.borderColor = UIColor.init("15B0DA").cgColor
         vw_newPassword.layer.borderWidth = 0.5
@@ -221,6 +223,7 @@ class ProfileVC: UIViewController {
         
         vw_stateDropdown.layer.borderWidth = 0.5
         vw_stateDropdown.layer.borderColor = UIColor.init("15B0DA").cgColor
+        
         vw_clientGoalDropdown.layer.borderWidth = 0.5
         vw_clientGoalDropdown.layer.borderColor = UIColor.init("15B0DA").cgColor
         vw_salesGoalDropdown.layer.borderWidth = 0.5
@@ -268,6 +271,7 @@ class ProfileVC: UIViewController {
         tblVwState.delegate = self
         tblVwState.dataSource = self
         searchBar.delegate = self
+        
         signatureView.delegate = self
         
         txtFirstname.delegate = self
@@ -302,6 +306,7 @@ class ProfileVC: UIViewController {
         self.hideKeyboardWhenTappedAround()
         callGetProfileAPI()
         getUserNameFieldStatus()
+        
         callSubscriptionsListAPI()
         
         setHeight()

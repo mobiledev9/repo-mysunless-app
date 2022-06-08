@@ -124,7 +124,7 @@ extension TblProfileVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
             case 0:
-                let VC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+                let VC = self.storyboard?.instantiateViewController(withIdentifier: "PrrofileVC") as! PrrofileVC
                 self.navigationController?.pushViewController(VC, animated: true)
             case 1:
                 callLogoutAPI()

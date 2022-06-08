@@ -47,7 +47,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     
     //MARK:- Variable Declarations
    // var arrData = [Category]()
-    var profileVC: ProfileVC?
+  //  var profileVC: ProfileVC?
     var token = String()
     var clientsVC: ClientsVC?
     var clients = Bool()

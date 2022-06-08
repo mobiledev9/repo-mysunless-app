@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //For running in siumulator
         UserDefaults.standard.set(true, forKey: "currentSubscription")
-        
+
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
