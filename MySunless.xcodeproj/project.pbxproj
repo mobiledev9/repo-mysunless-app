@@ -207,6 +207,8 @@
 		88FDA4AC27DB5F6F0001498A /* Archive_ClientsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88FDA4AA27DB5F6F0001498A /* Archive_ClientsCell.xib */; };
 		88FDA4AF27DB61FC0001498A /* ArchiveListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FDA4AE27DB61FC0001498A /* ArchiveListVC.swift */; };
 		88FEE42F276C4E1E00533798 /* WorkingHoursVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEE42E276C4E1E00533798 /* WorkingHoursVC.swift */; };
+		D50FA3CB28546D2C004FDC35 /* AllSubscribersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */; };
+		D55C0C322851B939005BBE8F /* SubscriptionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */; };
 		D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646E628507FD50003347A /* PrrofileVC.swift */; };
 		D5D646EB2850803F0003347A /* PerrsonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */; };
 		D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EC285080590003347A /* ChangeAvatarVC.swift */; };
@@ -214,6 +216,7 @@
 		D5D646F12850808C0003347A /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F02850808C0003347A /* SubscriptionVC.swift */; };
 		D5D646F32850809F0003347A /* MySignatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F22850809F0003347A /* MySignatureVC.swift */; };
 		D5D646F5285080B10003347A /* MyGoalsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F4285080B10003347A /* MyGoalsVC.swift */; };
+		D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -421,6 +424,8 @@
 		88FDA4AE27DB61FC0001498A /* ArchiveListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListVC.swift; sourceTree = "<group>"; };
 		88FEE42E276C4E1E00533798 /* WorkingHoursVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursVC.swift; sourceTree = "<group>"; };
 		9BEBBCC10B55A9F87EC8547A /* Pods_MySunless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MySunless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSubscribersVC.swift; sourceTree = "<group>"; };
+		D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionInfoCell.swift; sourceTree = "<group>"; };
 		D5D646E628507FD50003347A /* PrrofileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrrofileVC.swift; sourceTree = "<group>"; };
 		D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerrsonalInfoVC.swift; sourceTree = "<group>"; };
 		D5D646EC285080590003347A /* ChangeAvatarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvatarVC.swift; sourceTree = "<group>"; };
@@ -428,6 +433,7 @@
 		D5D646F02850808C0003347A /* SubscriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		D5D646F22850809F0003347A /* MySignatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySignatureVC.swift; sourceTree = "<group>"; };
 		D5D646F4285080B10003347A /* MyGoalsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsVC.swift; sourceTree = "<group>"; };
+		D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -620,6 +626,8 @@
 				8887FD8C28165C5900F3C75C /* PaymentHistoryCell.swift */,
 				887393DB282CFF9D00C8B3B8 /* OverviewCell.swift */,
 				88C88A5D2840D32500557D4A /* SubscriptionPackageCell.swift */,
+				D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */,
+				D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */,
 				88D4FDC127D8BC3400DEF7B5 /* ArchiveListCell */,
 				88398BDB27ED911900FED89C /* ViewClientProfileCells */,
 				88FD35D527E2FEE90085231A /* UserDetailCell */,
@@ -870,6 +878,7 @@
 		88FDA469270C2D1A008040E9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D50FA3C928546D0F004FDC35 /* Admin */,
 				D5D646E528507F890003347A /* Profile */,
 				8887FDDC2816AAFA00F3C75C /* DashboardVC.swift */,
 				88A4C27628263FB200F005D4 /* Payment Setup */,
@@ -949,6 +958,14 @@
 				7CC4FCC3C45C9AF2DC3BFB01 /* Pods-MySunless.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D50FA3C928546D0F004FDC35 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */,
+			);
+			path = Admin;
 			sourceTree = "<group>";
 		};
 		D5D646E528507F890003347A /* Profile */ = {
@@ -1151,8 +1168,10 @@
 				889ACA0728228B8000A6854C /* EmailTemplateListVC.swift in Sources */,
 				882BCCB42742793900ADD40F /* SubscriptionDataCell.swift in Sources */,
 				88ECCFA0281261E0001F68B5 /* ProductReportVC.swift in Sources */,
+				D50FA3CB28546D2C004FDC35 /* AllSubscribersVC.swift in Sources */,
 				889ACA0628228B8000A6854C /* EventReminderSettingVC.swift in Sources */,
 				88FDA454270C164F008040E9 /* AppDelegate.swift in Sources */,
+				D55C0C322851B939005BBE8F /* SubscriptionInfoCell.swift in Sources */,
 				88FDA4AB27DB5F6F0001498A /* Archive_ClientsCell.swift in Sources */,
 				88D9DD0827C4E92500E2796A /* AddNoteVC.swift in Sources */,
 				88FDA4A1270C5C23008040E9 /* Extension & Designable.swift in Sources */,
@@ -1221,6 +1240,7 @@
 				D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */,
 				88A4C2782826401F00F005D4 /* PaymentSetupVC.swift in Sources */,
 				88398BF627ED947800FED89C /* DocumentVC.swift in Sources */,
+				D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */,
 				88E1105827F56BF900396F23 /* ViewNoteVC.swift in Sources */,
 				88D16D7727D61C4D00938792 /* GallaryImagesCell.swift in Sources */,
 				881A50FF271569CB00D32BD6 /* CompanyInfoVC.swift in Sources */,

@@ -22,6 +22,7 @@ class LoginVC: UIViewController {
     
     //MARK:- Variable Declarations
     var AgreeIconClick : Bool! = false
+    var usertype = String()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -75,8 +76,16 @@ class LoginVC: UIViewController {
     func showSCLAlert(alertMainTitle: String, alertTitle: String) {
         let alert = SCLAlertView()
         alert.addButton("OK", backgroundColor: UIColor.init("#0ABB9F"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, action: {
-            let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-            self.navigationController?.pushViewController(VC, animated: true)
+            switch self.usertype {
+            case "Admin":
+                let VC = self.storyboard?.instantiateViewController(withIdentifier: "AllSubscribersVC") as! AllSubscribersVC
+                self.navigationController?.pushViewController(VC, animated: true)
+            case "subscriber":
+                let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+                self.navigationController?.pushViewController(VC, animated: true)
+            default:
+                print("Default")
+            }
         })
         alert.iconTintColor = UIColor.white
         alert.showSuccess(alertMainTitle, subTitle: alertTitle)
@@ -98,6 +107,7 @@ class LoginVC: UIViewController {
                     if (success == "1") {
                         if let userType = res.value(forKey: "usertype") as? String {
                             UserDefaults.standard.set(userType, forKey: "usertype")
+                            self.usertype = userType
                         }
                         if let token = res.value(forKey: "token") as? String {
                             UserDefaults.standard.set(token, forKey: "token")

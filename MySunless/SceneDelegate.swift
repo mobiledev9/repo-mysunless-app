@@ -18,12 +18,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
 
         if UserDefaults.standard.bool(forKey: "setUser") {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let MainView = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-            
-            let navController = UINavigationController.init(rootViewController: MainView)
-            navController.navigationBar.isHidden = true
-            self.window?.rootViewController = navController
+            let usertype = UserDefaults.standard.value(forKey: "usertype") as? String
+            switch usertype {
+            case "Admin":
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let MainView = storyboard.instantiateViewController(withIdentifier: "AllSubscribersVC") as! AllSubscribersVC
+                let navController = UINavigationController.init(rootViewController: MainView)
+                navController.navigationBar.isHidden = true
+                self.window?.rootViewController = navController
+            case "subscriber":
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let MainView = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+                let navController = UINavigationController.init(rootViewController: MainView)
+                navController.navigationBar.isHidden = true
+                self.window?.rootViewController = navController
+            default:
+                print("Default")
+            }
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let MainView = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC

@@ -27,6 +27,11 @@ class LoginLogFilterVC: UIViewController {
     @IBOutlet var txtEndDate: UITextField!
     @IBOutlet var vw_datePicker: UIView!
     @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet var vw_mainHeightConstant: NSLayoutConstraint!       //280  400
+    @IBOutlet var vw_chooseCustomer: UIView!
+    @IBOutlet var txtChooseCustomer: DropDown!
+    @IBOutlet var vw_paymentStatus: UIView!
+    @IBOutlet var txtPaymentStatus: DropDown!
     
     var arrChooseUser = [ChooseUser]()
     var token = String()
@@ -41,6 +46,13 @@ class LoginLogFilterVC: UIViewController {
     var isFromEndDate = false
     var filterBadgeCount = Int()
     
+    var isFromLoginLog = false
+    var isFromCompletedOrder = false
+    var arrChooseCustomer = [ChooseCustomerList]()
+    var arrPaymentStatus = ["Cash", "Cheque", "Card"]
+    var arrCustomerIds = [Int]()
+    var selectedCustomerId = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +60,15 @@ class LoginLogFilterVC: UIViewController {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         dateDropdown()
         callFilterListUserAPI()
+        if isFromCompletedOrder {
+            callFilterListCustomerAPI()
+            txtPaymentStatus.optionArray = arrPaymentStatus
+            txtPaymentStatus.didSelect{(selectedText , index ,id) in
+                //  print( "Selected String: \(selectedText) \n index: \(index),id: \(id)")
+                self.txtPaymentStatus.selectedIndex = index
+            }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,6 +89,10 @@ class LoginLogFilterVC: UIViewController {
         vw_date.layer.borderColor = UIColor.init("#15B0DA").cgColor
         vw_chooseUser.layer.borderWidth = 0.5
         vw_chooseUser.layer.borderColor = UIColor.init("#15B0DA").cgColor
+        vw_chooseCustomer.layer.borderWidth = 0.5
+        vw_chooseCustomer.layer.borderColor = UIColor.init("#15B0DA").cgColor
+        vw_paymentStatus.layer.borderWidth = 0.5
+        vw_paymentStatus.layer.borderColor = UIColor.init("#15B0DA").cgColor
         
         vw_popView.layer.borderWidth = 1.0
         vw_popView.layer.borderColor = UIColor.init("#005CC8").cgColor
@@ -84,6 +109,16 @@ class LoginLogFilterVC: UIViewController {
         vw_popView.isHidden = true
         txtStartDate.delegate = self
         txtEndDate.delegate = self
+        
+        if isFromLoginLog {
+            vw_mainHeightConstant.constant = 280
+            vw_chooseCustomer.isHidden = true
+            vw_paymentStatus.isHidden = true
+        } else if isFromCompletedOrder {
+            vw_mainHeightConstant.constant = 400
+            vw_chooseCustomer.isHidden = false
+            vw_paymentStatus.isHidden = false
+        }
         
         txtDate.text = UserDefaults.standard.value(forKey: "loginlogdate") as? String ?? ""
         txtChooseUser.text = UserDefaults.standard.value(forKey: "loginloguser") as? String ?? ""
@@ -171,7 +206,6 @@ class LoginLogFilterVC: UIViewController {
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
         params = [:]
-        
         APIUtilities.sharedInstance.PpOSTArrayAPICallWith(url: BASE_URL + FILTER_CHOOSE_USER, param: params, header: headers) { (response, error) in
             AppData.sharedInstance.dismissLoader()
             print(response ?? "")
@@ -197,6 +231,33 @@ class LoginLogFilterVC: UIViewController {
         }
     }
     
+    func callFilterListCustomerAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization": token]
+        var params = NSDictionary()
+        params = [:]
+        APIUtilities.sharedInstance.PpOSTArrayAPICallWith(url: BASE_URL + FILTER_CHOOSE_CUSTOMER, param: params, header: headers) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            if let res = response as? [[String:Any]] {
+                self.arrChooseCustomer.removeAll()
+                for dict in res {
+                    self.arrChooseCustomer.append(ChooseCustomerList(dict: dict))
+                }
+                for dic in self.arrChooseCustomer {
+                    self.arrCustomerIds.append(dic.id)
+                }
+                self.txtChooseCustomer.optionArray = self.arrChooseCustomer.map { $0.FirstName + " " + $0.LastName }
+                self.txtChooseCustomer.optionIds = self.arrCustomerIds
+                self.txtChooseCustomer.didSelect{ (selectedText, index, id) in
+                  //  print( "Selected String: \(selectedText) \n index: \(index),id: \(id)")
+                    self.txtChooseCustomer.selectedIndex = index
+                    self.selectedCustomerId = id
+                }
+            }
+        }
+    }
+    
     @IBAction func btnCloseClick(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -210,7 +271,10 @@ class LoginLogFilterVC: UIViewController {
         countFilterBadge()
         UserDefaults.standard.set(txtDate.text, forKey: "loginlogdate")
         UserDefaults.standard.set(txtChooseUser.text, forKey: "loginloguser")
-        delegate?.updateLoginLogList(date: finaldate, userId: userID, filterBadgeCount: filterBadgeCount)
+        if isFromLoginLog {
+            delegate?.updateLoginLogList(date: finaldate, userId: userID, filterBadgeCount: filterBadgeCount)
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     

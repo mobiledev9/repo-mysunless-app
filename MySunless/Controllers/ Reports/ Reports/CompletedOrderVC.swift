@@ -217,6 +217,12 @@ class CompletedOrderVC: UIViewController {
     
     //MARK:- Actions
     @IBAction func btnFilterClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginLogFilterVC") as! LoginLogFilterVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        VC.isFromCompletedOrder = true
+      //  VC.delegate = self
+        self.present(VC, animated: true, completion: nil)
     }
     
     @IBAction func btnPaymentClick(_ sender: UIButton) {

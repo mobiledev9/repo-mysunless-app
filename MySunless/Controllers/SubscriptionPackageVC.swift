@@ -9,9 +9,11 @@ import UIKit
 import StoreKit
 import SwiftyStoreKit
 import Toast_Swift
+import Alamofire
 
 class SubscriptionPackageVC: UIViewController {
     
+    //MARK:- Outlets
     @IBOutlet var vw_main: UIView!
     @IBOutlet var vw_top: UIView!
     @IBOutlet var vw_bottom: UIView!
@@ -27,6 +29,7 @@ class SubscriptionPackageVC: UIViewController {
    // let verifyReceiptURL = "https://buy.itunes.apple.com/verifyReceipt"
     #endif
     
+    //MARK:- Variable Declarations
     var iapProducts = [SKProduct]()
     var arr:NSMutableArray = NSMutableArray()
     var productID = String()
@@ -34,12 +37,14 @@ class SubscriptionPackageVC: UIViewController {
     var isSubscribed = Bool()
     
     var productsIds = ["32323232"]
+    var token = String()
     
+    //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setInitially()
-        
+        token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +58,7 @@ class SubscriptionPackageVC: UIViewController {
         }
     }
     
+    //MARK:- User-Defined Funstions
     func setInitially() {
         vw_top.layer.cornerRadius = 12
         vw_top.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -63,13 +69,12 @@ class SubscriptionPackageVC: UIViewController {
         btnRestore.isHidden = true
     }
     
-  /*  func checkIfPurchaed() {
+    func checkIfPurchaed(productId: String) {
         let appleValidator = AppleReceiptValidator(service: .sandbox, sharedSecret: "d223e7df9689472295a6d7a62e8864ba")
         AppData.sharedInstance.showLoader()
         SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
             switch result {
             case .success(let receipt):
-                let productId = "32323232"
                 // Verify the purchase of a Subscription
                 let purchaseResult = SwiftyStoreKit.verifySubscription(
                     ofType: .autoRenewable, //or .nonRenewing
@@ -103,8 +108,28 @@ class SubscriptionPackageVC: UIViewController {
             }
         }
 
-    }      */
+    }
+    
+    func callPurchaseAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization" : token]
+        var params = NSDictionary()
+        params = ["Packageid": productID]
+        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + IN_APP_PURCHASE, param: params, header: headers) { respnse, error in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            
+            
+        }
+    }
 
+    //MARK:- Actions
     @IBAction func btnCloseClick(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -114,7 +139,9 @@ class SubscriptionPackageVC: UIViewController {
         if(AppData.sharedInstance.isConnectedToNetwork()){
             AppData.sharedInstance.showLoader()
             
-            SwiftyStoreKit.purchaseProduct(productsIds[sender.tag], quantity: 1, atomically: true) { result in
+            productID = productsIds[sender.tag]
+            checkIfPurchaed(productId: productID)
+            SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
                     switch result {
                     case .success(let product):
                         // fetch content from your server, then:
@@ -178,7 +205,7 @@ class SubscriptionPackageVC: UIViewController {
                             self.view.makeToast("Unknown error. Please contact support")
                         case .invalidOfferIdentifier:
                             self.view.makeToast("Unknown error. Please contact support")
-                        case .missingOfferParams :
+                        case .missingOfferParams:
                             self.view.makeToast("Unknown error. Please contact support")
                         case .overlayCancelled:
                             self.view.makeToast("Unknown error. Please contact support")
@@ -269,6 +296,7 @@ class SubscriptionPackageVC: UIViewController {
     }
 }
 
+//MARK:- UITableView DataSource Methods
 extension SubscriptionPackageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -296,6 +324,7 @@ extension SubscriptionPackageVC: UITableViewDataSource {
     
 }
 
+//MARK:- UITableView Delegate Methods
 extension SubscriptionPackageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

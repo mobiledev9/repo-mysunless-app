@@ -148,6 +148,7 @@ class LoginLogVC: UIViewController {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginLogFilterVC") as! LoginLogFilterVC
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
+        VC.isFromLoginLog = true
         VC.delegate = self
         self.present(VC, animated: true, completion: nil)
     }

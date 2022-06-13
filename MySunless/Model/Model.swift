@@ -211,25 +211,61 @@ struct ChoosePackage {
 }
 
 struct SubscriptionList {
-    let invoiceID: Int
-    let packageType: String
-    let amount: Int
+    let id: Int
+    let PackageType: String
+    let package_id: Int
+    let promocodeid: String
+    let InvoiceID: String
+    let amount: String
+    let packagedesc: String
+    let userid: String
     let paytime: String
     let packend: String
-    let paymentType: String
+    let subscriptionId: String
+    let PaymentType: String
+    let TransactionID: String
+    let OrderID: String
     let status: String
-    var collapsed: Bool
+    let created_at: String
     
     init(dict: [String:Any]) {
-        self.invoiceID = dict["InvoiceID"] as? Int ?? 0
-        self.packageType = dict["PackageType"] as? String ?? ""
-        self.amount = dict["amount"] as? Int ?? 0
+        self.id = dict["id"] as? Int ?? 0
+        self.PackageType = dict["PackageType"] as? String ?? ""
+        self.package_id = dict["package_id"] as? Int ?? 0
+        self.promocodeid = dict["promocodeid"] as? String ?? ""
+        self.InvoiceID = dict["InvoiceID"] as? String ?? ""
+        self.amount = dict["amount"] as? String ?? ""
+        self.packagedesc = dict["packagedesc"] as? String ?? ""
+        self.userid = dict["userid"] as? String ?? ""
         self.paytime = dict["paytime"] as? String ?? ""
         self.packend = dict["packend"] as? String ?? ""
-        self.paymentType = dict["PaymentType"] as? String ?? ""
+        self.subscriptionId = dict["subscriptionId"] as? String ?? ""
+        self.PaymentType = dict["PaymentType"] as? String ?? ""
+        self.TransactionID = dict["TransactionID"] as? String ?? ""
+        self.OrderID = dict["OrderID"] as? String ?? ""
         self.status = dict["status"] as? String ?? ""
-        self.collapsed = false
+        self.created_at = dict["created_at"] as? String ?? ""
     }
+    
+//    let invoiceID: Int
+//    let packageType: String
+//    let amount: Int
+//    let paytime: String
+//    let packend: String
+//    let paymentType: String
+//    let status: String
+//    var collapsed: Bool
+//
+//    init(dict: [String:Any]) {
+//        self.invoiceID = dict["InvoiceID"] as? Int ?? 0
+//        self.packageType = dict["PackageType"] as? String ?? ""
+//        self.amount = dict["amount"] as? Int ?? 0
+//        self.paytime = dict["paytime"] as? String ?? ""
+//        self.packend = dict["packend"] as? String ?? ""
+//        self.paymentType = dict["PaymentType"] as? String ?? ""
+//        self.status = dict["status"] as? String ?? ""
+//        self.collapsed = false
+//    }
 }
 
 struct ClientList {

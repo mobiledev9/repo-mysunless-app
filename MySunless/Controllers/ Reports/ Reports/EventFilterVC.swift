@@ -116,11 +116,9 @@ class EventFilterVC: UIViewController {
                 }
             }
         }
-        
     }
     
     //MARK:- Actions
-    
     @IBAction func btnCloseClick(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
