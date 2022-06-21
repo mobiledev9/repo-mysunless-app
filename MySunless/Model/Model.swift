@@ -4029,3 +4029,69 @@ struct BlockTime {
         self.endtime = dict["endtime"] as? String ?? ""
     }
 }
+
+struct SubscriberList {
+    let username: String
+    let usertype: String
+    let created_at: String
+    let LastLogin: String
+    let login_permission: String
+    let userimg: String
+    let email: String
+    let id: Int
+    let adminid: Int
+    let firstname: String
+    let lastname: String
+    let companyname: String
+    let phonenumber: String
+    let clientc: Int
+    let timediff: String
+    
+    init(dict: [String:Any]) {
+        self.username = dict["username"] as? String ?? ""
+        self.usertype = dict["usertype"] as? String ?? ""
+        self.created_at = dict["created_at"] as? String ?? ""
+        self.LastLogin = dict["LastLogin"] as? String ?? ""
+        self.login_permission = dict["login_permission"] as? String ?? ""
+        self.userimg = dict["userimg"] as? String ?? ""
+        self.email = dict["email"] as? String ?? ""
+        self.id = dict["id"] as? Int ?? 0
+        self.adminid = dict["adminid"] as? Int ?? 0
+        self.firstname = dict["firstname"] as? String ?? ""
+        self.lastname = dict["lastname"] as? String ?? ""
+        self.companyname = dict["companyname"] as? String ?? ""
+        self.phonenumber = dict["phonenumber"] as? String ?? ""
+        self.clientc = dict["clientc"] as? Int ?? 0
+        self.timediff = dict["timediff"] as? String ?? ""
+    }
+}
+
+struct SubscriberAdminFilter {
+    let id: Int
+    let user_name: String
+    let employee: [[String:Any]]
+    let sign_image: String
+    let user_image: String
+    
+    init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
+        self.user_name = dict["user_name"] as? String ?? ""
+        self.employee = dict["employee"] as? [[String:Any]] ?? []
+        self.sign_image = dict["sign_image"] as? String ?? ""
+        self.user_image = dict["user_image"] as? String ?? ""
+    }
+}
+
+struct EmployeeFilterList {
+    let id: Int
+    let username: String
+    let sign_image: String
+    let user_image: String
+    
+    init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
+        self.username = dict["username"] as? String ?? ""
+        self.sign_image = dict["sign_image"] as? String ?? ""
+        self.user_image = dict["user_image"] as? String ?? ""
+    }
+}

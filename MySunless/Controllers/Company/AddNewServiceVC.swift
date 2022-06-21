@@ -234,7 +234,7 @@ class AddNewServiceVC: UIViewController {
 //        let point = sender.location(in: userCollectionView)
 //        if let indexPath = userCollectionView?.indexPathForItem(at: point) {
 //            print(#function, indexPath)
-//            txtUser.showList()
+//            txtUser.showList()  
 //        }
     }
     

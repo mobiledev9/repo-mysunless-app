@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         
         //For running in siumulator
-      //  UserDefaults.standard.set(true, forKey: "currentSubscription")
+        UserDefaults.standard.set(true, forKey: "currentSubscription")
 
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {

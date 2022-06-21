@@ -18,6 +18,8 @@ class SideMenuCell: UITableViewCell {
     @IBOutlet var iconImageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var expandImgTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var vw_lock: UIView!
+    
+    var adminFilterId = Int()
    
     override func awakeFromNib() {
         super.awakeFromNib()

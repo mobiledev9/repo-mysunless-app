@@ -160,6 +160,10 @@ class SubscriptionPackageVC: UIViewController {
                                 print("Purchased Successfully")
                                 print("Verify receipt success: \(receipt)")
                                 
+//                                if let bundle_id = receipt["bundle_id"] as? String {
+//                                    print(bundle_id)
+//                                }
+                                
                                 UserDefaults.standard.setValue(true, forKey: "currentSubscription")
                                 self.isSubscribed = true
                                 self.tblSubscription.reloadData()
