@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared().isEnabled = true
         
+        UserDefaults.standard.removeObject(forKey: "arrCollectionUsers")
+        UserDefaults.standard.removeObject(forKey: "arrCollectionIds")
+        
         //For running in siumulator
         UserDefaults.standard.set(true, forKey: "currentSubscription")
 

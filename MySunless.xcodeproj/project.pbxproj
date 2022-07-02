@@ -206,7 +206,14 @@
 		88FDA4AC27DB5F6F0001498A /* Archive_ClientsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88FDA4AA27DB5F6F0001498A /* Archive_ClientsCell.xib */; };
 		88FDA4AF27DB61FC0001498A /* ArchiveListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FDA4AE27DB61FC0001498A /* ArchiveListVC.swift */; };
 		88FEE42F276C4E1E00533798 /* WorkingHoursVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FEE42E276C4E1E00533798 /* WorkingHoursVC.swift */; };
+		D50EDCC8286589AE00BC14F4 /* AddTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50EDCC7286589AE00BC14F4 /* AddTaskVC.swift */; };
 		D50FA3CB28546D2C004FDC35 /* AllSubscribersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */; };
+		D512681F28700C7A0078934A /* ToDoArchiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D512681E28700C7A0078934A /* ToDoArchiveVC.swift */; };
+		D512682228700F740078934A /* ToDoArchiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D512682028700F740078934A /* ToDoArchiveCell.swift */; };
+		D512682328700F740078934A /* ToDoArchiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D512682128700F740078934A /* ToDoArchiveCell.xib */; };
+		D51746C3286F0B9C00BA2B4D /* MoveTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51746C2286F0B9C00BA2B4D /* MoveTaskVC.swift */; };
+		D54AF04028631F10004F7888 /* ToDoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */; };
+		D54AF04228631F30004F7888 /* ToDoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54AF04128631F30004F7888 /* ToDoHeaderView.xib */; };
 		D55C0C322851B939005BBE8F /* SubscriptionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */; };
 		D5978BEF2859E93A008F5155 /* CustomFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */; };
 		D5978BF12859EB00008F5155 /* CustomFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */; };
@@ -217,8 +224,12 @@
 		D5D646F12850808C0003347A /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F02850808C0003347A /* SubscriptionVC.swift */; };
 		D5D646F32850809F0003347A /* MySignatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F22850809F0003347A /* MySignatureVC.swift */; };
 		D5D646F5285080B10003347A /* MyGoalsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F4285080B10003347A /* MyGoalsVC.swift */; };
+		D5D76B892862F1EF001B1D52 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D76B872862F1EF001B1D52 /* ToDoCell.swift */; };
+		D5D76B8A2862F1EF001B1D52 /* ToDoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D76B882862F1EF001B1D52 /* ToDoCell.xib */; };
 		D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */; };
 		D5FA407228607E3900E31D50 /* UserFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA407128607E3900E31D50 /* UserFilterCell.swift */; };
+		D5FC2C6E2861CFA700E1244A /* ToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */; };
+		D5FC2C702861EEB800E1244A /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC2C6F2861EEB800E1244A /* AddCategoryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -425,7 +436,14 @@
 		88FDA4AE27DB61FC0001498A /* ArchiveListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListVC.swift; sourceTree = "<group>"; };
 		88FEE42E276C4E1E00533798 /* WorkingHoursVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursVC.swift; sourceTree = "<group>"; };
 		9BEBBCC10B55A9F87EC8547A /* Pods_MySunless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MySunless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50EDCC7286589AE00BC14F4 /* AddTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskVC.swift; sourceTree = "<group>"; };
 		D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSubscribersVC.swift; sourceTree = "<group>"; };
+		D512681E28700C7A0078934A /* ToDoArchiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoArchiveVC.swift; sourceTree = "<group>"; };
+		D512682028700F740078934A /* ToDoArchiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoArchiveCell.swift; sourceTree = "<group>"; };
+		D512682128700F740078934A /* ToDoArchiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoArchiveCell.xib; sourceTree = "<group>"; };
+		D51746C2286F0B9C00BA2B4D /* MoveTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTaskVC.swift; sourceTree = "<group>"; };
+		D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHeaderView.swift; sourceTree = "<group>"; };
+		D54AF04128631F30004F7888 /* ToDoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoHeaderView.xib; sourceTree = "<group>"; };
 		D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionInfoCell.swift; sourceTree = "<group>"; };
 		D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterHeaderView.swift; sourceTree = "<group>"; };
 		D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFilterHeaderView.xib; sourceTree = "<group>"; };
@@ -436,8 +454,12 @@
 		D5D646F02850808C0003347A /* SubscriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		D5D646F22850809F0003347A /* MySignatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySignatureVC.swift; sourceTree = "<group>"; };
 		D5D646F4285080B10003347A /* MyGoalsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsVC.swift; sourceTree = "<group>"; };
+		D5D76B872862F1EF001B1D52 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
+		D5D76B882862F1EF001B1D52 /* ToDoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoCell.xib; sourceTree = "<group>"; };
 		D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberListCell.swift; sourceTree = "<group>"; };
 		D5FA407128607E3900E31D50 /* UserFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterCell.swift; sourceTree = "<group>"; };
+		D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoVC.swift; sourceTree = "<group>"; };
+		D5FC2C6F2861EEB800E1244A /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -590,6 +612,9 @@
 				8811E56927425480007EB215 /* SubscriptionListCell.xib */,
 				882BCCB32742793900ADD40F /* SubscriptionDataCell.xib */,
 				D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */,
+				D5D76B882862F1EF001B1D52 /* ToDoCell.xib */,
+				D54AF04128631F30004F7888 /* ToDoHeaderView.xib */,
+				D512682128700F740078934A /* ToDoArchiveCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -597,6 +622,7 @@
 		8851A3312717E5DE005DFE16 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D5D76B8B2862F213001B1D52 /* ToDoCells */,
 				885DEC06281FD46800A71347 /* AppointmentsCell */,
 				88ECDC422817D3E300DB89EF /* InventoryCells */,
 				884591292816AD5700156A73 /* DashboardCells */,
@@ -882,9 +908,9 @@
 		88FDA469270C2D1A008040E9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D5FC2C6C2861CDD000E1244A /* To-Do */,
 				D50FA3C928546D0F004FDC35 /* Admin */,
 				D5D646E528507F890003347A /* Profile */,
-				8887FDDC2816AAFA00F3C75C /* DashboardVC.swift */,
 				88A4C27628263FB200F005D4 /* Payment Setup */,
 				885DEBFC281FD43100A71347 /* Appointments */,
 				88ECDC4C2817D3F000DB89EF /* Inventory */,
@@ -893,6 +919,7 @@
 				889FA8A6279527C200A61AE5 /* Membership */,
 				88AFFC85278C52EF005E3D7C /* Packages */,
 				88E217342711682800D66BA4 /* Register */,
+				8887FDDC2816AAFA00F3C75C /* DashboardVC.swift */,
 				88FDA46A270C2D4D008040E9 /* LoginVC.swift */,
 				88B9C39B271D8ADC007D6E1C /* ForgotPasswordVC.swift */,
 				881B62F1270D7F49003883B9 /* SideMenuVC.swift */,
@@ -986,6 +1013,16 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		D5D76B8B2862F213001B1D52 /* ToDoCells */ = {
+			isa = PBXGroup;
+			children = (
+				D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */,
+				D5D76B872862F1EF001B1D52 /* ToDoCell.swift */,
+				D512682028700F740078934A /* ToDoArchiveCell.swift */,
+			);
+			path = ToDoCells;
+			sourceTree = "<group>";
+		};
 		D5FA406E286053D900E31D50 /* Admin Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -994,6 +1031,18 @@
 				D5FA407128607E3900E31D50 /* UserFilterCell.swift */,
 			);
 			path = "Admin Cells";
+			sourceTree = "<group>";
+		};
+		D5FC2C6C2861CDD000E1244A /* To-Do */ = {
+			isa = PBXGroup;
+			children = (
+				D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */,
+				D5FC2C6F2861EEB800E1244A /* AddCategoryVC.swift */,
+				D50EDCC7286589AE00BC14F4 /* AddTaskVC.swift */,
+				D51746C2286F0B9C00BA2B4D /* MoveTaskVC.swift */,
+				D512681E28700C7A0078934A /* ToDoArchiveVC.swift */,
+			);
+			path = "To-Do";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1062,6 +1111,7 @@
 				88FDA4A627DB458E0001498A /* Archive_EventCell.xib in Resources */,
 				88FDA499270C52B0008040E9 /* LICENSE.txt in Resources */,
 				882BCCB52742793900ADD40F /* SubscriptionDataCell.xib in Resources */,
+				D5D76B8A2862F1EF001B1D52 /* ToDoCell.xib in Resources */,
 				8811E56B27425480007EB215 /* SubscriptionListCell.xib in Resources */,
 				88566A4427EAEFD3009B595C /* SalesOverviewCell.xib in Resources */,
 				88FDA496270C52B0008040E9 /* Roboto-BoldItalic.ttf in Resources */,
@@ -1081,8 +1131,10 @@
 				88FDA495270C52B0008040E9 /* Roboto-ThinItalic.ttf in Resources */,
 				88FDA49D270C52B0008040E9 /* Roboto-Black.ttf in Resources */,
 				88CCB6442834BCC60009D153 /* Main.storyboard in Resources */,
+				D512682328700F740078934A /* ToDoArchiveCell.xib in Resources */,
 				88FDA494270C52B0008040E9 /* Roboto-MediumItalic.ttf in Resources */,
 				88FDA45D270C1650008040E9 /* Assets.xcassets in Resources */,
+				D54AF04228631F30004F7888 /* ToDoHeaderView.xib in Resources */,
 				88FDA4AC27DB5F6F0001498A /* Archive_ClientsCell.xib in Resources */,
 				88FDA498270C52B0008040E9 /* Roboto-Italic.ttf in Resources */,
 			);
@@ -1156,6 +1208,7 @@
 				D5D646F12850808C0003347A /* SubscriptionVC.swift in Sources */,
 				8826AC2727E597BF009146B5 /* ImportExportVC.swift in Sources */,
 				88566A4D27EB2BFE009B595C /* ClientDetailVC.swift in Sources */,
+				D5D76B892862F1EF001B1D52 /* ToDoCell.swift in Sources */,
 				8880DF21283CDA4B0017B8FB /* ProductSortCell.swift in Sources */,
 				D5D646EB2850803F0003347A /* PerrsonalInfoVC.swift in Sources */,
 				88B9BAAE27394DF2007BCF7E /* ChoosePackageCell.swift in Sources */,
@@ -1176,11 +1229,13 @@
 				88398BF927ED947800FED89C /* OrderHistoryVC.swift in Sources */,
 				88ECCFA3281261E0001F68B5 /* SalesReportVC.swift in Sources */,
 				88039B3E27D20AD8005D8002 /* ServicesListCell.swift in Sources */,
+				D512682228700F740078934A /* ToDoArchiveCell.swift in Sources */,
 				884BC39227845CA500FFE32A /* EmailTemplateDetailVC.swift in Sources */,
 				88B3077C27153DC300DF7AFF /* PersonalInfoVC.swift in Sources */,
 				8841AC15275F892B00926CE5 /* EditEmployeeVC.swift in Sources */,
 				88398C1527EDA5EA00FED89C /* AddDocumentVC.swift in Sources */,
 				889ACA0728228B8000A6854C /* EmailTemplateListVC.swift in Sources */,
+				D512681F28700C7A0078934A /* ToDoArchiveVC.swift in Sources */,
 				882BCCB42742793900ADD40F /* SubscriptionDataCell.swift in Sources */,
 				88ECCFA0281261E0001F68B5 /* ProductReportVC.swift in Sources */,
 				D50FA3CB28546D2C004FDC35 /* AllSubscribersVC.swift in Sources */,
@@ -1208,6 +1263,7 @@
 				88CCB63F2834BC190009D153 /* EventsGraphVC.swift in Sources */,
 				88FD365927E3537F0085231A /* SendSMSVC.swift in Sources */,
 				88ECCF96281261A9001F68B5 /* CategoryReportCell.swift in Sources */,
+				D5FC2C6E2861CFA700E1244A /* ToDoVC.swift in Sources */,
 				881B62F2270D7F49003883B9 /* SideMenuVC.swift in Sources */,
 				88ECDC5B2817D3F100DB89EF /* ProductCategoryListVC.swift in Sources */,
 				88ECDC5A2817D3F100DB89EF /* AddBrandVC.swift in Sources */,
@@ -1217,6 +1273,7 @@
 				D5D646EF285080740003347A /* ChangePasswordVC.swift in Sources */,
 				884BE20227CDFAD500C60DC6 /* LoginLogVC.swift in Sources */,
 				88FD365627E33F120085231A /* ClientsFilterVC.swift in Sources */,
+				D50EDCC8286589AE00BC14F4 /* AddTaskVC.swift in Sources */,
 				882B6BB9276D81C0008A3659 /* WorkingHoursCell.swift in Sources */,
 				8822C429275A34B100F0B6BF /* ManageEmployeeVC.swift in Sources */,
 				D5D646F5285080B10003347A /* MyGoalsVC.swift in Sources */,
@@ -1278,12 +1335,15 @@
 				88FEE42F276C4E1E00533798 /* WorkingHoursVC.swift in Sources */,
 				885DEC04281FD43100A71347 /* EventCalendarVC.swift in Sources */,
 				885DEC03281FD43100A71347 /* RequestedEventListVC.swift in Sources */,
+				D5FC2C702861EEB800E1244A /* AddCategoryVC.swift in Sources */,
 				88FDA4AF27DB61FC0001498A /* ArchiveListVC.swift in Sources */,
+				D54AF04028631F10004F7888 /* ToDoHeaderView.swift in Sources */,
 				88EDA7AE2782B26300B505F6 /* CreateTemplateVC.swift in Sources */,
 				8845912E2816AD5700156A73 /* RecentTransctionCell.swift in Sources */,
 				88EF01DE282BB2BE002FC6D6 /* ShowMapVC.swift in Sources */,
 				88398BF527ED947800FED89C /* ContactClientVC.swift in Sources */,
 				88121A882798105F0092AA80 /* MemberShipListVC.swift in Sources */,
+				D51746C3286F0B9C00BA2B4D /* MoveTaskVC.swift in Sources */,
 				88CCB6402834BC190009D153 /* EventsTableListVC.swift in Sources */,
 				D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */,
 				88D9DD2527C4FE7000E2796A /* PendingOrderVC.swift in Sources */,

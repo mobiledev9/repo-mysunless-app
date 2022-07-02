@@ -4095,3 +4095,135 @@ struct EmployeeFilterList {
         self.user_image = dict["user_image"] as? String ?? ""
     }
 }
+
+struct ShowAllTodoCategory {
+    let id: Int
+    let createdfk: Int
+    let status: String
+    let closedby: Int
+    let closeddate: String
+    let catname: String
+    let createddate: String
+    let position: Int
+    var todoTasks: [[String:Any]]
+    
+    init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
+        self.createdfk = dict["createdfk"] as? Int ?? 0
+        self.status = dict["status"] as? String ?? ""
+        self.closedby = dict["closedby"] as? Int ?? 0
+        self.closeddate = dict["closeddate"] as? String ?? ""
+        self.catname = dict["catname"] as? String ?? ""
+        self.createddate = dict["createddate"] as? String ?? ""
+        self.position = dict["position"] as? Int ?? 0
+        self.todoTasks = dict["todoTasks"] as? [[String:Any]] ?? []
+    }
+}
+
+struct ShowAllTask {
+    let colorcode: String
+    let id: Int
+    let todoTitle: String
+    let todoDesc: String
+    let dueDate: String
+    let newduedate: String
+    let catstatus: String
+    let asignto: String
+    let status: String
+    let position: Int
+    let closedby: Int
+    let closeddate: String
+    let createdfk: Int
+    let datecreated: String
+    let updatedfk: Int
+    let isactive: Int
+    let datelastupdated: String
+    let usedata: [[String:Any]]
+    
+    init(dict: [String:Any]) {
+        self.colorcode = dict["colorcode"] as? String ?? ""
+        self.id = dict["id"] as? Int ?? 0
+        self.todoTitle = dict["todoTitle"] as? String ?? ""
+        self.todoDesc = dict["todoDesc"] as? String ?? ""
+        self.dueDate = dict["dueDate"] as? String ?? ""
+        self.newduedate = dict["newduedate"] as? String ?? ""
+        self.catstatus = dict["catstatus"] as? String ?? ""
+        self.asignto = dict["asignto"] as? String ?? ""
+        self.status = dict["status"] as? String ?? ""
+        self.position = dict["position"] as? Int ?? 0
+        self.closedby = dict["closedby"] as? Int ?? 0
+        self.closeddate = dict["closeddate"] as? String ?? ""
+        self.createdfk = dict["createdfk"] as? Int ?? 0
+        self.datecreated = dict["datecreated"] as? String ?? ""
+        self.updatedfk = dict["updatedfk"] as? Int ?? 0
+        self.isactive = dict["isactive"] as? Int ?? 0
+        self.datelastupdated = dict["datelastupdated"] as? String ?? ""
+        self.usedata = dict["usedata"] as? [[String:Any]] ?? []
+    }
+}
+
+struct Usedata {
+    let id: Int
+    let firstname: String
+    let lastname: String
+    let username: String
+    let userimg: String
+    
+    init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
+        self.firstname = dict["firstname"] as? String ?? ""
+        self.lastname = dict["lastname"] as? String ?? ""
+        self.username = dict["username"] as? String ?? ""
+        self.userimg = dict["userimg"] as? String ?? ""
+    }
+}
+
+struct ToDoArchiveList {
+    let colorcode: String
+    let id: Int
+    let todoTitle: String
+    let todoDesc: String
+    let dueDate: String
+    let newduedate: String
+    let catstatus: String
+    let asignto: String
+    let status: String
+    let position: Int
+    let closedby: Int
+    let closeddate: String
+    let createdfk: Int
+    let datecreated: String
+    let updatedfk: Int
+    let isactive: Int
+    let datelastupdated: String
+    let firstname: String
+    let lastname: String
+    let UserName: String
+    let userimg: String
+    let catname: String
+    
+    init(dict: [String:Any]) {
+        self.colorcode = dict["colorcode"] as? String ?? ""
+        self.id = dict["id"] as? Int ?? 0
+        self.todoTitle = dict["todoTitle"] as? String ?? ""
+        self.todoDesc = dict["todoDesc"] as? String ?? ""
+        self.dueDate = dict["dueDate"] as? String ?? ""
+        self.newduedate = dict["newduedate"] as? String ?? ""
+        self.catstatus = dict["catstatus"] as? String ?? ""
+        self.asignto = dict["asignto"] as? String ?? ""
+        self.status = dict["status"] as? String ?? ""
+        self.position = dict["position"] as? Int ?? 0
+        self.closedby = dict["closedby"] as? Int ?? 0
+        self.closeddate = dict["closeddate"] as? String ?? ""
+        self.createdfk = dict["createdfk"] as? Int ?? 0
+        self.datecreated = dict["datecreated"] as? String ?? ""
+        self.updatedfk = dict["updatedfk"] as? Int ?? 0
+        self.isactive = dict["isactive"] as? Int ?? 0
+        self.datelastupdated = dict["datelastupdated"] as? String ?? ""
+        self.firstname = dict["firstname"] as? String ?? ""
+        self.lastname = dict["lastname"] as? String ?? ""
+        self.UserName = dict["UserName"] as? String ?? ""
+        self.userimg = dict["userimg"] as? String ?? ""
+        self.catname = dict["catname"] as? String ?? ""
+    }
+}

@@ -42,6 +42,7 @@ class EditEmployeeVC: UIViewController {
     let imagePicker = UIImagePickerController()
     var empImg = UIImage()
     var imgStr = String()
+    var arrEmployee = [EmployeeList]()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -146,11 +147,31 @@ class EditEmployeeVC: UIViewController {
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
         params = ["employee_id" : employeeId]
-        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + SHOW_EMPLOYEE, param: params, header: headers) { (response, error) in
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + SHOW_EMPLOYEE, param: params, header: headers) { (respnse, error) in
             AppData.sharedInstance.dismissLoader()
-            print(response ?? "")
+            print(respnse ?? "")
             
-            if let res = response as? NSDictionary {
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? Int {
+                    if success == 1 {
+                        if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            for dict in response {
+                                self.arrEmployee.append(EmployeeList.init(dict: dict))
+                            }
+                            for dic in self.arrEmployee {
+                                self.txtUsername.text = dic.userName
+                                self.txtFirstname.text = dic.firstName
+                                self.txtLastname.text = dic.lastName
+                                self.txtEmail.text = dic.email
+                                self.txtPhoneNumber.text = dic.phoneNumber
+                                let url = URL(string: dic.user_image)
+                                self.imgAvatar.kf.setImage(with: url)
+                            }
+                        }
+                    }
+                }
+            }
+       /*     if let res = response as? NSDictionary {
                 if let username = res.value(forKey: "username") {
                     self.txtUsername.text = username as? String ?? ""
                 }
@@ -170,9 +191,7 @@ class EditEmployeeVC: UIViewController {
                     let url = URL(string: userimg as? String ?? "")
                     self.imgAvatar.kf.setImage(with: url)
                 }
-                
-                
-            }
+            }       */
         }
         
     }

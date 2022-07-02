@@ -25,5 +25,8 @@ target 'MySunless' do
     pod 'IQKeyboardManager'
     pod 'SwiftyStoreKit'
     pod 'Toast-Swift'
+    pod 'OnlyPictures'
+    pod 'ColorPalette'
+    pod 'SwiftReorder'
 
 end

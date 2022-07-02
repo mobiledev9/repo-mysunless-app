@@ -67,6 +67,7 @@ class ManageEmployeeVC: UIViewController {
                 if let success = res.value(forKey: "success") as? Int {
                     if success == 1 {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            self.arrEmployee.removeAll()
                             for dict in response {
                                 self.arrEmployee.append(EmployeeList.init(dict: dict))
                             }

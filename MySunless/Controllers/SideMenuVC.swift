@@ -444,9 +444,9 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Memberships":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "MemberShipListVC") as! MemberShipListVC
                     self.navigationController?.pushViewController(VC, animated: true)
-//                case "ToDo":
-//                    let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-//                    self.navigationController?.pushViewController(VC, animated: true)
+                case "ToDo":
+                    let VC = self.storyboard?.instantiateViewController(withIdentifier: "ToDoVC") as! ToDoVC
+                    self.navigationController?.pushViewController(VC, animated: true)
                 case "Inventory":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "ProductsListVC") as! ProductsListVC
                     self.navigationController?.pushViewController(VC, animated: true)

@@ -183,6 +183,12 @@ extension AllSubscribersVC: SubscriberProtocol {
                                     self.lblFilterBadge.text = "\(filterBadgeCount ?? 0)"
                                 }
                             }
+//                            else {
+//                                if UserDefaults.standard.value(forKey: "arrCollectionUsers") != nil {
+//                                    self.lblFilterBadge.isHidden = false
+//                                    self.lblFilterBadge.text = "1"
+//                                }
+//                            }
                             DispatchQueue.main.async {
                                 self.tblSubscribersList.reloadData()
                             }

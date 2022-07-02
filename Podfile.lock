@@ -4,6 +4,7 @@ PODS:
     - Charts/Core (= 4.0.2)
   - Charts/Core (4.0.2):
     - SwiftAlgorithms (~> 1.0)
+  - ColorPalette (0.0.1)
   - CropViewController (2.6.0)
   - DKCamera (1.6.7)
   - DKImagePickerController (4.3.2):
@@ -59,6 +60,7 @@ PODS:
   - IQKeyboardManager (6.5.9)
   - Kingfisher (7.1.1)
   - MBCircularProgressBar (0.3.5)
+  - OnlyPictures (1.1.2)
   - ReachabilitySwift (5.0.0)
   - SCLAlertView (0.8)
   - ScrollableSegmentedControl (1.5.0)
@@ -69,6 +71,7 @@ PODS:
   - StepView (1.0.5)
   - SVProgressHUD (2.2.5)
   - SwiftAlgorithms (1.0.0)
+  - SwiftReorder (7.2.0)
   - SwiftSignatureView (3.2.0)
   - SwiftyGif (5.4.3)
   - SwiftyStoreKit (0.16.1)
@@ -78,18 +81,21 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Charts
+  - ColorPalette
   - DKImagePickerController
   - FSCalendar
   - iOSDropDown
   - IQKeyboardManager
   - Kingfisher
   - MBCircularProgressBar
+  - OnlyPictures
   - ReachabilitySwift
   - SCLAlertView
   - ScrollableSegmentedControl
   - SideMenu
   - StepView
   - SVProgressHUD
+  - SwiftReorder
   - SwiftSignatureView
   - SwiftyStoreKit
   - Toast-Swift
@@ -99,6 +105,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Charts
+    - ColorPalette
     - CropViewController
     - DKCamera
     - DKImagePickerController
@@ -108,6 +115,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - Kingfisher
     - MBCircularProgressBar
+    - OnlyPictures
     - ReachabilitySwift
     - SCLAlertView
     - ScrollableSegmentedControl
@@ -116,6 +124,7 @@ SPEC REPOS:
     - StepView
     - SVProgressHUD
     - SwiftAlgorithms
+    - SwiftReorder
     - SwiftSignatureView
     - SwiftyGif
     - SwiftyStoreKit
@@ -125,6 +134,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
+  ColorPalette: f6b36af0c05d34ae35ec0edf257d3202e8ea5f09
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
   DKCamera: a902b66921fca14b7a75266feb8c7568aa7caa71
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
@@ -134,6 +144,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
+  OnlyPictures: c819b67e20f45493d49f38f4de5e630b7e8cbae0
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   ScrollableSegmentedControl: 2e64bbe8968a7fcd8aae5014434481464fcdfe60
@@ -142,12 +153,13 @@ SPEC CHECKSUMS:
   StepView: e69413ca377b42c5777d446854bb036ff8e988fd
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftReorder: d687883abf5f2327268e006b038025a6fc515e34
   SwiftSignatureView: cd8cca297cc2ca6a6c174da22fb908c33d03d3c0
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TreeTableView: 869484f5db96b1b6b8cc35a639a485fade7e83bd
 
-PODFILE CHECKSUM: be47ce538a07052bcc5575b83ae779a1b49f9d34
+PODFILE CHECKSUM: 8c0b7c8a592fe5d6dc74dca58cd2ed1d4e8f19c0
 
 COCOAPODS: 1.11.3

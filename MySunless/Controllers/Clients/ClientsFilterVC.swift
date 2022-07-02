@@ -26,8 +26,6 @@ class ClientsFilterVC: UIViewController {
     
     var isFromAdminSubscriber = false
     var delegateAdmin: SubscriberProtocol?
-  //  var selectedUserId = Int()
-   // var filterAdminBadgeCount = Int()
     
     var arrCollectionUsers = [String]()
     var arrCollectionIds = [String]()
@@ -47,7 +45,7 @@ class ClientsFilterVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(arrCollectionUsers)
+      //  print(arrCollectionUsers)
         arrCollectionUsers = UserDefaults.standard.value(forKey: "arrCollectionUsers") as? [String] ?? []
         arrCollectionIds = UserDefaults.standard.value(forKey: "arrCollectionIds") as? [String] ?? []
         if arrCollectionUsers.count != 0 {

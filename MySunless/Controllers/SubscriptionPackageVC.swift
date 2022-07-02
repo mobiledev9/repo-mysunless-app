@@ -11,6 +11,60 @@ import SwiftyStoreKit
 import Toast_Swift
 import Alamofire
 
+struct PendingRenewalInfo {
+    let auto_renew_product_id: Int
+    let auto_renew_status: Int
+    let original_transaction_id: Int
+    let product_id: Int
+    
+    init(dict: [String:Any]) {
+        self.auto_renew_product_id = dict["auto_renew_product_id"] as? Int ?? 0
+        self.auto_renew_status = dict["auto_renew_status"] as? Int ?? 0
+        self.original_transaction_id = dict["original_transaction_id"] as? Int ?? 0
+        self.product_id = dict["product_id"] as? Int ?? 0
+    }
+}
+
+struct InApp {
+    let expires_date: String
+    let expires_date_ms: Int
+    let expires_date_pst: String
+    let in_app_ownership_type: String
+    let is_in_intro_offer_period: Bool
+    let is_trial_period: Bool
+    let original_purchase_date: String
+    let original_purchase_date_ms: Int
+    let original_purchase_date_pst: String
+    let original_transaction_id: Int
+    let product_id: Int
+    let purchase_date: String
+    let purchase_date_ms: Int
+    let purchase_date_pst: String
+    let quantity: Int
+    let transaction_id: Int
+    let web_order_line_item_id: Int
+    
+    init(dict: [String:Any]) {
+        self.expires_date = dict["expires_date"] as? String ?? ""
+        self.expires_date_ms = dict["expires_date_ms"] as? Int ?? 0
+        self.expires_date_pst = dict["expires_date_pst"] as? String ?? ""
+        self.in_app_ownership_type = dict["in_app_ownership_type"] as? String ?? ""
+        self.is_in_intro_offer_period = dict["is_in_intro_offer_period"] as? Bool ?? Bool()
+        self.is_trial_period = dict["is_trial_period"] as? Bool ?? Bool()
+        self.original_purchase_date = dict["original_purchase_date"] as? String ?? ""
+        self.original_purchase_date_ms = dict["original_purchase_date_ms"] as? Int ?? 0
+        self.original_purchase_date_pst = dict["original_purchase_date_pst"] as? String ?? ""
+        self.original_transaction_id = dict["original_transaction_id"] as? Int ?? 0
+        self.product_id = dict["product_id"] as? Int ?? 0
+        self.purchase_date = dict["purchase_date"] as? String ?? ""
+        self.purchase_date_ms = dict["purchase_date_ms"] as? Int ?? 0
+        self.purchase_date_pst = dict["purchase_date_pst"] as? String ?? ""
+        self.quantity = dict["quantity"] as? Int ?? 0
+        self.transaction_id = dict["transaction_id"] as? Int ?? 0
+        self.web_order_line_item_id = dict["web_order_line_item_id"] as? Int ?? 0
+    }
+}
+
 class SubscriptionPackageVC: UIViewController {
     
     //MARK:- Outlets
@@ -38,6 +92,8 @@ class SubscriptionPackageVC: UIViewController {
     
     var productsIds = ["32323232"]
     var token = String()
+    var arrPendingRenewal = [PendingRenewalInfo]()
+    var arrInApp = [InApp]()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -160,9 +216,24 @@ class SubscriptionPackageVC: UIViewController {
                                 print("Purchased Successfully")
                                 print("Verify receipt success: \(receipt)")
                                 
-//                                if let bundle_id = receipt["bundle_id"] as? String {
-//                                    print(bundle_id)
-//                                }
+                                if let pending_renewal_info = receipt["pending_renewal_info"] as? [[String:Any]] {
+                                    print("pending_renewal_info:- ",pending_renewal_info)
+                                    self.arrPendingRenewal.removeAll()
+                                    for dict in pending_renewal_info {
+                                        self.arrPendingRenewal.append(PendingRenewalInfo(dict: dict))
+                                    }
+                                    print("arrPendingRenewal:-", self.arrPendingRenewal)
+                                }
+                                
+                                if let receipt = receipt["receipt"] as? NSDictionary {
+                                    if let in_app = receipt.value(forKey: "in_app") as? [[String:Any]] {
+                                        self.arrInApp.removeAll()
+                                        for dict in in_app {
+                                            self.arrInApp.append(InApp(dict: dict))
+                                        }
+                                        print("arrInApp:-", self.arrInApp)
+                                    }
+                                }
                                 
                                 UserDefaults.standard.setValue(true, forKey: "currentSubscription")
                                 self.isSubscribed = true

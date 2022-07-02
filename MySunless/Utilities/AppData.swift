@@ -96,6 +96,13 @@ class AppData: NSObject {
         alert.showSuccess(alertMainTitle, subTitle: alertTitle)
     }
     
+    func addCustomAlert(alertMainTitle: String, subTitle: String, completionHandler: @escaping () -> Void) {
+        let alert = SCLAlertView()
+        alert.addButton("OK", backgroundColor: UIColor.init("#0ABB9F"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, action: completionHandler)
+        alert.iconTintColor = UIColor.white
+        alert.showSuccess(alertMainTitle, subTitle: subTitle)
+    }
+    
     func showLoader() {
         SVProgressHUD.show()
         SVProgressHUD.setDefaultMaskType(.black)
@@ -159,6 +166,17 @@ class AppData: NSObject {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-mm-dd h:mma"
         
+        if let date = inputFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = format
+            return outputFormatter.string(from: date)
+        }
+        return nil
+    }
+    
+    func formattedDateFromString(dateFormat: String, dateString: String, withFormat format: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = dateFormat
         if let date = inputFormatter.date(from: dateString) {
             let outputFormatter = DateFormatter()
             outputFormatter.dateFormat = format
