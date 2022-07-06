@@ -23,14 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.removeObject(forKey: "arrCollectionIds")
         
         //For running in siumulator
-        UserDefaults.standard.set(true, forKey: "currentSubscription")
+     //   UserDefaults.standard.set(true, forKey: "currentSubscription")
 
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
                 case .purchased, .restored:
                     if purchase.needsFinishTransaction {
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                       // SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
                     print("purchased or restored")
                     UserDefaults.standard.set(true, forKey: "currentSubscription")
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 @unknown default:
                     print("error")
                 }
-            }
+            }     
         }
         getInAppPrice()
         

@@ -28,7 +28,6 @@
 		881CB15927211DDB007844D6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CB15827211DDB007844D6 /* ProfileVC.swift */; };
 		881D34EB2754CCCB0023CA54 /* ClientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881D34EA2754CCCB0023CA54 /* ClientsVC.swift */; };
 		8822C429275A34B100F0B6BF /* ManageEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8822C428275A34B100F0B6BF /* ManageEmployeeVC.swift */; };
-		8826AC2727E597BF009146B5 /* ImportExportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826AC2627E597BF009146B5 /* ImportExportVC.swift */; };
 		882928292755E369000EF543 /* CustomerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882928282755E369000EF543 /* CustomerDetailsVC.swift */; };
 		8829283527564FE5000EF543 /* ClientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829283427564FE5000EF543 /* ClientListCell.swift */; };
 		882B6BB9276D81C0008A3659 /* WorkingHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B6BB8276D81C0008A3659 /* WorkingHoursCell.swift */; };
@@ -215,6 +214,10 @@
 		D54AF04028631F10004F7888 /* ToDoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */; };
 		D54AF04228631F30004F7888 /* ToDoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54AF04128631F30004F7888 /* ToDoHeaderView.xib */; };
 		D55C0C322851B939005BBE8F /* SubscriptionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */; };
+		D56947D828754F17006C6A31 /* ImportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56947D728754F17006C6A31 /* ImportVC.swift */; };
+		D56947DC28755837006C6A31 /* ImportExportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56947DA28755837006C6A31 /* ImportExportCell.swift */; };
+		D56947DD28755837006C6A31 /* ImportExportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D56947DB28755837006C6A31 /* ImportExportCell.xib */; };
+		D59047772875865500CD7D14 /* ExportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047762875865500CD7D14 /* ExportVC.swift */; };
 		D5978BEF2859E93A008F5155 /* CustomFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */; };
 		D5978BF12859EB00008F5155 /* CustomFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */; };
 		D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646E628507FD50003347A /* PrrofileVC.swift */; };
@@ -255,7 +258,6 @@
 		881CB15827211DDB007844D6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		881D34EA2754CCCB0023CA54 /* ClientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsVC.swift; sourceTree = "<group>"; };
 		8822C428275A34B100F0B6BF /* ManageEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageEmployeeVC.swift; sourceTree = "<group>"; };
-		8826AC2627E597BF009146B5 /* ImportExportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportExportVC.swift; sourceTree = "<group>"; };
 		882928282755E369000EF543 /* CustomerDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailsVC.swift; sourceTree = "<group>"; };
 		8829283427564FE5000EF543 /* ClientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListCell.swift; sourceTree = "<group>"; };
 		882B6BB8276D81C0008A3659 /* WorkingHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursCell.swift; sourceTree = "<group>"; };
@@ -445,6 +447,10 @@
 		D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHeaderView.swift; sourceTree = "<group>"; };
 		D54AF04128631F30004F7888 /* ToDoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoHeaderView.xib; sourceTree = "<group>"; };
 		D55C0C312851B939005BBE8F /* SubscriptionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionInfoCell.swift; sourceTree = "<group>"; };
+		D56947D728754F17006C6A31 /* ImportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportVC.swift; sourceTree = "<group>"; };
+		D56947DA28755837006C6A31 /* ImportExportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportCell.swift; sourceTree = "<group>"; };
+		D56947DB28755837006C6A31 /* ImportExportCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportExportCell.xib; sourceTree = "<group>"; };
+		D59047762875865500CD7D14 /* ExportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVC.swift; sourceTree = "<group>"; };
 		D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterHeaderView.swift; sourceTree = "<group>"; };
 		D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFilterHeaderView.xib; sourceTree = "<group>"; };
 		D5D646E628507FD50003347A /* PrrofileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrrofileVC.swift; sourceTree = "<group>"; };
@@ -528,7 +534,6 @@
 				882928282755E369000EF543 /* CustomerDetailsVC.swift */,
 				88FD365827E3537F0085231A /* SendSMSVC.swift */,
 				885D9566282148CD00F298FB /* SendEmailVC.swift */,
-				8826AC2627E597BF009146B5 /* ImportExportVC.swift */,
 				88566A4C27EB2BFE009B595C /* ClientDetailVC.swift */,
 				88398BED27ED944B00FED89C /* ViewClientProfile */,
 			);
@@ -615,6 +620,7 @@
 				D5D76B882862F1EF001B1D52 /* ToDoCell.xib */,
 				D54AF04128631F30004F7888 /* ToDoHeaderView.xib */,
 				D512682128700F740078934A /* ToDoArchiveCell.xib */,
+				D56947DB28755837006C6A31 /* ImportExportCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -622,6 +628,7 @@
 		8851A3312717E5DE005DFE16 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D56947D928755806006C6A31 /* Import-ExportCells */,
 				D5D76B8B2862F213001B1D52 /* ToDoCells */,
 				885DEC06281FD46800A71347 /* AppointmentsCell */,
 				88ECDC422817D3E300DB89EF /* InventoryCells */,
@@ -908,6 +915,7 @@
 		88FDA469270C2D1A008040E9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D56947D628754F17006C6A31 /* Import-Export */,
 				D5FC2C6C2861CDD000E1244A /* To-Do */,
 				D50FA3C928546D0F004FDC35 /* Admin */,
 				D5D646E528507F890003347A /* Profile */,
@@ -997,6 +1005,23 @@
 				D50FA3CA28546D2C004FDC35 /* AllSubscribersVC.swift */,
 			);
 			path = Admin;
+			sourceTree = "<group>";
+		};
+		D56947D628754F17006C6A31 /* Import-Export */ = {
+			isa = PBXGroup;
+			children = (
+				D56947D728754F17006C6A31 /* ImportVC.swift */,
+				D59047762875865500CD7D14 /* ExportVC.swift */,
+			);
+			path = "Import-Export";
+			sourceTree = "<group>";
+		};
+		D56947D928755806006C6A31 /* Import-ExportCells */ = {
+			isa = PBXGroup;
+			children = (
+				D56947DA28755837006C6A31 /* ImportExportCell.swift */,
+			);
+			path = "Import-ExportCells";
 			sourceTree = "<group>";
 		};
 		D5D646E528507F890003347A /* Profile */ = {
@@ -1116,6 +1141,7 @@
 				88566A4427EAEFD3009B595C /* SalesOverviewCell.xib in Resources */,
 				88FDA496270C52B0008040E9 /* Roboto-BoldItalic.ttf in Resources */,
 				88FDA493270C52B0008040E9 /* Roboto-Regular.ttf in Resources */,
+				D56947DD28755837006C6A31 /* ImportExportCell.xib in Resources */,
 				88FDA497270C52B0008040E9 /* Roboto-LightItalic.ttf in Resources */,
 				88FDA4A127DB44DB0001498A /* Archive_ServiceCell.xib in Resources */,
 				8894E0EE27DC65AC00CF411B /* Archive_UserCell.xib in Resources */,
@@ -1206,7 +1232,6 @@
 				885D9567282148CD00F298FB /* SendEmailVC.swift in Sources */,
 				88A4C27C282646A200F005D4 /* SquarePaymentVC.swift in Sources */,
 				D5D646F12850808C0003347A /* SubscriptionVC.swift in Sources */,
-				8826AC2727E597BF009146B5 /* ImportExportVC.swift in Sources */,
 				88566A4D27EB2BFE009B595C /* ClientDetailVC.swift in Sources */,
 				D5D76B892862F1EF001B1D52 /* ToDoCell.swift in Sources */,
 				8880DF21283CDA4B0017B8FB /* ProductSortCell.swift in Sources */,
@@ -1222,6 +1247,7 @@
 				88ECCFA1281261E0001F68B5 /* SalesProfitGraphVC.swift in Sources */,
 				882928292755E369000EF543 /* CustomerDetailsVC.swift in Sources */,
 				880060DA275B1B330006E9DB /* AddNewEmployeeVC.swift in Sources */,
+				D59047772875865500CD7D14 /* ExportVC.swift in Sources */,
 				88FDA458270C164F008040E9 /* ViewController.swift in Sources */,
 				88398BEB27ED941000FED89C /* OrderHistoryCell.swift in Sources */,
 				885DEC01281FD43100A71347 /* EventsVC.swift in Sources */,
@@ -1279,6 +1305,7 @@
 				D5D646F5285080B10003347A /* MyGoalsVC.swift in Sources */,
 				88D86A2C27CCE42E0075B4E5 /* PerformanceListCell.swift in Sources */,
 				88D16D7627D61C4D00938792 /* BannerImagesCell.swift in Sources */,
+				D56947DC28755837006C6A31 /* ImportExportCell.swift in Sources */,
 				889A05562722703F0020D67A /* UserModel.swift in Sources */,
 				88FDA46B270C2D4D008040E9 /* LoginVC.swift in Sources */,
 				88D9DD1727C4EA2C00E2796A /* OrderListVC.swift in Sources */,
@@ -1303,6 +1330,7 @@
 				8887FDDD2816AAFB00F3C75C /* DashboardVC.swift in Sources */,
 				88ECDC592817D3F100DB89EF /* AddProductVC.swift in Sources */,
 				884591302816AD5700156A73 /* TopSellingCell.swift in Sources */,
+				D56947D828754F17006C6A31 /* ImportVC.swift in Sources */,
 				88FDA4A527DB458E0001498A /* Archive_EventCell.swift in Sources */,
 				88ECCFA2281261E0001F68B5 /* ProductDetailVC.swift in Sources */,
 				88B6B60B28115CC10025EB40 /* InvoiceTemplateVC.swift in Sources */,

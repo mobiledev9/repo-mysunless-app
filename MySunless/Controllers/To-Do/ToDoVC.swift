@@ -141,7 +141,7 @@ class ToDoVC: UIViewController {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "ToDoArchiveVC") as! ToDoArchiveVC
         VC.modalTransitionStyle = .crossDissolve
         VC.modalPresentationStyle = .overCurrentContext
-        
+        VC.delegate = self
         self.present(VC, animated: true, completion: nil)
     }
     

@@ -172,17 +172,17 @@ class ClientsVC: UIViewController {
     }
     
     @IBAction func btnImportClick(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportExportVC") as! ImportExportVC
-        VC.headerTitle = "Import"
-        VC.arrImportExport = arrImport
-        self.navigationController?.pushViewController(VC, animated: true)
+//        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportExportVC") as! ImportExportVC
+//        VC.headerTitle = "Import"
+//        VC.arrImportExport = arrImport
+//        self.navigationController?.pushViewController(VC, animated: true)
     }
     
     @IBAction func btnExportClick(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportExportVC") as! ImportExportVC
-        VC.headerTitle = "Export"
-        VC.arrImportExport = arrExport
-        self.navigationController?.pushViewController(VC, animated: true)
+//        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportExportVC") as! ImportExportVC
+//        VC.headerTitle = "Export"
+//        VC.arrImportExport = arrExport
+//        self.navigationController?.pushViewController(VC, animated: true)
     }
     
     @IBAction func btnCheckAllImgClick(_ sender: UIButton) {

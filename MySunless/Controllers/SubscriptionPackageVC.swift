@@ -41,7 +41,7 @@ struct InApp {
     let purchase_date_ms: Int
     let purchase_date_pst: String
     let quantity: Int
-    let transaction_id: Int
+    let transaction_id: String
     let web_order_line_item_id: Int
     
     init(dict: [String:Any]) {
@@ -60,7 +60,7 @@ struct InApp {
         self.purchase_date_ms = dict["purchase_date_ms"] as? Int ?? 0
         self.purchase_date_pst = dict["purchase_date_pst"] as? String ?? ""
         self.quantity = dict["quantity"] as? Int ?? 0
-        self.transaction_id = dict["transaction_id"] as? Int ?? 0
+        self.transaction_id = dict["transaction_id"] as? String ?? ""
         self.web_order_line_item_id = dict["web_order_line_item_id"] as? Int ?? 0
     }
 }
@@ -95,12 +95,33 @@ class SubscriptionPackageVC: UIViewController {
     var arrPendingRenewal = [PendingRenewalInfo]()
     var arrInApp = [InApp]()
     
+    var packageName = String()
+    var expiryDate = String()
+    var purchaseDate = String()
+    var invoiceID = String()
+    var userID = Int()
+    var status = "InActive"
+    var amount = String()
+    var packageDesc = String()
+    var packagetype = String()
+    
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setInitially()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
+        userID = UserDefaults.standard.value(forKey: "userid") as? Int ?? 0
+        
+        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
+            switch result {
+            case .success(let receiptData):
+                let encryptedReceipt = receiptData.base64EncodedString(options: [])
+                print("Fetch receipt success:\n\(result)")
+            case .error(let error):
+                print("Fetch receipt failed: \(error)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -170,7 +191,18 @@ class SubscriptionPackageVC: UIViewController {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
-        params = ["Packageid": productID]
+        params = ["Packageid": productID,
+                  "Name": packageName,
+                  "Expirydate": expiryDate,
+                  "Purchasedate": purchaseDate,
+                  "Invoiceid": invoiceID,
+                  "Userid": userID,
+                  "status": status,
+                  "promocodeid": "",
+                  "amount": amount,
+                  "Desc": packageDesc,
+                  "packagetype": packagetype
+        ]
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -180,8 +212,19 @@ class SubscriptionPackageVC: UIViewController {
         APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + IN_APP_PURCHASE, param: params, header: headers) { respnse, error in
             AppData.sharedInstance.dismissLoader()
             print(respnse ?? "")
-            
-            
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? Int {
+                    if success == 1 {
+                        if let message = res.value(forKey: "message") as? String {
+                            print(message)
+                        }
+                    } else {
+                        if let message = res.value(forKey: "message") as? String {
+                            print(message)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -216,6 +259,8 @@ class SubscriptionPackageVC: UIViewController {
                                 print("Purchased Successfully")
                                 print("Verify receipt success: \(receipt)")
                                 
+                                self.status = "Active"
+                                
                                 if let pending_renewal_info = receipt["pending_renewal_info"] as? [[String:Any]] {
                                     print("pending_renewal_info:- ",pending_renewal_info)
                                     self.arrPendingRenewal.removeAll()
@@ -231,9 +276,16 @@ class SubscriptionPackageVC: UIViewController {
                                         for dict in in_app {
                                             self.arrInApp.append(InApp(dict: dict))
                                         }
-                                        print("arrInApp:-", self.arrInApp)
+                                      //  print("arrInAppFirst:-", self.arrInApp.first!)
                                     }
                                 }
+                                print("arrInAppLast:-", self.arrInApp.last!)
+                                let dict = self.arrInApp.last
+                                self.expiryDate = dict?.expires_date ?? ""
+                                self.purchaseDate = dict?.purchase_date ?? ""
+                                self.invoiceID = dict?.transaction_id ?? ""
+                                
+                                self.callPurchaseAPI()
                                 
                                 UserDefaults.standard.setValue(true, forKey: "currentSubscription")
                                 self.isSubscribed = true
@@ -382,6 +434,7 @@ extension SubscriptionPackageVC: UITableViewDataSource {
         
         cell.setCell(index: indexPath.row)
         cell.btnPurchase.tag = indexPath.row
+        cell.parent = self
         
         if isSubscribed {
             cell.btnPurchase.setTitle("Active", for: .normal)

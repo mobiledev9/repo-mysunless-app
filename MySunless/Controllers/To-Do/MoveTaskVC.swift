@@ -87,8 +87,8 @@ class MoveTaskVC: UIViewController {
             AppData.sharedInstance.dismissLoader()
             print(respnse ?? "")
             if let res = respnse as? NSDictionary {
-                if let success = res.value(forKey: "success") as? Int {
-                    if success == 1 {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
                                 self.dismiss(animated: true) {
