@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-fS-ntT">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <rect key="frame" x="5" y="0.0" width="365" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjX-bZ-KU8">
                             <rect key="frame" x="10" y="12.5" width="41.5" height="25"/>
@@ -33,7 +33,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2d-mF-p5A">
-                            <rect key="frame" x="341" y="13" width="24" height="24"/>
+                            <rect key="frame" x="331" y="13" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="V9t-xB-9Ed"/>
                                 <constraint firstAttribute="width" constant="24" id="wrY-TN-Obr"/>
@@ -42,7 +42,7 @@
                             <state key="normal" image="close"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ky-Oe-1uD">
-                            <rect key="frame" x="307" y="13" width="24" height="24"/>
+                            <rect key="frame" x="297" y="13" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="MlZ-f1-epM"/>
                                 <constraint firstAttribute="height" constant="24" id="bJ9-gz-J4v"/>
@@ -52,7 +52,7 @@
                             <state key="normal" image="square.and.pencil" catalog="system"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTW-Xw-DTv">
-                            <rect key="frame" x="273" y="13" width="24" height="24"/>
+                            <rect key="frame" x="263" y="13" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="AeN-3h-Klc"/>
                                 <constraint firstAttribute="height" constant="24" id="g1O-kP-RFT"/>
@@ -84,9 +84,9 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="P8X-fS-ntT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6Tk-bX-Dzx"/>
-                <constraint firstAttribute="trailing" secondItem="P8X-fS-ntT" secondAttribute="trailing" id="W8h-hw-Bbc"/>
+                <constraint firstAttribute="trailing" secondItem="P8X-fS-ntT" secondAttribute="trailing" constant="5" id="W8h-hw-Bbc"/>
                 <constraint firstAttribute="bottom" secondItem="P8X-fS-ntT" secondAttribute="bottom" id="jTl-53-R7X"/>
-                <constraint firstItem="P8X-fS-ntT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="t8C-Vr-Ntu"/>
+                <constraint firstItem="P8X-fS-ntT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="t8C-Vr-Ntu"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -97,7 +97,7 @@
                 <outlet property="cellView" destination="P8X-fS-ntT" id="Oem-xD-2j3"/>
                 <outlet property="lblTitle" destination="cjX-bZ-KU8" id="WjV-WQ-ktc"/>
             </connections>
-            <point key="canvasLocation" x="-204" y="-152"/>
+            <point key="canvasLocation" x="110" y="-153"/>
         </view>
     </objects>
     <resources>

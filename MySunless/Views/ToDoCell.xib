@@ -24,7 +24,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwe-nm-nAh">
-                        <rect key="frame" x="8" y="5" width="447" height="206"/>
+                        <rect key="frame" x="5" y="5" width="445" height="206"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoW-bN-Gfs">
                                 <rect key="frame" x="0.0" y="0.0" width="12" height="206"/>
@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zG-Ba-W56" customClass="OnlyHorizontalPictures" customModule="OnlyPictures">
-                                <rect key="frame" x="137" y="161" width="305" height="40"/>
+                                <rect key="frame" x="137" y="161" width="303" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GVz-YF-HZj"/>
@@ -42,14 +42,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhM-QB-HOF">
-                                <rect key="frame" x="12" y="155" width="435" height="1"/>
+                                <rect key="frame" x="12" y="155" width="433" height="1"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Rz8-JC-mhz"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wd3-6I-G0s">
-                                <rect key="frame" x="117" y="10" width="320" height="25"/>
+                                <rect key="frame" x="117" y="10" width="318" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="U10-WC-dAV"/>
                                 </constraints>
@@ -166,8 +166,8 @@
                 <constraints>
                     <constraint firstItem="mwe-nm-nAh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="CNS-3L-wfr"/>
                     <constraint firstAttribute="bottom" secondItem="mwe-nm-nAh" secondAttribute="bottom" constant="5" id="YUr-41-a87"/>
-                    <constraint firstItem="mwe-nm-nAh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="bjE-1S-DkL"/>
-                    <constraint firstAttribute="trailing" secondItem="mwe-nm-nAh" secondAttribute="trailing" id="eEs-4l-KJJ"/>
+                    <constraint firstItem="mwe-nm-nAh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="bjE-1S-DkL"/>
+                    <constraint firstAttribute="trailing" secondItem="mwe-nm-nAh" secondAttribute="trailing" constant="5" id="eEs-4l-KJJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

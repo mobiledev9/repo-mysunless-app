@@ -90,8 +90,8 @@ class AddCategoryVC: UIViewController {
             AppData.sharedInstance.dismissLoader()
             print(respnse ?? "")
             if let res = respnse as? NSDictionary {
-                if let success = res.value(forKey: "success") as? Int {
-                    if success == 1 {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
                         if let Message = res.value(forKey: "message") as? String {
                             self.addCustomAlert(message: Message)
                         }

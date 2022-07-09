@@ -496,7 +496,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSetupVC") as! PaymentSetupVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Export Contacts":
-                    let VC = self.storyboard?.instantiateViewController(withIdentifier: "ExportVC ") as! ExportVC
+                    let VC = self.storyboard?.instantiateViewController(withIdentifier: "ExportVC") as! ExportVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Import Contacts":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportVC") as! ImportVC

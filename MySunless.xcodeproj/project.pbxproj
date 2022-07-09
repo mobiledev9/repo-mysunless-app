@@ -220,6 +220,7 @@
 		D59047772875865500CD7D14 /* ExportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047762875865500CD7D14 /* ExportVC.swift */; };
 		D5978BEF2859E93A008F5155 /* CustomFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */; };
 		D5978BF12859EB00008F5155 /* CustomFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */; };
+		D59C0ADF2876EC5300D87C6D /* ToDoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */; };
 		D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646E628507FD50003347A /* PrrofileVC.swift */; };
 		D5D646EB2850803F0003347A /* PerrsonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */; };
 		D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EC285080590003347A /* ChangeAvatarVC.swift */; };
@@ -453,6 +454,7 @@
 		D59047762875865500CD7D14 /* ExportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVC.swift; sourceTree = "<group>"; };
 		D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterHeaderView.swift; sourceTree = "<group>"; };
 		D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFilterHeaderView.xib; sourceTree = "<group>"; };
+		D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCollectionCell.swift; sourceTree = "<group>"; };
 		D5D646E628507FD50003347A /* PrrofileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrrofileVC.swift; sourceTree = "<group>"; };
 		D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerrsonalInfoVC.swift; sourceTree = "<group>"; };
 		D5D646EC285080590003347A /* ChangeAvatarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvatarVC.swift; sourceTree = "<group>"; };
@@ -1044,6 +1046,7 @@
 				D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */,
 				D5D76B872862F1EF001B1D52 /* ToDoCell.swift */,
 				D512682028700F740078934A /* ToDoArchiveCell.swift */,
+				D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */,
 			);
 			path = ToDoCells;
 			sourceTree = "<group>";
@@ -1257,6 +1260,7 @@
 				88039B3E27D20AD8005D8002 /* ServicesListCell.swift in Sources */,
 				D512682228700F740078934A /* ToDoArchiveCell.swift in Sources */,
 				884BC39227845CA500FFE32A /* EmailTemplateDetailVC.swift in Sources */,
+				D59C0ADF2876EC5300D87C6D /* ToDoCollectionCell.swift in Sources */,
 				88B3077C27153DC300DF7AFF /* PersonalInfoVC.swift in Sources */,
 				8841AC15275F892B00926CE5 /* EditEmployeeVC.swift in Sources */,
 				88398C1527EDA5EA00FED89C /* AddDocumentVC.swift in Sources */,

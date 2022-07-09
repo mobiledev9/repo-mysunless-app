@@ -113,15 +113,15 @@ class SubscriptionPackageVC: UIViewController {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         userID = UserDefaults.standard.value(forKey: "userid") as? Int ?? 0
         
-        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
-            switch result {
-            case .success(let receiptData):
-                let encryptedReceipt = receiptData.base64EncodedString(options: [])
-                print("Fetch receipt success:\n\(result)")
-            case .error(let error):
-                print("Fetch receipt failed: \(error)")
-            }
-        }
+//        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
+//            switch result {
+//            case .success(let receiptData):
+//                let encryptedReceipt = receiptData.base64EncodedString(options: [])
+//                print("Fetch receipt success:\n\(result)")
+//            case .error(let error):
+//                print("Fetch receipt failed: \(error)")
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

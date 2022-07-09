@@ -16,38 +16,41 @@ protocol ToDoProtocol {
     func editTask(model: NSDictionary, taskId: Int, catId: Int)
     func callDeleteTask(deleteId: Int, action: String)
     func moveTask(taskName: String, taskId: Int)
+    func addTask(catId: Int)
+    func editCategory(catId: Int, catName: String)
+    func deleteCategory(catId: Int)
+    func callChangeCategory(destCategoryId: Int, sourceTaskId: Int)
 }
 
-class ToDoVC: UIViewController {
+class ToDoVC: UIViewController,UIScrollViewDelegate {
     
     //MARK:- Outlet
-    @IBOutlet var tblToDo: UITableView!
+ //   @IBOutlet var tblToDo: UITableView!
+    @IBOutlet weak var todoColview: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     //MARK:- Variable Declarations
     var token = String()
     var arrShowAllCategory = [ShowAllTodoCategory]()
-    var arrShowAllTask = [ShowAllTask]()
     var selectedCatName = String()
     var selectedCatID = Int()
     var selectedDeleteCatID = Int()
     var arrEmployee = [EmployeeList]()
     var isToDoCat = false
     
+    var delegate: ToDoCollectionCell?
+    
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
-        tblToDo.tableFooterView = UIView()
-        tblToDo.register(UINib(nibName: "ToDoHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "ToDoHeaderView")
-        tblToDo.register(UINib(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
-        let dummyViewHeight = CGFloat(40)
-        tblToDo.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tblToDo.bounds.size.width, height: dummyViewHeight))
-        tblToDo.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
+        todoColview.isPagingEnabled = true
+      //  tblToDo.reorder.delegate = self
         
-        tblToDo.allowsSelection = false
-        tblToDo.reorder.delegate = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         callShowAllTodoCategory()
     }
     
@@ -80,8 +83,8 @@ class ToDoVC: UIViewController {
             AppData.sharedInstance.dismissLoader()
             print(respnse ?? "")
             if let res = respnse as? NSDictionary {
-                if let success = res.value(forKey: "success") as? Int {
-                    if success == 1 {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
                                 self.callShowAllTodoCategory()
@@ -92,44 +95,6 @@ class ToDoVC: UIViewController {
                             AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
                                 self.callShowAllTodoCategory()
                             }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func callChangeCategory(destCategoryId: Int, sourceTaskId: Int) {
-     //   AppData.sharedInstance.showLoader()
-        let headers: HTTPHeaders = ["Authorization": token]
-        var params = NSDictionary()
-        params = ["categoryId": destCategoryId,
-                  "taskId": sourceTaskId
-        ]
-//        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
-//            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
-//                AppData.sharedInstance.dismissLoader()
-//            }
-//            return
-//        }
-        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + CHANGE_CATEGORY, param: params, header: headers) { respnse, error in
-    //        AppData.sharedInstance.dismissLoader()
-            print(respnse ?? "")
-            if let res = respnse as? NSDictionary {
-                if let success = res.value(forKey: "success") as? Int {
-                    if success == 1 {
-                        if let message = res.value(forKey: "message") as? String {
-//                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
-//
-//                            }
-                            print(message)
-                        }
-                    } else {
-                        if let message = res.value(forKey: "message") as? String {
-//                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
-//
-//                            }
-                            print(message)
                         }
                     }
                 }
@@ -153,31 +118,31 @@ class ToDoVC: UIViewController {
         self.present(VC, animated: true, completion: nil)
     }
     
-    @objc func btnAddTask(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddTaskVC") as! AddTaskVC
-        VC.modalTransitionStyle = .crossDissolve
-        VC.modalPresentationStyle = .overCurrentContext
-        VC.categoryId = arrShowAllCategory[sender.tag].id
-        VC.delegate = self
-        VC.isTodoCat = isToDoCat
-        self.present(VC, animated: true, completion: nil)
-    }
+//    @objc func btnAddTask(_ sender: UIButton) {
+//        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddTaskVC") as! AddTaskVC
+//        VC.modalTransitionStyle = .crossDissolve
+//        VC.modalPresentationStyle = .overCurrentContext
+//        VC.categoryId = arrShowAllCategory[sender.tag].id
+//        VC.delegate = self
+//        VC.isTodoCat = isToDoCat
+//        self.present(VC, animated: true, completion: nil)
+//    }
     
-    @objc func btnEditCategory(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddCategoryVC") as! AddCategoryVC
-        VC.modalTransitionStyle = .crossDissolve
-        VC.modalPresentationStyle = .overCurrentContext
-        VC.isEdit = true
-        VC.delegate = self
-        VC.catName = arrShowAllCategory[sender.tag].catname
-        VC.catId = arrShowAllCategory[sender.tag].id
-        self.present(VC, animated: true, completion: nil)
-    }
+//    @objc func btnEditCategory(_ sender: UIButton) {
+//        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddCategoryVC") as! AddCategoryVC
+//        VC.modalTransitionStyle = .crossDissolve
+//        VC.modalPresentationStyle = .overCurrentContext
+//        VC.isEdit = true
+//        VC.delegate = self
+//        VC.catName = arrShowAllCategory[sender.tag].catname
+//        VC.catId = arrShowAllCategory[sender.tag].id
+//        self.present(VC, animated: true, completion: nil)
+//    }
     
-    @objc func btnDeleteCategory(_ sender: UIButton) {
-        selectedDeleteCatID = arrShowAllCategory[sender.tag].id
-        showDeleteAlert(alertTitle: "Are you sure?", alertSubtitle: "Archive: 'Move all task to Archive List' Delete: 'Permanent delete can not be recover.")
-    }
+//    @objc func btnDeleteCategory(_ sender: UIButton) {
+//        selectedDeleteCatID = arrShowAllCategory[sender.tag].id
+//        showDeleteAlert(alertTitle: "Are you sure?", alertSubtitle: "Archive: 'Move all task to Archive List' Delete: 'Permanent delete can not be recover.")
+//    }
     
     @objc func deleteCatPermanently(_ sender: UIButton) {
         callDeleteCategory(deleteId: selectedDeleteCatID, action: "delete")
@@ -186,6 +151,21 @@ class ToDoVC: UIViewController {
     @objc func archiveCat(_ sender: UIButton) {
         callDeleteCategory(deleteId: selectedDeleteCatID, action: "archive")
     }
+    
+    @objc func changePage(_ sender: AnyObject) -> () {
+        let x = CGFloat(pageControl.currentPage) * todoColview.frame.size.width
+        todoColview.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.currentPage = Int(pageNumber)
+    }
+        
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+//        pageControl.currentPage = Int(pageNumber)
+//    }
 }
 
 extension ToDoVC: ToDoProtocol {
@@ -211,8 +191,13 @@ extension ToDoVC: ToDoProtocol {
                             for dict in response {
                                 self.arrShowAllCategory.append(ShowAllTodoCategory(dict: dict))
                             }
+                            
+                            self.pageControl.numberOfPages = self.arrShowAllCategory.count
+                            self.pageControl.currentPage = 0
+                            self.pageControl.addTarget(self, action: #selector(self.changePage(_ :)), for: UIControl.Event.valueChanged)
+                            
                             DispatchQueue.main.async {
-                                self.tblToDo.reloadData()
+                                self.todoColview.reloadData()
                             }
                         }
                     } else {
@@ -223,6 +208,32 @@ extension ToDoVC: ToDoProtocol {
                 }
             }
         }
+    }
+    
+    func editCategory(catId: Int, catName: String) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddCategoryVC") as! AddCategoryVC
+        VC.modalTransitionStyle = .crossDissolve
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.isEdit = true
+        VC.delegate = self
+        VC.catName = catName
+        VC.catId = catId
+        self.present(VC, animated: true, completion: nil)
+    }
+    
+    func deleteCategory(catId: Int) {
+        selectedDeleteCatID = catId
+        showDeleteAlert(alertTitle: "Are you sure?", alertSubtitle: "Archive: 'Move all task to Archive List' Delete: 'Permanent delete can not be recover.")
+    }
+    
+    func addTask(catId: Int) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddTaskVC") as! AddTaskVC
+        VC.modalTransitionStyle = .crossDissolve
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.categoryId = catId
+        VC.delegate = self
+        VC.isTodoCat = isToDoCat
+        self.present(VC, animated: true, completion: nil)
     }
     
     func editTask(model: NSDictionary, taskId: Int, catId: Int) {
@@ -283,82 +294,67 @@ extension ToDoVC: ToDoProtocol {
             }
         }
     }
-}
     
-extension ToDoVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func callChangeCategory(destCategoryId: Int, sourceTaskId: Int) {
+     //   AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization": token]
+        var params = NSDictionary()
+        params = ["categoryId": destCategoryId,
+                  "taskId": sourceTaskId
+        ]
+//        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+//            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+//                AppData.sharedInstance.dismissLoader()
+//            }
+//            return
+//        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + CHANGE_CATEGORY, param: params, header: headers) { respnse, error in
+    //        AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? Int {
+                    if success == 1 {
+                        if let message = res.value(forKey: "message") as? String {
+//                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
+//
+//                            }
+                            print(message)
+                        }
+                    } else {
+                        if let message = res.value(forKey: "message") as? String {
+//                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
+//
+//                            }
+                            print(message)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension ToDoVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrShowAllCategory.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrShowAllCategory[section].todoTasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tblToDo.dequeueReusableHeaderFooterView(withIdentifier: "ToDoHeaderView") as! ToDoHeaderView
-        if arrShowAllCategory[section].catname == "To-do" {
-            headerView.lblTitle.text = "TODO (SELF)"
-            headerView.btnEdit.isHidden = true
-            headerView.btnCancel.isHidden = true
-            headerView.btnAddTrailingConstraint.constant = 10
-            isToDoCat = true
-        } else {
-            headerView.lblTitle.text = arrShowAllCategory[section].catname
-            headerView.btnEdit.isHidden = false
-            headerView.btnCancel.isHidden = false
-            headerView.btnAddTrailingConstraint.constant = 78
-            isToDoCat = false
-        }
-        headerView.btnAdd.tag = section
-        headerView.btnEdit.tag = section
-        headerView.btnCancel.tag = section
-        
-        selectedCatName = headerView.lblTitle.text ?? ""
-       // selectedCatID = arrShowAllCategory[section].id
-        headerView.btnEdit.addTarget(self, action: #selector(btnEditCategory(_:)), for: .touchUpInside)
-        headerView.btnCancel.addTarget(self, action: #selector(btnDeleteCategory(_:)), for: .touchUpInside)
-        headerView.btnAdd.addTarget(self, action: #selector(btnAddTask(_:)), for: .touchUpInside)
-        
-        return headerView
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let spacer = tblToDo.reorder.spacerCell(for: indexPath) {
-            return spacer
-        }
-        let cell = tblToDo.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath) as! ToDoCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = todoColview.dequeueReusableCell(withReuseIdentifier: "ToDoCollectionCell", for: indexPath) as! ToDoCollectionCell
         cell.delegate = self
-        let model:NSDictionary = arrShowAllCategory[indexPath.section].todoTasks[indexPath.row] as NSDictionary
-        cell.model = model
-        cell.dictShowCategory = arrShowAllCategory[indexPath.section]
-        cell.setCell(model: model, index: indexPath.row)
-        
+        cell.parent = self
+        cell.dict = arrShowAllCategory[indexPath.item]
+        cell.arrShowAllCategory = arrShowAllCategory
+        cell.tblToDo.reloadData()
         return cell
     }
     
-}
-
-extension ToDoVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: todoColview.frame.size.width, height: todoColview.frame.size.height)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-}
-
-extension ToDoVC: TableViewReorderDelegate {
-    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = arrShowAllCategory[sourceIndexPath.section].todoTasks[sourceIndexPath.row]
-        let sourceItem:NSDictionary = arrShowAllCategory[sourceIndexPath.section].todoTasks[sourceIndexPath.row] as NSDictionary
-        let sourceTaskId = sourceItem.value(forKey: "id") as? Int ?? 0
-        let destCatId = arrShowAllCategory[destinationIndexPath.section].id
-        
-        arrShowAllCategory[sourceIndexPath.section].todoTasks.remove(at: sourceIndexPath.row)
-        arrShowAllCategory[destinationIndexPath.section].todoTasks.insert(item, at: destinationIndexPath.row)
-        
-        callChangeCategory(destCategoryId: destCatId, sourceTaskId: sourceTaskId)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }
