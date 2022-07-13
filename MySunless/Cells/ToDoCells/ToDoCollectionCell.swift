@@ -59,7 +59,6 @@ class ToDoCollectionCell: UICollectionViewCell {
 
 extension ToDoCollectionCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     //   return parent.arrShowAllCategory[section].todoTasks.count
         return dict.todoTasks.count
     }
     

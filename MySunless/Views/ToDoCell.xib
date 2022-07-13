@@ -133,13 +133,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKq-nu-ai0">
+                                <rect key="frame" x="0.0" y="0.0" width="445" height="206"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <connections>
+                                    <action selector="btnDidSelectCellClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ld2-W6-frs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="PoW-bN-Gfs" secondAttribute="bottom" id="3hT-gs-7pm"/>
                             <constraint firstItem="wd3-6I-G0s" firstAttribute="top" secondItem="mwe-nm-nAh" secondAttribute="top" constant="10" id="5aY-7v-3GR"/>
                             <constraint firstItem="AIP-ix-FSQ" firstAttribute="top" secondItem="mwe-nm-nAh" secondAttribute="top" constant="10" id="6op-lB-Urj"/>
+                            <constraint firstItem="hKq-nu-ai0" firstAttribute="top" secondItem="mwe-nm-nAh" secondAttribute="top" id="CO5-do-lZ0"/>
                             <constraint firstAttribute="bottom" secondItem="j1B-Xl-uAy" secondAttribute="bottom" constant="5" id="DKb-gc-Bgw"/>
+                            <constraint firstAttribute="trailing" secondItem="hKq-nu-ai0" secondAttribute="trailing" id="DMC-KW-Nqf"/>
                             <constraint firstAttribute="trailing" secondItem="qhM-QB-HOF" secondAttribute="trailing" id="JhL-eA-uYj"/>
                             <constraint firstItem="qhM-QB-HOF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wd3-6I-G0s" secondAttribute="bottom" constant="100" id="LdU-aq-sME"/>
                             <constraint firstItem="wd3-6I-G0s" firstAttribute="leading" secondItem="AIP-ix-FSQ" secondAttribute="trailing" constant="5" id="Qpd-Vs-neA"/>
@@ -148,6 +157,8 @@
                             <constraint firstItem="0zG-Ba-W56" firstAttribute="top" secondItem="qhM-QB-HOF" secondAttribute="bottom" constant="5" id="XXH-vc-qSF"/>
                             <constraint firstItem="AIP-ix-FSQ" firstAttribute="leading" secondItem="mwe-nm-nAh" secondAttribute="leading" id="dNH-CF-hcx"/>
                             <constraint firstAttribute="trailing" secondItem="0zG-Ba-W56" secondAttribute="trailing" constant="5" id="e59-Kj-xum"/>
+                            <constraint firstAttribute="bottom" secondItem="hKq-nu-ai0" secondAttribute="bottom" id="eXy-dx-ixg"/>
+                            <constraint firstItem="hKq-nu-ai0" firstAttribute="leading" secondItem="mwe-nm-nAh" secondAttribute="leading" id="fbe-q7-gz9"/>
                             <constraint firstItem="0zG-Ba-W56" firstAttribute="leading" secondItem="j1B-Xl-uAy" secondAttribute="trailing" constant="10" id="jGI-ub-Hzt"/>
                             <constraint firstItem="qhM-QB-HOF" firstAttribute="leading" secondItem="PoW-bN-Gfs" secondAttribute="trailing" id="lpl-7H-fRY"/>
                             <constraint firstItem="PoW-bN-Gfs" firstAttribute="leading" secondItem="mwe-nm-nAh" secondAttribute="leading" id="nAR-rq-nq4"/>
@@ -173,6 +184,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnCancelTask" destination="tmX-ms-1O3" id="12d-LL-5B4"/>
+                <outlet property="btnDidSelectCell" destination="hKq-nu-ai0" id="0gx-Dn-2oz"/>
                 <outlet property="btnEditTask" destination="JeI-OQ-gQr" id="nsn-rG-qQd"/>
                 <outlet property="btnExpandView" destination="B4J-nw-KIN" id="Baa-uY-UeW"/>
                 <outlet property="btnMoveTask" destination="beC-3X-BxF" id="QCi-IB-8bz"/>

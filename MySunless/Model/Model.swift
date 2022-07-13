@@ -4227,3 +4227,47 @@ struct ToDoArchiveList {
         self.catname = dict["catname"] as? String ?? ""
     }
 }
+
+struct AssignTo {
+    let firstname: String
+    let lastname: String
+    let sign_image: String
+    let user_image: String
+    
+    init(dict: [String:Any]) {
+        self.firstname = dict["firstname"] as? String ?? ""
+        self.lastname = dict["lastname"] as? String ?? ""
+        self.sign_image = dict["sign_image"] as? String ?? ""
+        self.user_image = dict["user_image"] as? String ?? ""
+    }
+}
+
+struct CommentData {
+    let id: Int
+    let comment: String
+    let todoid: Int
+    let createddate: String
+    let createdfk: Int
+    let status: String
+    let closedby: Int
+    let closeddate: String
+    let firstname: String
+    let lastname: String
+    let username: String
+    let userimg: String
+    
+    init(dict: [String:Any]) {
+        self.id = dict["id"] as? Int ?? 0
+        self.comment = dict["comment"] as? String ?? ""
+        self.todoid = dict["todoid"] as? Int ?? 0
+        self.createddate = dict["createddate"] as? String ?? ""
+        self.createdfk = dict["createdfk"] as? Int ?? 0
+        self.status = dict["status"] as? String ?? ""
+        self.closedby = dict["closedby"] as? Int ?? 0
+        self.closeddate = dict["closeddate"] as? String ?? ""
+        self.firstname = dict["firstname"] as? String ?? ""
+        self.lastname = dict["lastname"] as? String ?? ""
+        self.username = dict["username"] as? String ?? ""
+        self.userimg = dict["userimg"] as? String ?? ""
+    }
+}

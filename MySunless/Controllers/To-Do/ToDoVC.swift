@@ -20,6 +20,7 @@ protocol ToDoProtocol {
     func editCategory(catId: Int, catName: String)
     func deleteCategory(catId: Int)
     func callChangeCategory(destCategoryId: Int, sourceTaskId: Int)
+    func taskPreview(taskId: Int)
 }
 
 class ToDoVC: UIViewController,UIScrollViewDelegate {
@@ -331,6 +332,14 @@ extension ToDoVC: ToDoProtocol {
                 }
             }
         }
+    }
+    
+    func taskPreview(taskId: Int) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "TaskPreviewVC") as! TaskPreviewVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        VC.taskId = taskId
+        self.present(VC, animated: true, completion: nil)
     }
 }
 

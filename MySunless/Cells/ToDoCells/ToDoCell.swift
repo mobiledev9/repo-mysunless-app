@@ -22,6 +22,7 @@ class ToDoCell: UITableViewCell {
     @IBOutlet var btnExpandView: UIButton!
     @IBOutlet var onlyPicturesView: OnlyHorizontalPictures!
     @IBOutlet weak var vw_leading: UIView!
+    @IBOutlet weak var btnDidSelectCell: UIButton!
     
     var delegate: ToDoProtocol?
     var arrImgs = [String]()
@@ -90,8 +91,12 @@ class ToDoCell: UITableViewCell {
         btnEditTask.tag = index
         btnMoveTask.tag = index
         btnCancelTask.tag = index
-        
+        btnDidSelectCell.tag = index
         onlyPicturesView.reloadData()
+    }
+    
+    @IBAction func btnDidSelectCellClick(_ sender: UIButton) {
+        delegate?.taskPreview(taskId: taskId)
     }
     
     @IBAction func btnExpandView(_ sender: UIButton) {

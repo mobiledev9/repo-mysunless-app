@@ -101,6 +101,20 @@ extension ExportVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        saveCSVfile()
+        switch indexPath.row {
+        case 0:
+            saveCSVfile()
+        case 1:
+            if let url = URL(string: "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&redirect_uri=https%3A%2F%2Fmysunless.com%2Fcrm%2Fgdrive%2F&client_id=462951383589-nfmd0m40bcf8tg31pg7sm1in9ucu9s04.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&access_type=offline&approval_prompt=force&flowName=GeneralOAuthFlow") {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        default:
+            print("Default")
+        }
+        
     }
 }

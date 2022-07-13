@@ -230,6 +230,7 @@
 		D5D646F5285080B10003347A /* MyGoalsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646F4285080B10003347A /* MyGoalsVC.swift */; };
 		D5D76B892862F1EF001B1D52 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D76B872862F1EF001B1D52 /* ToDoCell.swift */; };
 		D5D76B8A2862F1EF001B1D52 /* ToDoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D76B882862F1EF001B1D52 /* ToDoCell.xib */; };
+		D5DE4CEB287C1EFB00125B53 /* TaskPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE4CEA287C1EFB00125B53 /* TaskPreviewVC.swift */; };
 		D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */; };
 		D5FA407228607E3900E31D50 /* UserFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA407128607E3900E31D50 /* UserFilterCell.swift */; };
 		D5FC2C6E2861CFA700E1244A /* ToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */; };
@@ -464,6 +465,7 @@
 		D5D646F4285080B10003347A /* MyGoalsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsVC.swift; sourceTree = "<group>"; };
 		D5D76B872862F1EF001B1D52 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		D5D76B882862F1EF001B1D52 /* ToDoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoCell.xib; sourceTree = "<group>"; };
+		D5DE4CEA287C1EFB00125B53 /* TaskPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPreviewVC.swift; sourceTree = "<group>"; };
 		D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberListCell.swift; sourceTree = "<group>"; };
 		D5FA407128607E3900E31D50 /* UserFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterCell.swift; sourceTree = "<group>"; };
 		D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoVC.swift; sourceTree = "<group>"; };
@@ -1069,6 +1071,7 @@
 				D50EDCC7286589AE00BC14F4 /* AddTaskVC.swift */,
 				D51746C2286F0B9C00BA2B4D /* MoveTaskVC.swift */,
 				D512681E28700C7A0078934A /* ToDoArchiveVC.swift */,
+				D5DE4CEA287C1EFB00125B53 /* TaskPreviewVC.swift */,
 			);
 			path = "To-Do";
 			sourceTree = "<group>";
@@ -1406,6 +1409,7 @@
 				884D82C8270D5B9800854969 /* AppData.swift in Sources */,
 				88FD35DD27E2FF200085231A /* SalesInfoCell.swift in Sources */,
 				881B62FC270D85DD003883B9 /* SideMenuCell.swift in Sources */,
+				D5DE4CEB287C1EFB00125B53 /* TaskPreviewVC.swift in Sources */,
 				88F51ABF2716E989004DCD9D /* CompanyServiceVC.swift in Sources */,
 				88D16D7127D61C3300938792 /* ImageTitleAndDescVC.swift in Sources */,
 				88D9DD0527C4E92500E2796A /* BookAppointmentVC.swift in Sources */,
