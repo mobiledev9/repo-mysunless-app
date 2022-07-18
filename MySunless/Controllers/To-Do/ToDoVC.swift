@@ -339,6 +339,7 @@ extension ToDoVC: ToDoProtocol {
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
         VC.taskId = taskId
+        VC.delegate = self
         self.present(VC, animated: true, completion: nil)
     }
 }

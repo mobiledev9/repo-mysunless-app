@@ -220,7 +220,10 @@
 		D59047772875865500CD7D14 /* ExportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047762875865500CD7D14 /* ExportVC.swift */; };
 		D5978BEF2859E93A008F5155 /* CustomFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */; };
 		D5978BF12859EB00008F5155 /* CustomFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */; };
+		D59844AF28817CBA00846AA2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59844AD28817CBA00846AA2 /* CommentCell.swift */; };
+		D59844B028817CBA00846AA2 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D59844AE28817CBA00846AA2 /* CommentCell.xib */; };
 		D59C0ADF2876EC5300D87C6D /* ToDoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */; };
+		D5C4708A287FF12600D9863E /* TaskPreviewAssignedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C47089287FF12600D9863E /* TaskPreviewAssignedCell.swift */; };
 		D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646E628507FD50003347A /* PrrofileVC.swift */; };
 		D5D646EB2850803F0003347A /* PerrsonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */; };
 		D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D646EC285080590003347A /* ChangeAvatarVC.swift */; };
@@ -455,7 +458,10 @@
 		D59047762875865500CD7D14 /* ExportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVC.swift; sourceTree = "<group>"; };
 		D5978BEE2859E93A008F5155 /* CustomFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterHeaderView.swift; sourceTree = "<group>"; };
 		D5978BF02859EB00008F5155 /* CustomFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFilterHeaderView.xib; sourceTree = "<group>"; };
+		D59844AD28817CBA00846AA2 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		D59844AE28817CBA00846AA2 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCollectionCell.swift; sourceTree = "<group>"; };
+		D5C47089287FF12600D9863E /* TaskPreviewAssignedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPreviewAssignedCell.swift; sourceTree = "<group>"; };
 		D5D646E628507FD50003347A /* PrrofileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrrofileVC.swift; sourceTree = "<group>"; };
 		D5D646EA2850803F0003347A /* PerrsonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerrsonalInfoVC.swift; sourceTree = "<group>"; };
 		D5D646EC285080590003347A /* ChangeAvatarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvatarVC.swift; sourceTree = "<group>"; };
@@ -625,6 +631,7 @@
 				D54AF04128631F30004F7888 /* ToDoHeaderView.xib */,
 				D512682128700F740078934A /* ToDoArchiveCell.xib */,
 				D56947DB28755837006C6A31 /* ImportExportCell.xib */,
+				D59844AE28817CBA00846AA2 /* CommentCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1049,6 +1056,8 @@
 				D5D76B872862F1EF001B1D52 /* ToDoCell.swift */,
 				D512682028700F740078934A /* ToDoArchiveCell.swift */,
 				D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */,
+				D5C47089287FF12600D9863E /* TaskPreviewAssignedCell.swift */,
+				D59844AD28817CBA00846AA2 /* CommentCell.swift */,
 			);
 			path = ToDoCells;
 			sourceTree = "<group>";
@@ -1155,6 +1164,7 @@
 				88FDA460270C1650008040E9 /* LaunchScreen.storyboard in Resources */,
 				D5978BF12859EB00008F5155 /* CustomFilterHeaderView.xib in Resources */,
 				88FD35DC27E2FF200085231A /* AppointmentCell.xib in Resources */,
+				D59844B028817CBA00846AA2 /* CommentCell.xib in Resources */,
 				88FDA49A270C52B0008040E9 /* Roboto-BlackItalic.ttf in Resources */,
 				881B62FB270D85DD003883B9 /* SideMenuCell.xib in Resources */,
 				88FDA49C270C52B0008040E9 /* Roboto-Thin.ttf in Resources */,
@@ -1347,6 +1357,7 @@
 				88ECDC492817D3E400DB89EF /* ProductsListCell.swift in Sources */,
 				D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */,
 				88A4C2782826401F00F005D4 /* PaymentSetupVC.swift in Sources */,
+				D5C4708A287FF12600D9863E /* TaskPreviewAssignedCell.swift in Sources */,
 				88398BF627ED947800FED89C /* DocumentVC.swift in Sources */,
 				D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */,
 				88E1105827F56BF900396F23 /* ViewNoteVC.swift in Sources */,
@@ -1383,6 +1394,7 @@
 				D5D646E728507FD50003347A /* PrrofileVC.swift in Sources */,
 				88D9DD2527C4FE7000E2796A /* PendingOrderVC.swift in Sources */,
 				8851A3342717E619005DFE16 /* DropdownCell.swift in Sources */,
+				D59844AF28817CBA00846AA2 /* CommentCell.swift in Sources */,
 				88D86A1D27CCAA4E0075B4E5 /* SelectProductVC.swift in Sources */,
 				88D86A2927CCDE7F0075B4E5 /* PerformanceListVC.swift in Sources */,
 				88957D5F27D9F1BB00A578BF /* Archive_ServiceCell.swift in Sources */,
