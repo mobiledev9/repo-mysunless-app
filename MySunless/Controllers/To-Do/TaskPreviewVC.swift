@@ -10,7 +10,7 @@ import Alamofire
 import Kingfisher
 
 protocol TaskPreviewProtocol {
-    func callAddOrUpdateCommentAPI(isEdit: Bool, commentId: Int?)
+    func callAddOrUpdateCommentAPI(isEdit: Bool, commentId: Int?, editComment: String?)
     func callDeleteCommentAPI(commentId: Int)
 }
 
@@ -57,7 +57,7 @@ class TaskPreviewVC: UIViewController {
     @IBOutlet weak var assignedUserColview: UICollectionView!
     
     //110 vw_activity
-    @IBOutlet weak var switchActivity: UISwitch!
+  //  @IBOutlet weak var switchActivity: UISwitch!
     @IBOutlet weak var imgActivity: UIImageView!
     @IBOutlet weak var vw_comment: UIView!
     @IBOutlet weak var txtVwComment: UITextView!
@@ -115,13 +115,13 @@ class TaskPreviewVC: UIViewController {
         btnOpenDatePicker.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         vw_comment.layer.borderWidth = 0.5
         vw_comment.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        switchActivity.set(width: 50.0, height: 20.0)
+      //  switchActivity.set(width: 50.0, height: 20.0)
         btnPostComment.layer.cornerRadius = 5
         txtVwComment.text = "Write a comment..."
         txtVwComment.textColor = UIColor.init("#B3B3B4")
         txtVwComment.delegate = self
         btnPostComment.isHidden = true
-        tblComments.isHidden = true
+      //  tblComments.isHidden = true
         imgActivity.layer.cornerRadius = imgActivity.frame.size.height / 2
     }
     
@@ -326,13 +326,13 @@ class TaskPreviewVC: UIViewController {
         txtDueDate.isUserInteractionEnabled = false
     }
     
-    @IBAction func switchActivityValueChanged(_ sender: UISwitch) {
-        if switchActivity.isOn {
-            tblComments.isHidden = false
-        } else {
-            tblComments.isHidden = true
-        }
-    }
+//    @IBAction func switchActivityValueChanged(_ sender: UISwitch) {
+//        if switchActivity.isOn {
+//            tblComments.isHidden = false
+//        } else {
+//            tblComments.isHidden = true
+//        }
+//    }
     
     @IBAction func btnPostCommentClick(_ sender: UIButton) {
         callAddOrUpdateCommentAPI(isEdit: false)
@@ -401,12 +401,12 @@ extension TaskPreviewVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension TaskPreviewVC: TaskPreviewProtocol {
-    func callAddOrUpdateCommentAPI(isEdit: Bool, commentId: Int?=nil) {
+    func callAddOrUpdateCommentAPI(isEdit: Bool, commentId: Int?=nil, editComment: String?=nil) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
         if isEdit {
-            params = ["comment": txtVwComment.text ?? "",
+            params = ["comment": editComment ?? "",
                       "todoid": taskId,
                       "cmtid": commentId ?? 0
             ]

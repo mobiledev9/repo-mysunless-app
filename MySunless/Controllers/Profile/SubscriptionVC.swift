@@ -34,6 +34,8 @@ class SubscriptionVC: UIViewController {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         self.hideKeyboardWhenTappedAround()
         callSubscriptionsListAPI()
+        
+        tblSubscription.isHidden = true
     }
 
     //MARK:- UserDefined Functions

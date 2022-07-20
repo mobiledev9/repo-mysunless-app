@@ -35,6 +35,7 @@ class CommentCell: UITableViewCell {
         btnClose.layer.cornerRadius = 5
         btnSave.layer.cornerRadius = 5
         btnClose.isHidden = true
+        txtComment.isUserInteractionEnabled = false
        // txtComment.delegate = self
     }
 
@@ -46,7 +47,7 @@ class CommentCell: UITableViewCell {
     func setCell(index: Int) {
         let imgUrl = URL(string: model.userimg)
         imgProfile.kf.setImage(with: imgUrl)
-        lblName.text = model.firstname + " " + model.lastname
+        lblName.text = model.firstname.capitalized + " " + model.lastname.capitalized
         var date = model.createddate
         date.removeLast(9)
         let finalDate = AppData.sharedInstance.formattedDateFromString(dateFormat: "yyyy-MM-dd", dateString: date, withFormat: "MMM-dd-yyyy")
@@ -55,7 +56,6 @@ class CommentCell: UITableViewCell {
         time.removeLast(3)
         lblDate.text = (finalDate ?? "") + " at " + time
         txtComment.text = model.comment
-        
         btnEdit.tag = index
         btnSave.tag = index
         btnClose.tag = index
@@ -71,15 +71,17 @@ class CommentCell: UITableViewCell {
     @IBAction func btnEditClick(_ sender: UIButton) {
         btnEdit.isHidden = true
         btnClose.isHidden = false
+        txtComment.isUserInteractionEnabled = true
     }
     
     @IBAction func btnCloseClick(_ sender: UIButton) {
         btnClose.isHidden = true
         btnEdit.isHidden = false
+        txtComment.isUserInteractionEnabled = false
     }
     
     @IBAction func btnSaveClick(_ sender: UIButton) {
-        delegate?.callAddOrUpdateCommentAPI(isEdit: true, commentId: model.id)
+        delegate?.callAddOrUpdateCommentAPI(isEdit: true, commentId: model.id, editComment: txtComment.text)
     }
 }
 

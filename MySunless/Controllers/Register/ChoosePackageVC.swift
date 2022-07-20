@@ -8,6 +8,18 @@
 import UIKit
 import Alamofire
 
+struct SelectPackage {
+    let name: String
+    let price: String
+    let validity: String
+    
+    init(name: String, price: String, validity: String) {
+        self.name = name
+        self.price = price
+        self.validity = validity
+    }
+}
+
 class ChoosePackageVC: UIViewController {
     
     //MARK:- Outlets
@@ -45,7 +57,8 @@ class ChoosePackageVC: UIViewController {
     @IBOutlet var tblView: UITableView!
     
     //MARK:- Variable Declarations
-    var arrPackage = [ChoosePackage]()
+//    var arrPackage = [ChoosePackage]()
+    var arrPackage = [SelectPackage]()
     var userid = Int()
     var firstname = String()
     var lastname = String()
@@ -95,7 +108,8 @@ class ChoosePackageVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         getData()
-        callShowPackageAPI()
+     //   callShowPackageAPI()
+        arrPackage = [SelectPackage(name: "Monthly subscription", price: "$19.99", validity: "30Days"), SelectPackage(name: "Free Trial", price: "$0", validity: "14Days")]
     }
     
     //MARK:- User-Defined Methods
@@ -135,7 +149,7 @@ class ChoosePackageVC: UIViewController {
         promocode = UserDefaults.standard.value(forKey: "promocode") as? String ?? ""
     }
     
-    func callShowPackageAPI() {
+  /*  func callShowPackageAPI() {
         AppData.sharedInstance.showLoader()
         var params = NSDictionary()
         params = [:]
@@ -156,7 +170,7 @@ class ChoosePackageVC: UIViewController {
                 }
             }
         }
-    }
+    }       */
     
     func callRegisterAPI() {
         AppData.sharedInstance.showLoader()
@@ -327,11 +341,11 @@ class ChoosePackageVC: UIViewController {
         selectedIndex = sender.tag
         tblView.reloadData()
         btnRadio.setImage(UIImage(named: btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)
-        package_id = self.arrPackage[sender.tag].id
+      //  package_id = self.arrPackage[sender.tag].id
         UserDefaults.standard.setValue(package_id, forKey: "package_id")
         print(package_id)
         
-        if arrPackage[sender.tag].PackageName == "Free Trial" {
+        if arrPackage[sender.tag].name == "Free Trial" {
             lblPromocodeHeightConstraint.constant = 0
             vw_promocodeHeightConstraint.constant = 0
             btnPreviousBottomConstraint.constant = 63
@@ -376,9 +390,13 @@ extension ChoosePackageVC: UITableViewDataSource {
         let cell = tblView.dequeueReusableCell(withIdentifier: "ChoosePackageCell", for: indexPath) as! ChoosePackageCell
         
         let dict = arrPackage[indexPath.row]
-        cell.lblPackageName.text = dict.PackageName
-        cell.lblPrice.text = "$\(dict.Price)"
-        cell.lblValidityDay.text = "\(dict.ValidityDay)Days"
+//        cell.lblPackageName.text = dict.PackageName
+//        cell.lblPrice.text = "$\(dict.Price)"
+//        cell.lblValidityDay.text = "\(dict.ValidityDay)Days"
+        
+        cell.lblPackageName.text = dict.name
+        cell.lblPrice.text = dict.price
+        cell.lblValidityDay.text = dict.validity
         
         cell.btnRadio.tag = indexPath.row
         cell.btnRadio.addTarget(self, action: #selector(btnRadioClicckk(_:)), for: .touchUpInside)

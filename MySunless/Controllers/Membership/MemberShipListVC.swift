@@ -29,6 +29,8 @@ class MemberShipListVC: UIViewController {
     @IBOutlet var tblPackage: UITableView!
     @IBOutlet weak var dropDown : DropDown!
     @IBOutlet var daysViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var vw_days: UIView!
+    @IBOutlet weak var topSearchBar: NSLayoutConstraint!     //10
     
     //MARK:- Variable Declarations
     var token = String()
@@ -61,7 +63,9 @@ class MemberShipListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        showHideDaysView()
+      // showHideDaysView()
+        vw_days.isHidden = true
+        topSearchBar.constant = -50
         callShowActiveMemberAPI()
     }
     
@@ -112,8 +116,8 @@ class MemberShipListVC: UIViewController {
     }
     
     @IBAction func segmentValueChange(_ sender: UISegmentedControl) {
-        self.showHideDaysView()
-        showPackageData(selectedType:sender.selectedSegmentIndex,selectedDaysIndex:dropDown.selectedIndex)
+      //  self.showHideDaysView()
+        showPackageData(selectedType:sender.selectedSegmentIndex, selectedDaysIndex:dropDown.selectedIndex)
     }
     
     @objc func crossButton(_ sender: UIButton) {
@@ -127,19 +131,25 @@ class MemberShipListVC: UIViewController {
         tblPackage.reloadData()
     }
     
-    func showPackageData(selectedType:Int,selectedDaysIndex:Int?) {
+    func showPackageData(selectedType:Int, selectedDaysIndex:Int?) {
         if selectedType == 0 {
+            vw_days.isHidden = true
+            topSearchBar.constant = -50
             callShowActiveMemberAPI()
         }
         if selectedType == 1 {
+            vw_days.isHidden = false
+            topSearchBar.constant = 10
             callUpcomingRenewalsAPI(inDays:arrOfDays[selectedDaysIndex ?? 0].id)
         }
         if selectedType == 2 {
+            vw_days.isHidden = true
+            topSearchBar.constant = -50
             callCompletedAndExpiredAPI()
         }
     }
     
-    func showHideDaysView() {
+   /* func showHideDaysView() {
         if segementPackage.selectedSegmentIndex == 1 {
             daysViewHeight.constant = 50
             dropDown.arrowColor = UIColor.black
@@ -147,7 +157,7 @@ class MemberShipListVC: UIViewController {
             daysViewHeight.constant = 0
             dropDown.arrowColor = UIColor.clear
         }
-    }
+    }     */
     
     func initDropDown() {
         dropDown.optionArray = arrOfDays.map { $0.value }
