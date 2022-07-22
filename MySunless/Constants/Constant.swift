@@ -195,15 +195,16 @@ let clientGoalList = ["Select Client Goal","10","20","50","100","250","500","100
 let salesGoalList = ["Select Sales Goal","5000","10000","25000","50000","100000","250000","500000","1000000"]
 let filterDays = ["Today","Yesterday","Last 7 days","Last 30 Days","This Month","Last Month","Year to Date","Custom Range"]
 let monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+let arrProductIds = ["23","24","25","19","21"]
 
 
-enum ProductType: String {
-   // case weekly = "com.example.app.weekly"
-    case monthly = "32323232"
-   // case yearly = "com.example.app.yearly"
-    
-    static var all: [ProductType] {
-      //  return [.weekly, .monthly, .yearly]
-        return [.monthly]
-    }
-}
+//enum ProductType: String {
+//   // case weekly = "com.example.app.weekly"
+//    case monthly = "23"
+//   // case yearly = "com.example.app.yearly"
+//
+//    static var all: [ProductType] {
+//      //  return [.weekly, .monthly, .yearly]
+//        return [.monthly]
+//    }
+//}

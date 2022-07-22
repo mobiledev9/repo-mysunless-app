@@ -38,11 +38,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let MainView = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            
+
             let navController = UINavigationController.init(rootViewController: MainView)
             navController.navigationBar.isHidden = true
             self.window?.rootViewController = navController
-            
+
             if #available(iOS 13.0, *) {
                 window?.overrideUserInterfaceStyle = .light
             }

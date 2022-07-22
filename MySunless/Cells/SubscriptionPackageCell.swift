@@ -19,6 +19,7 @@ class SubscriptionPackageCell: UITableViewCell {
     @IBOutlet var lblPackageDesc: UILabel!
     
     var parent = SubscriptionPackageVC()
+    var model = SelectPackage()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,6 +46,32 @@ class SubscriptionPackageCell: UITableViewCell {
         default:
             print("Default")
         }
+        
+        lblPackageName.text = model.name
+        lblPrice.text = model.price
+        lblValidityDays.text = model.validity
+        
+        switch model.id {
+        case "24":
+            lblEmployeeLimit.text = "0"
+            lblClientsLimit.text = "50"
+            lblPackageDesc.text = "Great for new technicians who started to grow their client base - 50 client profiles - Access to all Mysunless features"
+        case "25":
+            lblEmployeeLimit.text = "0"
+            lblClientsLimit.text = "125"
+            lblPackageDesc.text = "Made for businesses with a strong list of clients. - 125 client limit - access to all Mysunless features"
+        case "19":
+            lblEmployeeLimit.text = "Unlimited"
+            lblClientsLimit.text = "Unlimited"
+            lblPackageDesc.text = "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days."
+        case "21":
+            lblEmployeeLimit.text = "Unlimited"
+            lblClientsLimit.text = "Unlimited"
+            lblPackageDesc.text = "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid 365 days after purchase."
+        default:
+            print("Default")
+        }
+        
         btnPurchase.tag = index
         
         parent.packageName = lblPackageName.text ?? ""

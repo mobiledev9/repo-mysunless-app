@@ -7,17 +7,31 @@
 
 import UIKit
 import Alamofire
+import SwiftyStoreKit
 
 struct SelectPackage {
+    let id: String
     let name: String
     let price: String
     let validity: String
     
-    init(name: String, price: String, validity: String) {
+    init(id: String, name: String, price: String, validity: String) {
+        self.id = id
         self.name = name
         self.price = price
         self.validity = validity
     }
+    
+    init() {
+        self.id = ""
+        self.name = ""
+        self.price = ""
+        self.validity = ""
+    }
+    
+//    init(dict: [String:Any]) {
+//
+//    }
 }
 
 class ChoosePackageVC: UIViewController {
@@ -59,6 +73,8 @@ class ChoosePackageVC: UIViewController {
     //MARK:- Variable Declarations
 //    var arrPackage = [ChoosePackage]()
     var arrPackage = [SelectPackage]()
+    var arrPackageIds = [String]()
+    var dict = SelectPackage()
     var userid = Int()
     var firstname = String()
     var lastname = String()
@@ -79,12 +95,13 @@ class ChoosePackageVC: UIViewController {
     var service_duration = String()
     var instruction = String()
     var tax_rate = String()
-    var package_id = Int()
+    var package_id = String()
     var promocode = String()
     var selectedIndex = -1
     var selectedPackage = Bool()
     var token = String()
     var totalCompAddress = String()
+    var paymentStatus = 0
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -109,19 +126,15 @@ class ChoosePackageVC: UIViewController {
         
         getData()
      //   callShowPackageAPI()
-        arrPackage = [SelectPackage(name: "Monthly subscription", price: "$19.99", validity: "30Days"), SelectPackage(name: "Free Trial", price: "$0", validity: "14Days")]
+        
+        arrPackageIds = arrProductIds
+        
+        addProduct()
+//        arrPackage = [SelectPackage(id: "21", name: "Year of all access subscription", price: "$180", validity: "365Days"), SelectPackage(id: "19", name: "All access subscription", price: "$20", validity: "30Days"), SelectPackage(id: "25", name: "Established client base", price: "$10", validity: "30Days"), SelectPackage(id: "24", name: "New Business", price: "$5", validity: "30Days"), SelectPackage(id: "23", name: "Free monthly subscription", price: "$0", validity: "30Days")]
+        
     }
     
     //MARK:- User-Defined Methods
-//    func validation() -> Bool {
-//        if (btnYearly.isSelected == false && btnMonthly.isSelected == false && btnEarlyBird.isSelected == false && btnFreeTrial.isSelected == false) {
-//            AppData.sharedInstance.showAlert(title: "Alert", message: "Please select Package", viewController: self)
-//        } else {
-//            return true
-//        }
-//        return false
-//    }
-    
     func getData() {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         userid = UserDefaults.standard.value(forKey: "userid") as? Int ?? 0
@@ -145,7 +158,7 @@ class ChoosePackageVC: UIViewController {
         instruction = UserDefaults.standard.value(forKey: "instruction") as? String ?? ""
         tax_rate = UserDefaults.standard.value(forKey: "tax_rate") as? String ?? ""
         
-      //  package_id = UserDefaults.standard.value(forKey: "package_id") as? Int ?? 0
+        package_id = UserDefaults.standard.value(forKey: "package_id") as? String ?? ""
         promocode = UserDefaults.standard.value(forKey: "promocode") as? String ?? ""
     }
     
@@ -172,6 +185,155 @@ class ChoosePackageVC: UIViewController {
         }
     }       */
     
+    func addProduct() {
+        for i in arrPackageIds {
+            getProductsInfo(productId: i)
+        }
+    }
+    
+    func getProductsInfo(productId: String) {
+        SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+                self.dict = SelectPackage(id: productId, name: product.localizedTitle, price: product.localizedPrice ?? "", validity: product.localizedSubscriptionPeriod)
+                self.arrPackage.append(self.dict)
+                
+                DispatchQueue.main.async {
+                    self.tblView.reloadData()
+                }
+            } else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            } else {
+                print("Error: \(String(describing: result.error))")
+            }
+        }
+    }
+    
+    func buyPackage() {
+        if(AppData.sharedInstance.isConnectedToNetwork()){
+            AppData.sharedInstance.showLoader()
+            
+//            productID = productsIds[sender.tag]
+//            checkIfPurchaed(productId: productID)
+            SwiftyStoreKit.purchaseProduct(package_id, quantity: 1, atomically: true) { result in
+                    switch result {
+                    case .success(let product):
+                        // fetch content from your server, then:
+                        if product.needsFinishTransaction {
+                            SwiftyStoreKit.finishTransaction(product.transaction)
+                        }
+                        print("Purchase Success: \(product.productId)")
+                        
+                        let appleValidator = AppleReceiptValidator(service: .sandbox, sharedSecret: "d223e7df9689472295a6d7a62e8864ba")
+                        SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
+                            if case .success(let receipt) = result {
+                             //   self.savePurchaseToDefault(planId: self.selectedPlan)
+                                AppData.sharedInstance.dismissLoader()
+                                self.view.makeToast("Purchased Successfully")
+                                print("Purchased Successfully")
+                                print("Verify receipt success: \(receipt)")
+                                
+                                self.paymentStatus = 1
+                                
+                                self.callRegisterAPI()
+                              //  self.status = "Active"
+                                
+//                                if let pending_renewal_info = receipt["pending_renewal_info"] as? [[String:Any]] {
+//                                    print("pending_renewal_info:- ",pending_renewal_info)
+//                                    self.arrPendingRenewal.removeAll()
+//                                    for dict in pending_renewal_info {
+//                                        self.arrPendingRenewal.append(PendingRenewalInfo(dict: dict))
+//                                    }
+//                                    print("arrPendingRenewal:-", self.arrPendingRenewal)
+//                                }
+//
+//                                if let receipt = receipt["receipt"] as? NSDictionary {
+//                                    if let in_app = receipt.value(forKey: "in_app") as? [[String:Any]] {
+//                                        self.arrInApp.removeAll()
+//                                        for dict in in_app {
+//                                            self.arrInApp.append(InApp(dict: dict))
+//                                        }
+//                                      //  print("arrInAppFirst:-", self.arrInApp.first!)
+//                                    }
+//                                }
+//                                print("arrInAppLast:-", self.arrInApp.last!)
+//                                let dict = self.arrInApp.last
+//                                self.expiryDate = dict?.expires_date ?? ""
+//                                self.purchaseDate = dict?.purchase_date ?? ""
+//                                self.invoiceID = dict?.transaction_id ?? ""
+//
+//                                self.callPurchaseAPI()
+//
+                                UserDefaults.standard.setValue(true, forKey: "currentSubscription")
+//                                self.isSubscribed = true
+
+                            } else {
+                                self.paymentStatus = 0
+                                UserDefaults.standard.setValue(false, forKey: "currentSubscription")
+//                                self.isSubscribed = false
+                                AppData.sharedInstance.dismissLoader()
+                                // receipt verification error
+                            }
+                        }
+                        
+                    case .error(let error):
+                        self.paymentStatus = 0
+                        AppData.sharedInstance.dismissLoader()
+                        switch error.code {
+                        case .unknown:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .clientInvalid:
+                            self.view.makeToast("Not allowed to make the payment")
+                        case .paymentCancelled:
+                            break
+                        case .paymentInvalid:
+                            self.view.makeToast("The purchase identifier was invalid")
+                        case .paymentNotAllowed:
+                            self.view.makeToast("The device is not allowed to make the payment")
+                        case .storeProductNotAvailable:
+                            self.view.makeToast("The product is not available in the current storefront")
+                        case .cloudServicePermissionDenied:
+                            self.view.makeToast("Access to cloud service information is not allowed")
+                        case .cloudServiceNetworkConnectionFailed:
+                            self.view.makeToast("Could not connect to the network")
+                        case .cloudServiceRevoked:
+                            self.view.makeToast("User has revoked permission to use this cloud service")
+                        case .invalidSignature:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .privacyAcknowledgementRequired:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .unauthorizedRequestData:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .invalidOfferPrice:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .invalidOfferIdentifier:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .missingOfferParams:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .overlayCancelled:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .overlayInvalidConfiguration:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .overlayTimeout:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .ineligibleForOffer:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .unsupportedPlatform:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        case .overlayPresentedInBackgroundScene:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        @unknown default:
+                            self.view.makeToast("Unknown error. Please contact support")
+                        }
+                    }
+                }
+            } else {
+                AppData.sharedInstance.dismissLoader()
+                self.view.makeToast("Check your network connection")
+            }
+    }
+    
     func callRegisterAPI() {
         AppData.sharedInstance.showLoader()
         var params = NSDictionary()
@@ -197,7 +359,8 @@ class ChoosePackageVC: UIViewController {
             "instruction" : instruction,
             "tax_rate" : tax_rate,
             "package_id" : package_id,
-            "promocode" : promocode
+            "promocode" : promocode,
+            "paymentstatus": paymentStatus
         ]
         
         let imageData1 = UserDefaults.standard.data(forKey: "userimage")
@@ -212,22 +375,26 @@ class ChoosePackageVC: UIViewController {
                         self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
                         UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
                         if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.alert(message: message, viewController: self) { (alert) in
+                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
                                 let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
                                 self.navigationController?.pushViewController(VC, animated: true)
                             }
                         }
-                    } else if (success == 2) {
-                        UserDefaults.standard.set(true, forKey: "setUser")
-                        self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
-                        UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
-                        if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.alert(message: message, viewController: self) { (alert) in
-                                let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-                                self.navigationController?.pushViewController(VC, animated: true)
-                            }
-                        }
-                    } else {
+                    }
+                    
+//                    else if (success == 2) {
+//                        UserDefaults.standard.set(true, forKey: "setUser")
+//                        self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
+//                        UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
+//                        if let message = res.value(forKey: "message") as? String {
+//                            AppData.sharedInstance.alert(message: message, viewController: self) { (alert) in
+//                                let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+//                                self.navigationController?.pushViewController(VC, animated: true)
+//                            }
+//                        }
+//                    }
+                    
+                    else {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
                         }
@@ -328,9 +495,9 @@ class ChoosePackageVC: UIViewController {
     
     @IBAction func btnSubmitClick(_ sender: UIButton) {
         getData()
-        
+        buyPackage()
       //  if selectedPackage == true {
-            callRegisterAPI()
+         //   callRegisterAPI()
 //        } else if selectedPackage == false {
 //            AppData.sharedInstance.showAlert(title: "Alert", message: "Please select Package", viewController: self)
 //        }
@@ -341,9 +508,9 @@ class ChoosePackageVC: UIViewController {
         selectedIndex = sender.tag
         tblView.reloadData()
         btnRadio.setImage(UIImage(named: btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)
-      //  package_id = self.arrPackage[sender.tag].id
+        package_id = self.arrPackage[sender.tag].id
         UserDefaults.standard.setValue(package_id, forKey: "package_id")
-        print(package_id)
+       // print(package_id)
         
         if arrPackage[sender.tag].name == "Free Trial" {
             lblPromocodeHeightConstraint.constant = 0
@@ -408,6 +575,7 @@ extension ChoosePackageVC: UITableViewDataSource {
         }
         
         cell.btnRadio.setImage(UIImage(named: cell.btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)
+        cell.cellView.layer.cornerRadius = 12
         cell.cellView.backgroundColor = cell.btnRadio.isSelected ? UIColor.init("#15B0DA") : UIColor.white
         
 //        if cell.btnRadio.isSelected == true {
@@ -423,7 +591,7 @@ extension ChoosePackageVC: UITableViewDataSource {
 //MARK:- TableView Delegate Methods
 extension ChoosePackageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return UITableView.automaticDimension
     }
 }
 

@@ -84,13 +84,17 @@ class SubscriptionPackageVC: UIViewController {
     #endif
     
     //MARK:- Variable Declarations
+    var arrPackage = [SelectPackage]()
+    var arrPackageIds = [String]()
+    var dict = SelectPackage()
+    
     var iapProducts = [SKProduct]()
     var arr:NSMutableArray = NSMutableArray()
     var productID = String()
     var selectedSubScription = Int()
     var isSubscribed = Bool()
     
-    var productsIds = ["32323232"]
+  //  var productsIds = ["32323232"]
     var token = String()
     var arrPendingRenewal = [PendingRenewalInfo]()
     var arrInApp = [InApp]()
@@ -112,6 +116,10 @@ class SubscriptionPackageVC: UIViewController {
         setInitially()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         userID = UserDefaults.standard.value(forKey: "userid") as? Int ?? 0
+        
+        arrPackageIds = arrProductIds
+        
+        addProduct()
         
 //        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
 //            switch result {
@@ -144,6 +152,38 @@ class SubscriptionPackageVC: UIViewController {
         tblSubscription.tableFooterView = UIView()
         btnRestore.layer.cornerRadius = 12
         btnRestore.isHidden = true
+    }
+    
+    func addProduct() {
+        for i in arrPackageIds {
+            getProductsInfo(productId: i)
+        }
+    }
+    
+    func getProductsInfo(productId: String) {
+        SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+                self.dict = SelectPackage(id: productId, name: product.localizedTitle, price: product.localizedPrice ?? "", validity: product.localizedSubscriptionPeriod)
+                var currPrice = product.localizedPrice
+                currPrice?.removeFirst()
+                let pri = currPrice?.floatValue()
+                let pp = Int(pri ?? 0.00)
+                
+                if (pp > 0) {
+                    self.arrPackage.append(self.dict)
+                }
+                
+                DispatchQueue.main.async {
+                    self.tblSubscription.reloadData()
+                }
+            } else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            } else {
+                print("Error: \(String(describing: result.error))")
+            }
+        }
     }
     
     func checkIfPurchaed(productId: String) {
@@ -238,7 +278,7 @@ class SubscriptionPackageVC: UIViewController {
         if(AppData.sharedInstance.isConnectedToNetwork()){
             AppData.sharedInstance.showLoader()
             
-            productID = productsIds[sender.tag]
+            productID = arrPackageIds[sender.tag]
             checkIfPurchaed(productId: productID)
             SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
                     switch result {
@@ -426,25 +466,25 @@ class SubscriptionPackageVC: UIViewController {
 //MARK:- UITableView DataSource Methods
 extension SubscriptionPackageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return arrPackage.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblSubscription.dequeueReusableCell(withIdentifier: "SubscriptionPackageCell", for: indexPath) as! SubscriptionPackageCell
-        
+        cell.model = arrPackage[indexPath.row]
         cell.setCell(index: indexPath.row)
         cell.btnPurchase.tag = indexPath.row
         cell.parent = self
         
-        if isSubscribed {
-            cell.btnPurchase.setTitle("Active", for: .normal)
-            cell.btnPurchase.backgroundColor = UIColor.init("#149A14")
-            cell.btnPurchase.isUserInteractionEnabled = false
-        } else {
+//        if isSubscribed {
+//            cell.btnPurchase.setTitle("Active", for: .normal)
+//            cell.btnPurchase.backgroundColor = UIColor.init("#149A14")
+//            cell.btnPurchase.isUserInteractionEnabled = false
+//        } else {
             cell.btnPurchase.setTitle("Purchase", for: .normal)
             cell.btnPurchase.backgroundColor = UIColor.init("#15B0DA")
             cell.btnPurchase.isUserInteractionEnabled = true
-        }
+//        }
         
         return cell
     }

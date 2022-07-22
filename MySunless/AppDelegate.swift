@@ -43,23 +43,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }     
         }
-        getInAppPrice()
+     //   getInAppPrice()
         
         return true
     }
     
-    func getInAppPrice() {
-        SwiftyStoreKit.retrieveProductsInfo(Set<String>(ProductType.all.map({$0.rawValue}))) { (result) in
-            let products = result.retrievedProducts
-            var arrProduct = [[String:String]]()
-            for p in products {
-                let dict = [p.productIdentifier : p.localizedPrice]
-                arrProduct.append(dict as! [String : String])
-            }
-//            UserDefaults.standard.set(arrProduct, forKey: "kAllPlans")
-//            UserDefaults.standard.synchronize()
-        }
-    }
+//    func getInAppPrice() {
+//        SwiftyStoreKit.retrieveProductsInfo(Set<String>(ProductType.all.map({$0.rawValue}))) { (result) in
+//            let products = result.retrievedProducts
+//            var arrProduct = [[String:String]]()
+//            for p in products {
+//                let dict = [p.productIdentifier : p.localizedPrice]
+//                arrProduct.append(dict as! [String : String])
+//            }
+////            UserDefaults.standard.set(arrProduct, forKey: "kAllPlans")
+////            UserDefaults.standard.synchronize()
+//        }
+//    }
     
     // MARK: UISceneSession Lifecycle
 

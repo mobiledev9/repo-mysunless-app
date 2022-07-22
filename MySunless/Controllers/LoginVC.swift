@@ -115,6 +115,14 @@ class LoginVC: UIViewController {
                         if let userid = res.value(forKey: "userid") as? Int {
                             UserDefaults.standard.set(userid, forKey: "userid")
                         }
+                        if let packageId = res.value(forKey: "packageId") as? String {
+                            if packageId == "No Package" {
+                                UserDefaults.standard.set(false, forKey: "packageStatus")
+                            } else {
+                                UserDefaults.standard.set(packageId, forKey: "packageId")
+                                UserDefaults.standard.set(true, forKey: "packageStatus")
+                            }
+                        }
                         UserDefaults.standard.set(true, forKey: "setUser")
 //                        if let resp = res.value(forKey: "data") as? NSDictionary {
                         
