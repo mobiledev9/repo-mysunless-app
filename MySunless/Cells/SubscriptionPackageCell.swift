@@ -35,17 +35,17 @@ class SubscriptionPackageCell: UITableViewCell {
     }
     
     func setCell(index: Int) {
-        switch index {
-        case 0:
-            lblPackageName.text = "Monthly"
-            lblPrice.text = "$19.99"
-            lblValidityDays.text = "30"
-            lblEmployeeLimit.text = "Unlimited"
-            lblClientsLimit.text = "Unlimited"
-            lblPackageDesc.text = "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days."
-        default:
-            print("Default")
-        }
+//        switch index {
+//        case 0:
+//            lblPackageName.text = "Monthly"
+//            lblPrice.text = "$19.99"
+//            lblValidityDays.text = "30"
+//            lblEmployeeLimit.text = "Unlimited"
+//            lblClientsLimit.text = "Unlimited"
+//            lblPackageDesc.text = "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days."
+//        default:
+//            print("Default")
+//        }
         
         lblPackageName.text = model.name
         lblPrice.text = model.price
@@ -71,6 +71,16 @@ class SubscriptionPackageCell: UITableViewCell {
         default:
             print("Default")
         }
+        
+//        if ("\(parent.dictActivePackage.package_id)" == model.id) {
+//            btnPurchase.setTitle("Active", for: .normal)
+//            btnPurchase.backgroundColor = UIColor.init("#149A14")
+//            btnPurchase.isUserInteractionEnabled = false
+//        } else {
+//            btnPurchase.setTitle("Purchase", for: .normal)
+//            btnPurchase.backgroundColor = UIColor.init("#15B0DA")
+//            btnPurchase.isUserInteractionEnabled = true
+//        }
         
         btnPurchase.tag = index
         

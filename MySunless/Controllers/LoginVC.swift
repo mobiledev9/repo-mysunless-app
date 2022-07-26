@@ -117,10 +117,10 @@ class LoginVC: UIViewController {
                         }
                         if let packageId = res.value(forKey: "packageId") as? String {
                             if packageId == "No Package" {
-                                UserDefaults.standard.set(false, forKey: "packageStatus")
+                                UserDefaults.standard.set(false, forKey: "currentSubscription")
                             } else {
                                 UserDefaults.standard.set(packageId, forKey: "packageId")
-                                UserDefaults.standard.set(true, forKey: "packageStatus")
+                                UserDefaults.standard.set(true, forKey: "currentSubscription")
                             }
                         }
                         UserDefaults.standard.set(true, forKey: "setUser")

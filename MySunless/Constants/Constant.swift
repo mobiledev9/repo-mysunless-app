@@ -195,7 +195,8 @@ let clientGoalList = ["Select Client Goal","10","20","50","100","250","500","100
 let salesGoalList = ["Select Sales Goal","5000","10000","25000","50000","100000","250000","500000","1000000"]
 let filterDays = ["Today","Yesterday","Last 7 days","Last 30 Days","This Month","Last Month","Year to Date","Custom Range"]
 let monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-let arrProductIds = ["23","24","25","19","21"]
+//let arrProductIds = ["23","24","25","19","21"]
+let arrProductIds = ["24","25","19","21"]
 
 
 //enum ProductType: String {

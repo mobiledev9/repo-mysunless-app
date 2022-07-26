@@ -7,6 +7,7 @@
 //
 import UIKit
 import Alamofire
+import SwiftyStoreKit
 
 protocol SubscriptionInfoProtocol {
     func viewInvoice()
@@ -32,12 +33,16 @@ class SubscriptionVC: UIViewController {
         
         setInitially()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
-        self.hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround()
         callSubscriptionsListAPI()
-        
-        tblSubscription.isHidden = true
+        tblSubscription.refreshControl = UIRefreshControl()
+        tblSubscription.refreshControl?.addTarget(self, action: #selector(callPullToRefresh), for: .valueChanged)
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+    }
+    
     //MARK:- UserDefined Functions
     func setInitially() {
         vw_searchbar.layer.borderWidth = 0.5
@@ -60,6 +65,7 @@ class SubscriptionVC: UIViewController {
                 if let success = res.value(forKey: "success") as? String {
                     if success == "1" {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            self.arrSubscription.removeAll()
                             for dic in response {
                                 self.arrSubscription.append(SubscriptionList.init(dict: dic))
                             }
@@ -101,6 +107,22 @@ class SubscriptionVC: UIViewController {
         VC.modalTransitionStyle = .crossDissolve
         VC.modalPresentationStyle = .overCurrentContext
         self.present(VC, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnEndSubscriptionClick(_ sender: UIButton) {
+        if let url = URL(string: "itms-apps://apps.apple.com/account/subscriptions") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        }
+    }
+    
+    @objc func callPullToRefresh() {
+        DispatchQueue.main.async {
+            self.callSubscriptionsListAPI()
+            self.tblSubscription.refreshControl?.endRefreshing()
+            self.tblSubscription.reloadData()
+        }
     }
 }
 

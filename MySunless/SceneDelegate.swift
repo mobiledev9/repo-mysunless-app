@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             case "subscriber":
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let MainView = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+             //   let MainView = storyboard.instantiateViewController(withIdentifier: "ChoosePackageVC") as! ChoosePackageVC
                 let navController = UINavigationController.init(rootViewController: MainView)
                 navController.navigationBar.isHidden = true
                 self.window?.rootViewController = navController

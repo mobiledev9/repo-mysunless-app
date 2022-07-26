@@ -102,6 +102,16 @@ class ChoosePackageVC: UIViewController {
     var token = String()
     var totalCompAddress = String()
     var paymentStatus = 0
+    var arrPendingRenewal = [PendingRenewalInfo]()
+    var arrInApp = [InApp]()
+    var expiryDate = String()
+    var purchaseDate = String()
+    var invoiceID = String()
+    var packageName = String()
+    var packageAmount = String()
+    var packageStatus = "InActive"
+    var packageDesc = String()
+    var packageValidity = String()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -128,6 +138,9 @@ class ChoosePackageVC: UIViewController {
      //   callShowPackageAPI()
         
         arrPackageIds = arrProductIds
+        
+        self.dict = SelectPackage(id: "23", name: "Free Monthly Subscription", price: "$0.00", validity: "1 mth")
+        self.arrPackage.append(self.dict)
         
         addProduct()
 //        arrPackage = [SelectPackage(id: "21", name: "Year of all access subscription", price: "$180", validity: "365Days"), SelectPackage(id: "19", name: "All access subscription", price: "$20", validity: "30Days"), SelectPackage(id: "25", name: "Established client base", price: "$10", validity: "30Days"), SelectPackage(id: "24", name: "New Business", price: "$5", validity: "30Days"), SelectPackage(id: "23", name: "Free monthly subscription", price: "$0", validity: "30Days")]
@@ -210,6 +223,32 @@ class ChoosePackageVC: UIViewController {
         }
     }
     
+    func getPackageDesc() -> String {
+        switch package_id {
+        case "24":
+            return "Great for new technicians who started to grow their client base - 50 client profiles - Access to all Mysunless features"
+        case "25":
+            return "Made for businesses with a strong list of clients. - 125 client limit - access to all Mysunless features"
+        case "19":
+            return "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days."
+        case "21":
+            return "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid 365 days after purchase."
+        default:
+            return ""
+        }
+    }
+    
+    func getPackageValidity() -> String {
+        switch packageValidity {
+        case "1 mth":
+            return "Monthly"
+        case "1 yr":
+            return "Yearly"
+        default:
+            return ""
+        }
+    }
+    
     func buyPackage() {
         if(AppData.sharedInstance.isConnectedToNetwork()){
             AppData.sharedInstance.showLoader()
@@ -234,36 +273,34 @@ class ChoosePackageVC: UIViewController {
                                 print("Purchased Successfully")
                                 print("Verify receipt success: \(receipt)")
                                 
+                                self.packageStatus = "Active"
                                 self.paymentStatus = 1
                                 
-                                self.callRegisterAPI()
-                              //  self.status = "Active"
-                                
-//                                if let pending_renewal_info = receipt["pending_renewal_info"] as? [[String:Any]] {
-//                                    print("pending_renewal_info:- ",pending_renewal_info)
-//                                    self.arrPendingRenewal.removeAll()
-//                                    for dict in pending_renewal_info {
-//                                        self.arrPendingRenewal.append(PendingRenewalInfo(dict: dict))
-//                                    }
-//                                    print("arrPendingRenewal:-", self.arrPendingRenewal)
-//                                }
+                                if let pending_renewal_info = receipt["pending_renewal_info"] as? [[String:Any]] {
+                                    print("pending_renewal_info:- ",pending_renewal_info)
+                                    self.arrPendingRenewal.removeAll()
+                                    for dict in pending_renewal_info {
+                                        self.arrPendingRenewal.append(PendingRenewalInfo(dict: dict))
+                                    }
+                                    print("arrPendingRenewal:-", self.arrPendingRenewal)
+                                }
+
+                                if let receipt = receipt["receipt"] as? NSDictionary {
+                                    if let in_app = receipt.value(forKey: "in_app") as? [[String:Any]] {
+                                        self.arrInApp.removeAll()
+                                        for dict in in_app {
+                                            self.arrInApp.append(InApp(dict: dict))
+                                        }
+                                      //  print("arrInAppFirst:-", self.arrInApp.first!)
+                                    }
+                                }
+                                print("arrInAppLast:-", self.arrInApp.last!)
+                                let dict = self.arrInApp.last
+                                self.expiryDate = dict?.expires_date ?? ""
+                                self.purchaseDate = dict?.purchase_date ?? ""
+                                self.invoiceID = dict?.transaction_id ?? ""
 //
-//                                if let receipt = receipt["receipt"] as? NSDictionary {
-//                                    if let in_app = receipt.value(forKey: "in_app") as? [[String:Any]] {
-//                                        self.arrInApp.removeAll()
-//                                        for dict in in_app {
-//                                            self.arrInApp.append(InApp(dict: dict))
-//                                        }
-//                                      //  print("arrInAppFirst:-", self.arrInApp.first!)
-//                                    }
-//                                }
-//                                print("arrInAppLast:-", self.arrInApp.last!)
-//                                let dict = self.arrInApp.last
-//                                self.expiryDate = dict?.expires_date ?? ""
-//                                self.purchaseDate = dict?.purchase_date ?? ""
-//                                self.invoiceID = dict?.transaction_id ?? ""
-//
-//                                self.callPurchaseAPI()
+                                self.callPurchaseAPI()
 //
                                 UserDefaults.standard.setValue(true, forKey: "currentSubscription")
 //                                self.isSubscribed = true
@@ -278,6 +315,7 @@ class ChoosePackageVC: UIViewController {
                         }
                         
                     case .error(let error):
+                        self.packageStatus = "InActive"
                         self.paymentStatus = 0
                         AppData.sharedInstance.dismissLoader()
                         switch error.code {
@@ -332,6 +370,48 @@ class ChoosePackageVC: UIViewController {
                 AppData.sharedInstance.dismissLoader()
                 self.view.makeToast("Check your network connection")
             }
+    }
+    
+    func callPurchaseAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization": token]
+        var params = NSDictionary()
+        params = ["Packageid": package_id,
+                  "Name": packageName,
+                  "Expirydate": expiryDate,
+                  "Purchasedate": purchaseDate,
+                  "Invoiceid": invoiceID,
+                  "Userid": userid,
+                  "status": packageStatus,
+                  "promocodeid": "",
+                  "amount": packageAmount,
+                  "Desc": getPackageDesc(),
+                  "packagetype": getPackageValidity()
+        ]
+        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + IN_APP_PURCHASE, param: params, header: headers) { respnse, error in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? Int {
+                    if success == 1 {
+                        if let message = res.value(forKey: "message") as? String {
+                            print(message)
+                            self.callRegisterAPI()
+                        }
+                    } else {
+                        if let message = res.value(forKey: "message") as? String {
+                            print(message)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func callRegisterAPI() {
@@ -495,7 +575,13 @@ class ChoosePackageVC: UIViewController {
     
     @IBAction func btnSubmitClick(_ sender: UIButton) {
         getData()
-        buyPackage()
+        if package_id == "23" {
+            paymentStatus = 1
+            UserDefaults.standard.setValue(true, forKey: "currentSubscription")
+            callRegisterAPI()
+        } else {
+            buyPackage()
+        }
       //  if selectedPackage == true {
          //   callRegisterAPI()
 //        } else if selectedPackage == false {
@@ -510,8 +596,10 @@ class ChoosePackageVC: UIViewController {
         btnRadio.setImage(UIImage(named: btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)
         package_id = self.arrPackage[sender.tag].id
         UserDefaults.standard.setValue(package_id, forKey: "package_id")
-       // print(package_id)
-        
+        packageName = arrPackage[sender.tag].name
+        packageAmount = arrPackage[sender.tag].price
+        packageValidity = arrPackage[sender.tag].validity
+       
         if arrPackage[sender.tag].name == "Free Trial" {
             lblPromocodeHeightConstraint.constant = 0
             vw_promocodeHeightConstraint.constant = 0

@@ -108,6 +108,9 @@ class SubscriptionPackageVC: UIViewController {
     var amount = String()
     var packageDesc = String()
     var packagetype = String()
+  //  var arrSubscription = [SubscriptionList]()
+    var dictActivePackage = SubscriptionList(dict: [:])
+    var packageValidity = String()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -133,6 +136,7 @@ class SubscriptionPackageVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+      //  callSubscriptionsListAPI()
         if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
             isSubscribed = true
         } else {
@@ -161,8 +165,10 @@ class SubscriptionPackageVC: UIViewController {
     }
     
     func getProductsInfo(productId: String) {
+      //  AppData.sharedInstance.showLoader()
         SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
             if let product = result.retrievedProducts.first {
+              //  AppData.sharedInstance.dismissLoader()
                 let priceString = product.localizedPrice!
                 print("Product: \(product.localizedDescription), price: \(priceString)")
                 self.dict = SelectPackage(id: productId, name: product.localizedTitle, price: product.localizedPrice ?? "", validity: product.localizedSubscriptionPeriod)
@@ -227,6 +233,32 @@ class SubscriptionPackageVC: UIViewController {
 
     }
     
+    func getPackageDesc() -> String {
+        switch productID {
+        case "24":
+            return "Great for new technicians who started to grow their client base - 50 client profiles - Access to all Mysunless features"
+        case "25":
+            return "Made for businesses with a strong list of clients. - 125 client limit - access to all Mysunless features"
+        case "19":
+            return "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days."
+        case "21":
+            return "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid 365 days after purchase."
+        default:
+            return ""
+        }
+    }
+    
+    func getPackageValidity() -> String {
+        switch packageValidity {
+        case "1 mth":
+            return "Monthly"
+        case "1 yr":
+            return "Yearly"
+        default:
+            return ""
+        }
+    }
+    
     func callPurchaseAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
@@ -240,8 +272,8 @@ class SubscriptionPackageVC: UIViewController {
                   "status": status,
                   "promocodeid": "",
                   "amount": amount,
-                  "Desc": packageDesc,
-                  "packagetype": packagetype
+                  "Desc": getPackageDesc(),
+                  "packagetype": getPackageValidity()
         ]
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
@@ -267,6 +299,41 @@ class SubscriptionPackageVC: UIViewController {
             }
         }
     }
+    
+   /* func callSubscriptionsListAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization":token]
+        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess" ) {
+            AppData.sharedInstance.showAlert(title: "No Network Found!", message: "Please check your internet connection.", viewController: self)
+            return
+        }
+        APIUtilities.sharedInstance.GetDictAPICallWith(url: BASE_URL + SUBSCRIPTIONS_LIST, header: headers) { respnse, error in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
+                        if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            for dic in response {
+                                self.arrSubscription.append(SubscriptionList.init(dict: dic))
+                            }
+                         
+                            let active = self.arrSubscription.filter{$0.status == "Active"}
+                            if active.count != 0 {
+                                for i in active {
+                                    self.dictActivePackage = i
+                                }
+                            }
+                            
+                        }
+                        DispatchQueue.main.async {
+                            self.tblSubscription.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }           */
 
     //MARK:- Actions
     @IBAction func btnCloseClick(_ sender: UIButton) {
@@ -279,6 +346,11 @@ class SubscriptionPackageVC: UIViewController {
             AppData.sharedInstance.showLoader()
             
             productID = arrPackageIds[sender.tag]
+            
+            packageName = arrPackage[sender.tag].name
+            amount = arrPackage[sender.tag].price
+            packageValidity = arrPackage[sender.tag].validity
+            
             checkIfPurchaed(productId: productID)
             SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
                     switch result {
@@ -481,9 +553,9 @@ extension SubscriptionPackageVC: UITableViewDataSource {
 //            cell.btnPurchase.backgroundColor = UIColor.init("#149A14")
 //            cell.btnPurchase.isUserInteractionEnabled = false
 //        } else {
-            cell.btnPurchase.setTitle("Purchase", for: .normal)
-            cell.btnPurchase.backgroundColor = UIColor.init("#15B0DA")
-            cell.btnPurchase.isUserInteractionEnabled = true
+//            cell.btnPurchase.setTitle("Purchase", for: .normal)
+//            cell.btnPurchase.backgroundColor = UIColor.init("#15B0DA")
+//            cell.btnPurchase.isUserInteractionEnabled = true
 //        }
         
         return cell
