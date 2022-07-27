@@ -154,8 +154,8 @@ class SubscriptionPackageVC: UIViewController {
         vw_bottom.layer.cornerRadius = 12
         vw_bottom.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         tblSubscription.tableFooterView = UIView()
-        btnRestore.layer.cornerRadius = 12
-        btnRestore.isHidden = true
+//        btnRestore.layer.cornerRadius = 12
+//        btnRestore.isHidden = true
     }
     
     func addProduct() {
@@ -381,7 +381,7 @@ class SubscriptionPackageVC: UIViewController {
                                     }
                                     print("arrPendingRenewal:-", self.arrPendingRenewal)
                                 }
-                                
+                                    
                                 if let receipt = receipt["receipt"] as? NSDictionary {
                                     if let in_app = receipt.value(forKey: "in_app") as? [[String:Any]] {
                                         self.arrInApp.removeAll()
