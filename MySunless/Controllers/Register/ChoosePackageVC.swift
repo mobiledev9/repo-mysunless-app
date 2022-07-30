@@ -295,8 +295,10 @@ class ChoosePackageVC: UIViewController {
                                     }
                                 }
                                 print("arrInAppLast:-", self.arrInApp.last!)
-                                let dict = self.arrInApp.last
+                                var dict = self.arrInApp.last
+                                dict?.expires_date.removeLast(17)
                                 self.expiryDate = dict?.expires_date ?? ""
+                                dict?.purchase_date.removeLast(17)
                                 self.purchaseDate = dict?.purchase_date ?? ""
                                 self.invoiceID = dict?.transaction_id ?? ""
 //

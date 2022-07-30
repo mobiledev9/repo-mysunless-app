@@ -9,7 +9,7 @@ import UIKit
 
 class ImportVC: UIViewController {
 
-    @IBOutlet weak var tblImport: UITableView!
+    @IBOutlet weak var importColview: UICollectionView!
     
     var arrImport = [ClientAction]()
     
@@ -17,26 +17,31 @@ class ImportVC: UIViewController {
         super.viewDidLoad()
         
         arrImport = [ClientAction(title: "Excel", image: UIImage(named: "excel") ?? UIImage())]
-        tblImport.register(UINib(nibName: "ImportExportCell", bundle: nil), forCellReuseIdentifier: "ImportExportCell")
-        tblImport.tableFooterView = UIView()
+        importColview.register(UINib(nibName: "ImporttExportCell", bundle: nil), forCellWithReuseIdentifier: "ImporttExportCell")
     }
 }
 
-extension ImportVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ImportVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrImport.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tblImport.dequeueReusableCell(withIdentifier: "ImportExportCell", for: indexPath) as! ImportExportCell
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = importColview.dequeueReusableCell(withReuseIdentifier: "ImporttExportCell", for: indexPath) as! ImporttExportCell
         cell.lblName.text = arrImport[indexPath.row].title
-        cell.imgview.image = arrImport[indexPath.row].image
+        cell.imgView.image = arrImport[indexPath.row].image
         return cell
     }
-}
 
-extension ImportVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (importColview.frame.size.width-20) / 2, height: 200)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 }

@@ -10,7 +10,8 @@ import Alamofire
 
 class ExportVC: UIViewController {
 
-    @IBOutlet weak var tblExport: UITableView!
+    @IBOutlet weak var btnFilterview: UIView!
+    @IBOutlet weak var exportColview: UICollectionView!
     
     var arrExport = [ClientAction]()
     var token = String()
@@ -23,8 +24,7 @@ class ExportVC: UIViewController {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         userID = UserDefaults.standard.value(forKey: "userid") as? Int ?? 0
         arrExport = [ClientAction(title: "Excel", image: UIImage(named: "excel") ?? UIImage()), ClientAction(title: "Google", image: UIImage(named: "google") ?? UIImage()), ClientAction(title: "One Drive", image: UIImage(named: "icloud") ?? UIImage()), ClientAction(title: "DropBox", image: UIImage(named: "dropbox") ?? UIImage())]
-        tblExport.register(UINib(nibName: "ImportExportCell", bundle: nil), forCellReuseIdentifier: "ImportExportCell")
-        tblExport.tableFooterView = UIView()
+        exportColview.register(UINib(nibName: "ImporttExportCell", bundle: nil), forCellWithReuseIdentifier: "ImporttExportCell")
         
         callExportClientSheetAPI()
     }
@@ -80,27 +80,37 @@ class ExportVC: UIViewController {
             }
         }
     }
+    
+    @IBAction func btnFilterClick(_ sender: UIButton) {
+    }
+    
 }
 
-extension ExportVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ExportVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrExport.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tblExport.dequeueReusableCell(withIdentifier: "ImportExportCell", for: indexPath) as! ImportExportCell
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = exportColview.dequeueReusableCell(withReuseIdentifier: "ImporttExportCell", for: indexPath) as! ImporttExportCell
         cell.lblName.text = arrExport[indexPath.row].title
-        cell.imgview.image = arrExport[indexPath.row].image
+        cell.imgView.image = arrExport[indexPath.row].image
         return cell
     }
-}
 
-extension ExportVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (exportColview.frame.size.width-20) / 2, height: 200)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
             saveCSVfile()
@@ -115,6 +125,5 @@ extension ExportVC: UITableViewDelegate {
         default:
             print("Default")
         }
-        
     }
 }

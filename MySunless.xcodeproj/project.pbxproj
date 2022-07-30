@@ -235,6 +235,8 @@
 		D5D76B8A2862F1EF001B1D52 /* ToDoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D76B882862F1EF001B1D52 /* ToDoCell.xib */; };
 		D5DE4CEB287C1EFB00125B53 /* TaskPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE4CEA287C1EFB00125B53 /* TaskPreviewVC.swift */; };
 		D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */; };
+		D5F8B6B52893B2260078311E /* ImporttExportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8B6B32893B2260078311E /* ImporttExportCell.swift */; };
+		D5F8B6B62893B2260078311E /* ImporttExportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F8B6B42893B2260078311E /* ImporttExportCell.xib */; };
 		D5FA407228607E3900E31D50 /* UserFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FA407128607E3900E31D50 /* UserFilterCell.swift */; };
 		D5FC2C6E2861CFA700E1244A /* ToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */; };
 		D5FC2C702861EEB800E1244A /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC2C6F2861EEB800E1244A /* AddCategoryVC.swift */; };
@@ -473,6 +475,8 @@
 		D5D76B882862F1EF001B1D52 /* ToDoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoCell.xib; sourceTree = "<group>"; };
 		D5DE4CEA287C1EFB00125B53 /* TaskPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPreviewVC.swift; sourceTree = "<group>"; };
 		D5F67CAA2857369500C953C9 /* SubscriberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberListCell.swift; sourceTree = "<group>"; };
+		D5F8B6B32893B2260078311E /* ImporttExportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImporttExportCell.swift; sourceTree = "<group>"; };
+		D5F8B6B42893B2260078311E /* ImporttExportCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImporttExportCell.xib; sourceTree = "<group>"; };
 		D5FA407128607E3900E31D50 /* UserFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterCell.swift; sourceTree = "<group>"; };
 		D5FC2C6D2861CFA700E1244A /* ToDoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoVC.swift; sourceTree = "<group>"; };
 		D5FC2C6F2861EEB800E1244A /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
@@ -632,6 +636,7 @@
 				D512682128700F740078934A /* ToDoArchiveCell.xib */,
 				D56947DB28755837006C6A31 /* ImportExportCell.xib */,
 				D59844AE28817CBA00846AA2 /* CommentCell.xib */,
+				D5F8B6B42893B2260078311E /* ImporttExportCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1031,6 +1036,7 @@
 			isa = PBXGroup;
 			children = (
 				D56947DA28755837006C6A31 /* ImportExportCell.swift */,
+				D5F8B6B32893B2260078311E /* ImporttExportCell.swift */,
 			);
 			path = "Import-ExportCells";
 			sourceTree = "<group>";
@@ -1147,6 +1153,7 @@
 				8894E0EB27DC65AC00CF411B /* Archive_ProductCategoryCell.xib in Resources */,
 				88FDA49B270C52B0008040E9 /* Roboto-Bold.ttf in Resources */,
 				8894E0EC27DC65AC00CF411B /* Archive_ProductCell.xib in Resources */,
+				D5F8B6B62893B2260078311E /* ImporttExportCell.xib in Resources */,
 				88FD35DB27E2FF200085231A /* SalesInfoCell.xib in Resources */,
 				88FDA4A627DB458E0001498A /* Archive_EventCell.xib in Resources */,
 				88FDA499270C52B0008040E9 /* LICENSE.txt in Resources */,
@@ -1397,6 +1404,7 @@
 				D59844AF28817CBA00846AA2 /* CommentCell.swift in Sources */,
 				88D86A1D27CCAA4E0075B4E5 /* SelectProductVC.swift in Sources */,
 				88D86A2927CCDE7F0075B4E5 /* PerformanceListVC.swift in Sources */,
+				D5F8B6B52893B2260078311E /* ImporttExportCell.swift in Sources */,
 				88957D5F27D9F1BB00A578BF /* Archive_ServiceCell.swift in Sources */,
 				88E2173A2711689F00D66BA4 /* AccountVerifyVC.swift in Sources */,
 				884BE20527CDFEBD00C60DC6 /* LoginLogCell.swift in Sources */,

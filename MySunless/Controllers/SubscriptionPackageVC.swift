@@ -26,7 +26,7 @@ struct PendingRenewalInfo {
 }
 
 struct InApp {
-    let expires_date: String
+    var expires_date: String
     let expires_date_ms: Int
     let expires_date_pst: String
     let in_app_ownership_type: String
@@ -37,7 +37,7 @@ struct InApp {
     let original_purchase_date_pst: String
     let original_transaction_id: Int
     let product_id: Int
-    let purchase_date: String
+    var purchase_date: String
     let purchase_date_ms: Int
     let purchase_date_pst: String
     let quantity: Int
@@ -60,6 +60,48 @@ struct InApp {
         self.purchase_date_ms = dict["purchase_date_ms"] as? Int ?? 0
         self.purchase_date_pst = dict["purchase_date_pst"] as? String ?? ""
         self.quantity = dict["quantity"] as? Int ?? 0
+        self.transaction_id = dict["transaction_id"] as? String ?? ""
+        self.web_order_line_item_id = dict["web_order_line_item_id"] as? Int ?? 0
+    }
+}
+
+struct LatestReceiptInfo {
+    var expires_date: String
+    let expires_date_ms: Int
+    let expires_date_pst: String
+    let in_app_ownership_type: String
+    let is_in_intro_offer_period: Bool
+    let is_trial_period: Bool
+    let original_purchase_date: String
+    let original_purchase_date_ms: Int
+    let original_purchase_date_pst: String
+    let original_transaction_id: Int
+    let product_id: Int
+    var purchase_date: String
+    let purchase_date_ms: Int
+    let purchase_date_pst: String
+    let quantity: Int
+    let subscription_group_identifier: Int
+    let transaction_id: String
+    let web_order_line_item_id: Int
+    
+    init(dict: [String:Any]) {
+        self.expires_date = dict["expires_date"] as? String ?? ""
+        self.expires_date_ms = dict["expires_date_ms"] as? Int ?? 0
+        self.expires_date_pst = dict["expires_date_pst"] as? String ?? ""
+        self.in_app_ownership_type = dict["in_app_ownership_type"] as? String ?? ""
+        self.is_in_intro_offer_period = dict["is_in_intro_offer_period"] as? Bool ?? Bool()
+        self.is_trial_period = dict["is_trial_period"] as? Bool ?? Bool()
+        self.original_purchase_date = dict["original_purchase_date"] as? String ?? ""
+        self.original_purchase_date_ms = dict["original_purchase_date_ms"] as? Int ?? 0
+        self.original_purchase_date_pst = dict["original_purchase_date_pst"] as? String ?? ""
+        self.original_transaction_id = dict["original_transaction_id"] as? Int ?? 0
+        self.product_id = dict["product_id"] as? Int ?? 0
+        self.purchase_date = dict["purchase_date"] as? String ?? ""
+        self.purchase_date_ms = dict["purchase_date_ms"] as? Int ?? 0
+        self.purchase_date_pst = dict["purchase_date_pst"] as? String ?? ""
+        self.quantity = dict["quantity"] as? Int ?? 0
+        self.subscription_group_identifier = dict["subscription_group_identifier"] as? Int ?? 0
         self.transaction_id = dict["transaction_id"] as? String ?? ""
         self.web_order_line_item_id = dict["web_order_line_item_id"] as? Int ?? 0
     }
@@ -98,6 +140,7 @@ class SubscriptionPackageVC: UIViewController {
     var token = String()
     var arrPendingRenewal = [PendingRenewalInfo]()
     var arrInApp = [InApp]()
+    var arrLatestReceiptInfo = [LatestReceiptInfo]()
     
     var packageName = String()
     var expiryDate = String()
@@ -165,10 +208,10 @@ class SubscriptionPackageVC: UIViewController {
     }
     
     func getProductsInfo(productId: String) {
-      //  AppData.sharedInstance.showLoader()
+        AppData.sharedInstance.showLoader()
         SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
             if let product = result.retrievedProducts.first {
-              //  AppData.sharedInstance.dismissLoader()
+                AppData.sharedInstance.dismissLoader()
                 let priceString = product.localizedPrice!
                 print("Product: \(product.localizedDescription), price: \(priceString)")
                 self.dict = SelectPackage(id: productId, name: product.localizedTitle, price: product.localizedPrice ?? "", validity: product.localizedSubscriptionPeriod)
@@ -391,11 +434,29 @@ class SubscriptionPackageVC: UIViewController {
                                       //  print("arrInAppFirst:-", self.arrInApp.first!)
                                     }
                                 }
-                                print("arrInAppLast:-", self.arrInApp.last!)
-                                let dict = self.arrInApp.last
-                                self.expiryDate = dict?.expires_date ?? ""
-                                self.purchaseDate = dict?.purchase_date ?? ""
-                                self.invoiceID = dict?.transaction_id ?? ""
+                                
+                                if let latestReceiptInfo = receipt["latest_receipt_info"] as? [[String:Any]] {
+                                    self.arrLatestReceiptInfo.removeAll()
+                                    for dictLatest in latestReceiptInfo {
+                                        self.arrLatestReceiptInfo.append(LatestReceiptInfo(dict: dictLatest))
+                                    }
+                                }
+                                
+                                print("latestReceiptInfoFirst:-", self.arrLatestReceiptInfo.first!)
+                                var dictLatestReceipt = self.arrLatestReceiptInfo.first
+                                dictLatestReceipt?.expires_date.removeLast(17)
+                                self.expiryDate = dictLatestReceipt?.expires_date ?? ""
+                                dictLatestReceipt?.purchase_date.removeLast(17)
+                                self.purchaseDate = dictLatestReceipt?.purchase_date ?? ""
+                                self.invoiceID = dictLatestReceipt?.transaction_id ?? ""
+                                
+//                                var dict = self.arrInApp.last
+//                                print("dict:-", dict!)
+//                                dict?.expires_date.removeLast(17)
+//                                self.expiryDate = dict?.expires_date ?? ""
+//                                dict?.purchase_date.removeLast(17)
+//                                self.purchaseDate = dict?.purchase_date ?? ""
+//                                self.invoiceID = dict?.transaction_id ?? 0
                                 
                                 self.callPurchaseAPI()
                                 

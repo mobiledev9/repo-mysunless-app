@@ -175,11 +175,16 @@ class CustomerDetailsVC: UIViewController {
                 if let success = res.value(forKey: "success") as? String {
                     if (success == "1") {
                         if let message = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
+                                let VC = self.storyboard?.instantiateViewController(withIdentifier: "ClientsVC") as! ClientsVC
+                                self.navigationController?.pushViewController(VC, animated: true)
+                            }
                         }
                     } else {
                         if let message = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
+                                
+                            }
                         }
                     }
                 }

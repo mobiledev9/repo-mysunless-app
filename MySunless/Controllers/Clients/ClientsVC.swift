@@ -264,6 +264,14 @@ extension ClientsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 155
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searching {
+            showClientProfileVC(id: filterdata[indexPath.row].id)
+        } else {
+            showClientProfileVC(id: arrClients[indexPath.row].id)
+        }
+    }
 }
 
 extension ClientsVC: UISearchBarDelegate {

@@ -40,7 +40,7 @@ class ViewClientProfileVC: UIViewController {
                                             clientAction(title: "Contact Client",
                                                          image: UIImage(named: "id-card")!),
                                             clientAction(title: "Order History",
-                                                         image: UIImage(named: "history")!),
+                                                         image: UIImage(named: "history-1")!),
                                             clientAction(title: "Package",
                                                          image: UIImage(named: "box-1")!)
                                        ]
@@ -264,16 +264,19 @@ extension ViewClientProfileVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblListOfAction.dequeueReusableCell(withIdentifier: "SelectClientCell", for: indexPath) as! SelectClientCell
         let model = arrClientAction[indexPath.row]
-        cell.imgView.image = model.image
-        cell.lblText.text = model.title
+        
         if selctedIndex == indexPath.row {
             cell.view.backgroundColor = UIColor.init("15B0DA")
             cell.imgView.setImageColor(color: UIColor.white)
             cell.lblText.textColor = UIColor.white
-        } else {
+            cell.imgView.image = model.image
+            cell.lblText.text = model.title
+        } else if selctedIndex != indexPath.row {
             cell.view.backgroundColor = UIColor.white
             cell.imgView.setImageColor(color: UIColor.init("#6D778E"))
             cell.lblText.textColor = UIColor.init("#6D778E")
+            cell.imgView.image = model.image
+            cell.lblText.text = model.title
         }
         return cell
     }
@@ -317,12 +320,12 @@ extension ViewClientProfileVC: UITableViewDelegate {
             default:
                 print("Default")
         }
-        tblListOfAction.reloadData()
+       // tblListOfAction.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tblListOfAction.reloadData()
-    }
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        tblListOfAction.reloadData()
+//    }
 }
 
 //MARK:- UITableViewCell Method
