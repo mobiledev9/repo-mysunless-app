@@ -151,9 +151,9 @@ class SubscriptionPackageVC: UIViewController {
     var amount = String()
     var packageDesc = String()
     var packagetype = String()
-  //  var arrSubscription = [SubscriptionList]()
-    var dictActivePackage = SubscriptionList(dict: [:])
+    var arrActiveSubscription = [SubscriptionList]()
     var packageValidity = String()
+    var validity = Int()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -166,6 +166,7 @@ class SubscriptionPackageVC: UIViewController {
         arrPackageIds = arrProductIds
         
         addProduct()
+        print("arrActiveSubscription:-", arrActiveSubscription)
         
 //        SwiftyStoreKit.fetchReceipt(forceRefresh: true) { result in
 //            switch result {
@@ -294,8 +295,10 @@ class SubscriptionPackageVC: UIViewController {
     func getPackageValidity() -> String {
         switch packageValidity {
         case "1 mth":
+            validity = 30
             return "Monthly"
         case "1 yr":
+            validity = 365
             return "Yearly"
         default:
             return ""
@@ -409,7 +412,7 @@ class SubscriptionPackageVC: UIViewController {
                         SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
                             if case .success(let receipt) = result {
                              //   self.savePurchaseToDefault(planId: self.selectedPlan)
-                                AppData.sharedInstance.dismissLoader()
+            
                                 self.view.makeToast("Purchased Successfully")
                                 print("Purchased Successfully")
                                 print("Verify receipt success: \(receipt)")
@@ -442,12 +445,38 @@ class SubscriptionPackageVC: UIViewController {
                                     }
                                 }
                                 
-                                print("latestReceiptInfoFirst:-", self.arrLatestReceiptInfo.first!)
+                                print("latestReceiptInfoFimrst:-", self.arrLatestReceiptInfo.first!)
                                 var dictLatestReceipt = self.arrLatestReceiptInfo.first
-                                dictLatestReceipt?.expires_date.removeLast(17)
-                                self.expiryDate = dictLatestReceipt?.expires_date ?? ""
-                                dictLatestReceipt?.purchase_date.removeLast(17)
-                                self.purchaseDate = dictLatestReceipt?.purchase_date ?? ""
+                                
+                                if self.arrActiveSubscription.count == 1 {
+                                    for i in self.arrActiveSubscription {
+                                        self.purchaseDate = i.packend
+                                    }
+                                    self.status = "Pending"
+                                    self.purchaseDate = AppData.sharedInstance.formattedDateFromString(dateFormat: "dd-MM-yyyy", dateString: self.purchaseDate, withFormat: "yyyy-MM-dd") ?? ""
+                                    print("purchaseDate:-", self.purchaseDate)
+                                    var dateComponent = DateComponents()
+                                    self.getPackageValidity()
+                                    if self.validity == 30 {
+                                        dateComponent.month = 1
+                                    } else if self.validity == 365 {
+                                        dateComponent.year = 1
+                                    }
+                                    let formatter = DateFormatter()
+                                    formatter.dateFormat = "yyyy-MM-dd"
+                                    let purchase = formatter.date(from: self.purchaseDate)
+                                    let date = Calendar.current.date(byAdding: dateComponent, to: purchase ?? Date())
+                                    let expiryStr = formatter.string(from: date ?? Date())
+                                    self.expiryDate = expiryStr
+                                    
+                                } else if self.arrActiveSubscription.count == 0 {
+                                    dictLatestReceipt?.purchase_date.removeLast(17)
+                                    self.purchaseDate = dictLatestReceipt?.purchase_date ?? ""
+                                    dictLatestReceipt?.expires_date.removeLast(17)
+                                    self.expiryDate = dictLatestReceipt?.expires_date ?? ""
+                                    self.status = "Pending"
+                                }
+                                
                                 self.invoiceID = dictLatestReceipt?.transaction_id ?? ""
                                 
 //                                var dict = self.arrInApp.last
@@ -457,7 +486,7 @@ class SubscriptionPackageVC: UIViewController {
 //                                dict?.purchase_date.removeLast(17)
 //                                self.purchaseDate = dict?.purchase_date ?? ""
 //                                self.invoiceID = dict?.transaction_id ?? 0
-                                
+                                AppData.sharedInstance.dismissLoader()
                                 self.callPurchaseAPI()
                                 
                                 UserDefaults.standard.setValue(true, forKey: "currentSubscription")

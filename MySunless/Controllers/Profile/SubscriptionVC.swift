@@ -26,6 +26,7 @@ class SubscriptionVC: UIViewController {
     var arrSubscription = [SubscriptionList]()
     var filterdata = [SubscriptionList]()
     var searching = false
+    var arrPendingSubscription = [SubscriptionList]()
 
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -70,6 +71,8 @@ class SubscriptionVC: UIViewController {
                                 self.arrSubscription.append(SubscriptionList.init(dict: dic))
                             }
                             self.filterdata = self.arrSubscription
+                            self.arrPendingSubscription = self.arrSubscription.filter{ $0.status == "Pending" }
+                            
                         }
                         DispatchQueue.main.async {
                             self.tblSubscription.reloadData()
@@ -103,10 +106,15 @@ class SubscriptionVC: UIViewController {
 
     //MARK:- Actions
     @IBAction func btnBuySubscriptionClick(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "SubscriptionPackageVC") as! SubscriptionPackageVC
-        VC.modalTransitionStyle = .crossDissolve
-        VC.modalPresentationStyle = .overCurrentContext
-        self.present(VC, animated: true, completion: nil)
+//        if arrPendingSubscription.count == 1 {
+//            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "You already have one pending subscription. Once it activates, you can buy another package.")
+//        } else if arrPendingSubscription.count == 0 {
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "SubscriptionPackageVC") as! SubscriptionPackageVC
+            VC.modalTransitionStyle = .crossDissolve
+            VC.modalPresentationStyle = .overCurrentContext
+            VC.arrActiveSubscription = arrSubscription.filter{ $0.status == "Active" }
+            self.present(VC, animated: true, completion: nil)
+//        }
     }
     
     @IBAction func btnEndSubscriptionClick(_ sender: UIButton) {

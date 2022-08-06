@@ -93,7 +93,8 @@ class WorkingHoursVC: UIViewController {
         txtCustomEndTime.delegate = self
         txtDefaultStartTime.delegate = self
         txtDefaultEndTime.delegate = self
-        lblTitle.text = "Working timetable for" + " " + username
+//        username = UserDefaults.standard.value(forKey: "username") as? String ?? ""
+//        lblTitle.text = "Working timetable for" + " " + username
         arrDaysOfWeek = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
         
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
@@ -119,6 +120,7 @@ class WorkingHoursVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        callGetProfileAPI()
         callShowEmployeeTime()
     }
     
@@ -204,6 +206,26 @@ class WorkingHoursVC: UIViewController {
             return true
         }
         return false
+    }
+    
+    func callGetProfileAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization" : token]
+        if (APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.GetDictAPICallWith(url: BASE_URL + USER_PROFILE, header: headers) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            if let res = response as? NSDictionary {
+                if let username = res.value(forKey: "username") as? String {
+                    self.lblTitle.text = "Working timetable for" + " " + username
+                }
+            }
+        }
     }
     
     func callShowEmployeeTime() {

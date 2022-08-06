@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import Kingfisher
 import SCLAlertView
+import SVProgressHUD
 
 protocol UpdateClientData {
     func editButton(id: Int)
@@ -74,6 +75,7 @@ class ClientsVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+      //  SVProgressHUD.setInfoImage(UIImage(named: "MySunless_Symbol")!)
         arrSelectedIds.removeAll()
         callGetAllClientsAPI()
         searchBar.text = ""

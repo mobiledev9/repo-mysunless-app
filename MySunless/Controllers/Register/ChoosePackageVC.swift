@@ -112,6 +112,7 @@ class ChoosePackageVC: UIViewController {
     var packageStatus = "InActive"
     var packageDesc = String()
     var packageValidity = String()
+    var validity = Int()
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -241,8 +242,10 @@ class ChoosePackageVC: UIViewController {
     func getPackageValidity() -> String {
         switch packageValidity {
         case "1 mth":
+            validity = 30
             return "Monthly"
         case "1 yr":
+            validity = 365
             return "Yearly"
         default:
             return ""
@@ -454,7 +457,7 @@ class ChoosePackageVC: UIViewController {
                 if let success = res.value(forKey: "success") as? Int {
                     if (success == 1) {
                         UserDefaults.standard.set(true, forKey: "setUser")
-                        self.totalCompAddress = self.company_address + "," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
+                        self.totalCompAddress = self.company_address + "       ," + self.company_city + "," + self.company_zipcode + "," + self.company_state + ",United States"
                         UserDefaults.standard.set(self.totalCompAddress, forKey: "companyAddress")
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.addCustomAlert(alertMainTitle: "", subTitle: message) {
