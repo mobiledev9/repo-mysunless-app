@@ -12,7 +12,7 @@ import Kingfisher
 import SCLAlertView
 
 protocol AddOrderProtocol {
-    func callOrderServiceAPI(clientId: Int, serviceId: Int, serviceProviderId: Int?, startTime: String?)
+    func callOrderServiceAPI(clientId: Int, serviceId: Int, serviceProviderId: Int?,startDate: String?, startTime: String?)
     func callOrderProductAPI(productIds: String, arrSelectedProductIds: [String])
     func callOrderPackageAPI(packageId: Int, packageExpire: String, packageAmount: String, Noofvisit: String)
     func callOrderGiftAPI(clientId: Int, giftCardAmount: String)
@@ -108,6 +108,7 @@ class AddOrderVC: UIViewController {
     var arrServiceProvider = [ProviderData]()
     var arrServiceProviderIds = [String]()
     var arrServiceStartTime = [String]()
+    var arrServiceStartDate = [String]()
     var productIds = String()
     var arrPackageIds = [String]()
     var arrNoOfVisit = [String]()
@@ -556,6 +557,7 @@ class AddOrderVC: UIViewController {
             VC.arrServiceIds = arrServiceIds
             VC.arrServiceProviderIds = arrServiceProviderIds
             VC.arrServiceStartTime = arrServiceStartTime
+            VC.arrServiceStartDate = arrServiceStartDate
             VC.productIds = productIds
             VC.arrMembershipIds = arrPackageIds
             VC.arrNoofvisit = arrNoOfVisit
@@ -668,14 +670,18 @@ extension AddOrderVC: AddOrderProtocol {
         }
     }
     
-    func callOrderServiceAPI(clientId: Int, serviceId: Int, serviceProviderId: Int?=nil, startTime: String?=nil) {
+    func callOrderServiceAPI(clientId: Int, serviceId: Int, serviceProviderId: Int?=nil,startDate: String?=nil, startTime: String?=nil) {
+        let date = startDate ?? ""
+        let time = startTime ?? ""
+        var selectedDateTime = date.appending(" ")
+        selectedDateTime = selectedDateTime.appending(time)
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
         params = ["clientId": clientId,
                   "serviceId": serviceId,
                   "serviceProvider": serviceProviderId ?? 0,
-                  "time": startTime ?? ""
+                  "time": selectedDateTime
         ]
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
@@ -706,6 +712,8 @@ extension AddOrderVC: AddOrderProtocol {
                 self.arrServiceIds.append("\(serviceId)")
                 self.callServiceProviderAPI(serviceID: serviceId)
                 self.arrServiceStartTime.append(startTime ?? "")
+                self.arrServiceStartDate.append(startDate ?? "")
+                
                 
                 self.dictService = CartList(item: self.item, qty: "--", price: self.price, tax: 0.00, discount: self.discount, discountPercent: self.discountPercent, totalPrice: self.price, showTax: false, selectedItem: "Service", serviceComissionAmt: self.serviceCommissionAmt)
                 self.arrCartList.append(self.dictService)

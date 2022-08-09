@@ -53,6 +53,7 @@ class OrderSummaryVC: UIViewController {
     var arrServiceIds = [String]()
     var arrServiceProviderIds = [String]()
     var arrServiceStartTime = [String]()
+    var arrServiceStartDate = [String]()
     var arrServicePrice = [String]()
     var arrServiceDiscount = [String]()
     var arrServiceDiscoutInParentage = [String]()
@@ -244,7 +245,8 @@ class OrderSummaryVC: UIViewController {
                   "pvisit": "",
                   "ServiceName": arrServiceIds.joined(separator: ","),
                   "ServicProvider": arrServiceProviderIds.joined(separator: ","),
-                  "ServiceStartTime": arrServiceStartTime.joined(separator: ","),
+                  "ServiceDate": arrServiceStartDate.joined(separator: ","),
+                  "servicetime": arrServiceStartTime.joined(separator: ","),
                   "ServicePrice": arrServicePrice.joined(separator: ","),
                   "ServiceDiscount": arrServiceDiscount.joined(separator: ","),
                   "ServiceDiscoutInParentage": arrServiceDiscoutInParentage.joined(separator: ","),

@@ -171,7 +171,8 @@ extension UITextField {
     func setInputViewDatePicker(target: Any, selector: Selector) {
         // Create a UIDatePicker object and assign to inputView
         let screenWidth = UIScreen.main.bounds.width
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))//1
+        let screenheight = UIScreen.main.bounds.height
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: CGFloat(screenheight - 100.0), width: screenWidth, height: 216))//1
         datePicker.datePickerMode = .date
         //2
         // iOS 14 and above
@@ -182,7 +183,7 @@ extension UITextField {
         self.inputView = datePicker //3
         
         // Create a toolbar and assign it to inputAccessoryView
-        let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0)) //4
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: CGFloat(screenheight - 100.0), width: screenWidth, height: 44.0)) //4
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) //5
         let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel)) // 6
         let barButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector) //7
@@ -197,7 +198,8 @@ extension UITextField {
     func setInputCustomDateRangePicker(target: Any, selector: Selector) {
         // Create a UIDatePicker object and assign to inputView
         let screenWidth = UIScreen.main.bounds.width
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))//1
+        let screenHeight = UIScreen.main.bounds.height
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: CGFloat(screenHeight-100.0), width: screenWidth, height: 216))//1
         datePicker.datePickerMode = .date
         //2
         // iOS 14 and above
@@ -208,7 +210,7 @@ extension UITextField {
         self.inputView = datePicker //3
         
         // Create a toolbar and assign it to inputAccessoryView
-        let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0)) //4
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: CGFloat(screenHeight-100.0), width: screenWidth, height: 44.0)) //4
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) //5
         let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel1)) // 6
         let barButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector) //7
