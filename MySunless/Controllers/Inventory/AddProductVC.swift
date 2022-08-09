@@ -126,9 +126,7 @@ class AddProductVC: UIViewController {
     }
     
     func setValidation() -> Bool {
-        if arrProdCat.count == 0 {
-            AppData.sharedInstance.showAlert(title: "Alert", message: "Please select at least one product category", viewController: self)
-        } else if txtProductName.text == "" {
+        if txtProductName.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter product title", viewController: self)
         } else if txtProductDescription.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter product short description", viewController: self)
