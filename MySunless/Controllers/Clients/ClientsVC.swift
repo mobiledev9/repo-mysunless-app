@@ -75,7 +75,7 @@ class ClientsVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      //  SVProgressHUD.setInfoImage(UIImage(named: "MySunless_Symbol")!)
+       // SVProgressHUD.setInfoImage(UIImage(named: "MySunless_Symbol")!)
         arrSelectedIds.removeAll()
         callGetAllClientsAPI()
         searchBar.text = ""

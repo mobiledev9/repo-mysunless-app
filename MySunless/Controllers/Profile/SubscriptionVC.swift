@@ -118,7 +118,8 @@ class SubscriptionVC: UIViewController {
     }
     
     @IBAction func btnEndSubscriptionClick(_ sender: UIButton) {
-        if let url = URL(string: "itms-apps://apps.apple.com/account/subscriptions") {
+       // itms-apps://apps.apple.com/account/subscriptions
+       if let url = URL(string: "itms-apps://apps.apple.com/account/subscriptions") {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:])
             }

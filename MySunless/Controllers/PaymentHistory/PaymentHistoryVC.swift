@@ -15,6 +15,14 @@ protocol PaymentHistoryCellProtocol {
     func editEventListView(index: Int)
 }
 
+protocol FilterPaymentHistoryProtocol {
+    func updatePaymentHistory(PaymentDatas : (String,Int)?,
+                              userDatas : [(String,String)]?,
+                              CustomerDatas:[(String,String)]?,
+                              PaymentsDatas :[(String,String)]?,
+                              filterBadgeCount: Int)
+}
+
 class PaymentHistoryVC: UIViewController {
     
     @IBOutlet var vw_searchBar: UIView!
@@ -22,15 +30,19 @@ class PaymentHistoryVC: UIViewController {
     @IBOutlet var tblPaymentHistory : UITableView!
     @IBOutlet var vw_BtnFilter: UIView!
     @IBOutlet var vw_Main: UIView!
+    @IBOutlet weak var lblBadgeCount: UILabel!
     
     var arrPaymentList = [PaymentList]()
     var arrFilterPaymentList = [PaymentList]()
     var searching = false
     var token = String()
+    var valSelctedPaymentDate : (String,Int) = ("",-1)
+    var arrSelctedCustomers = [(String,String)]()
+    var arrSelctedUsers = [(String,String)]()
+    var arrSelctedPaymnetType = [(String,String)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setInitially()
         hideKeyboardWhenTappedAround()
         tblPaymentHistory.tableFooterView = UIView()
@@ -40,6 +52,8 @@ class PaymentHistoryVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         callPaymentListAPI()
     }
+    
+    
     
     func setInitially() {
         vw_searchBar.layer.borderWidth = 0.5
@@ -51,11 +65,41 @@ class PaymentHistoryVC: UIViewController {
 //        vw_Main.layer.cornerRadius = 10.0
     }
     
-    func callPaymentListAPI() {
+    @IBAction func btn_filter_click(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentHistoryFilterVC") as! PaymentHistoryFilterVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        VC.isFromPaymentHistory = true
+       VC.delegateOfPaymentHistory = self
+        VC.arrSelctedCustomers = self.arrSelctedCustomers
+        VC.arrSelctedUsers = self.arrSelctedUsers
+        VC.arrSelctedPaymnetType = self.arrSelctedPaymnetType
+        VC.valSelctedPaymentDate = self.valSelctedPaymentDate
+        self.present(VC, animated: true, completion: nil)
+    }
+    
+    func callPaymentListAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
-        params = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if valSelctedPaymentDate != ("",-1) {
+                dict["selectDateRange"] = valSelctedPaymentDate.0
+            }
+            if arrSelctedUsers.count > 0 {
+                dict["user"] = arrSelctedUsers.map{$0.1}.joined(separator:",")
+            }
+            if arrSelctedCustomers.count > 0 {
+                dict["customer"] = arrSelctedCustomers.map{$0.1}.joined(separator:",")
+            }
+            if arrSelctedPaymnetType.count > 0 {
+                dict["payment_status"] = arrSelctedPaymnetType.map{$0.0}.joined(separator:",")
+            }
+            params = dict as NSDictionary
+        } else {
+            params = [:]
+        }
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -83,7 +127,11 @@ class PaymentHistoryVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             print(response)
-                        }
+                            AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.arrPaymentList.removeAll()
+                            self.arrFilterPaymentList.removeAll()
+                            self.tblPaymentHistory.reloadData()
+                         }
                     }
                 }
             }
@@ -179,8 +227,8 @@ extension PaymentHistoryVC: UISearchBarDelegate {
     }
 }
 
-extension PaymentHistoryVC: PaymentHistoryCellProtocol {
-    func editEventListView(index: Int) {}
+extension PaymentHistoryVC: PaymentHistoryCellProtocol{
+   func editEventListView(index: Int) {}
     
     func showUserDetail() {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "UserDetailVC") as! UserDetailVC
@@ -200,4 +248,16 @@ extension PaymentHistoryVC: PaymentHistoryCellProtocol {
         VC.orderId = orderId
         self.present(VC, animated: true, completion: nil)
     }
+}
+
+extension PaymentHistoryVC:FilterPaymentHistoryProtocol {
+    func updatePaymentHistory(PaymentDatas: (String, Int)?, userDatas: [(String, String)]?, CustomerDatas: [(String, String)]?, PaymentsDatas: [(String, String)]?, filterBadgeCount: Int) {
+        valSelctedPaymentDate = PaymentDatas ?? ("",-1)
+        arrSelctedUsers = userDatas ?? []
+        arrSelctedCustomers = CustomerDatas ?? []
+        arrSelctedPaymnetType = PaymentsDatas ?? []
+        lblBadgeCount.text = "\(filterBadgeCount)"
+        callPaymentListAPI(isFilter: true)
+     }
+   
 }

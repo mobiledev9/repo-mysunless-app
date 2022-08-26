@@ -11,12 +11,23 @@ import Kingfisher
 import iOSDropDown
 import SCLAlertView
 
+protocol FilterEventsProtocol {
+    func updatedEventList(eventDatas : (String,Int)?,
+                          userDatas: [(String,String)]?,
+                          CustomerDatas:[(String,String)]?,
+                          eventStatusDatas :[(String,String)]?,
+                          filterBadgeCount: Int
+                          )
+    
+}
+
 class EventsTableListVC: UIViewController {
 
     @IBOutlet var vw_searchBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblEventList: UITableView!
     @IBOutlet var btnFilter: UIButton!
+    @IBOutlet var lblBadgeCount: UILabel!
     
     //MARK:- Variable Declarations
     var token = String()
@@ -25,6 +36,10 @@ class EventsTableListVC: UIViewController {
     var searching = false
     var alertTitle = "Temporary Delete?"
     var alertSubtitle = "Once deleted, it will move to Archive list!"
+    var valSelctedEventDates : (String,Int) = ("",-1)
+    var arrSelctedCustomers = [(String,String)]()
+    var arrSelctedUsers = [(String,String)]()
+    var arrSelctedStatus = [(String,String)]()
     
     //MARK:- ViewController Lifecycle
     override func viewDidLoad() {
@@ -62,11 +77,30 @@ class EventsTableListVC: UIViewController {
         alert.showSuccess(alertTitle, subTitle: alertSubtitle)
     }
     
-    func callEventListAPI() {
+    func callEventListAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
-        params = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if valSelctedEventDates != ("",-1) {
+                dict["FilterDate"] = valSelctedEventDates.0
+            }
+            if arrSelctedUsers.count > 0 {
+                dict["user"] = arrSelctedUsers.map{$0.1}.joined(separator:",")
+             }
+            if arrSelctedCustomers.count > 0 {
+                dict["customer"] = arrSelctedCustomers.map{$0.1}.joined(separator:",")
+            }
+            if arrSelctedStatus.count > 0 {
+                dict["status"] = arrSelctedStatus.map{$0.0}.joined(separator:",")
+            }
+            params = dict as NSDictionary
+            
+        } else {
+            params = [:]
+        }
+        
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -118,13 +152,11 @@ class EventsTableListVC: UIViewController {
                     if success == 1 {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                            
-                        }
+                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                            
-                        }
+                         }
                     }
                 }
             }
@@ -199,6 +231,12 @@ class EventsTableListVC: UIViewController {
     
     @IBAction func btnFilterClick(_ sender: UIButton) {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "EventFilterVC") as! EventFilterVC
+        VC.isFromFilterList = true
+        VC.delegateFilterEventsProtocol = self
+        VC.valSelctedEventDates = valSelctedEventDates
+        VC.arrSelctedUsers = arrSelctedUsers
+        VC.arrSelctedCustomers = arrSelctedCustomers
+        VC.arrSelctedStatus = arrSelctedStatus
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
         self.present(VC, animated: true, completion: nil)
@@ -345,5 +383,22 @@ extension EventsTableListVC: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
     }
+}
+
+//MARK:- Filter Delegate Methods
+extension EventsTableListVC: FilterEventsProtocol {
+    func updatedEventList(eventDatas: (String, Int)?, userDatas: [(String, String)]?, CustomerDatas: [(String, String)]?, eventStatusDatas: [(String, String)]?, filterBadgeCount: Int) {
+
+        self.valSelctedEventDates = eventDatas ?? ("",-1)
+        self.arrSelctedUsers = userDatas ?? []
+        self.arrSelctedCustomers = CustomerDatas ?? []
+        self.arrSelctedStatus = eventStatusDatas ?? []
+        lblBadgeCount.text = "\(filterBadgeCount)"
+        self.callEventListAPI(isFilter: true)
+    }
+    
+    
+    
+    
 }
 

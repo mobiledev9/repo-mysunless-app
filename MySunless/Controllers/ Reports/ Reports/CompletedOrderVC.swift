@@ -11,6 +11,8 @@ import Kingfisher
 
 protocol CompletedOrderProtocol {
     func editOrder(index: Int)
+    func updatedCompletedOrderList(date: String?,selectedDateIndex : Int?, userIds: [(String,String)]?, customerIds:[(String,String)]?, filterBadgeCount: Int,paymentStatus : String?,selectedPaymentIndex : Int?)
+    
 }
 
 class CompletedOrderVC: UIViewController {
@@ -21,6 +23,7 @@ class CompletedOrderVC: UIViewController {
     @IBOutlet var vw_searchBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblCompletedOrder: UITableView!
+    @IBOutlet var lblBadgeNumber: UILabel!
     
     //MARK:- Variable Declarations
     var token = String()
@@ -34,6 +37,13 @@ class CompletedOrderVC: UIViewController {
     var arrProductIds = [String]()
     var arrMembership = [Membership]()
     var arrCartList = [CartList]()
+    var isFilter = false
+    var strFilterDate  = ""
+    var arrFilterUserIds = [(String,String)]()
+    var arrFilterCustIds = [(String,String)]()
+    var strFilterPayment  = ""
+    var selectedPaymentStatusIndex : Int = -1
+    var selectedDatefilterIndex : Int = -1
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -62,11 +72,30 @@ class CompletedOrderVC: UIViewController {
         vw_searchBar.layer.borderColor = UIColor.init("#15B0DA").cgColor
     }
     
-    func callShowCompletedOrderAPI() {
+    func callShowCompletedOrderAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization": token]
-        var params = NSDictionary()
-        params = [:]
+        var params : NSDictionary = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if strFilterDate != "" {
+                dict["FilterDate"] = strFilterDate
+            }
+            if arrFilterUserIds.count > 0 {
+                dict["orderuser"] = arrFilterUserIds.map{$0.1}.joined(separator:",")
+           }
+            if arrFilterCustIds.count > 0 {
+                dict["ordercustomer"] = arrFilterCustIds.map{$0.1}.joined(separator:",")
+            }
+            if strFilterPayment != "" {
+                dict["payment_status"] = strFilterPayment
+            }
+            params = dict as NSDictionary
+            
+        } else {
+            params = [:]
+        }
+        
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -90,7 +119,7 @@ class CompletedOrderVC: UIViewController {
                             } 
                         }
                     } else {
-                        if let resonse = res.value(forKey: "resonse") as? String {
+                        if let resonse = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: resonse, viewController: self)
                             self.arrCompletedOrder.removeAll()
                             self.arrFilterCompletedOrder.removeAll()
@@ -180,7 +209,7 @@ class CompletedOrderVC: UIViewController {
     
     @objc func callPullToRefresh(){
         DispatchQueue.main.async {
-            self.callShowCompletedOrderAPI()
+            self.callShowCompletedOrderAPI(isFilter:true)
             self.tblCompletedOrder.refreshControl?.endRefreshing()
             self.tblCompletedOrder.reloadData()
         }
@@ -221,7 +250,11 @@ class CompletedOrderVC: UIViewController {
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
         VC.isFromCompletedOrder = true
-      //  VC.delegate = self
+        VC.delegateOfCompletedOrder = self
+        VC.arrSelectedCustIds = self.arrFilterCustIds
+        VC.arrSelectedUserIds = self.arrFilterUserIds
+        VC.selectedDatefilterIndex = self.selectedDatefilterIndex
+        VC.selectedPaymentStatusIndex = self.selectedPaymentStatusIndex
         self.present(VC, animated: true, completion: nil)
     }
     
@@ -346,8 +379,6 @@ extension CompletedOrderVC: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 //MARK:- UITableview Delegate Methods
@@ -383,7 +414,23 @@ extension CompletedOrderVC: UISearchBarDelegate {
     }
 }
 
+//MARK:- filter Delegate Methods
 extension CompletedOrderVC: CompletedOrderProtocol {
+    
+    func updatedCompletedOrderList(date: String?, selectedDateIndex: Int?, userIds: [(String,String)]?, customerIds: [(String,String)]?, filterBadgeCount: Int, paymentStatus: String?, selectedPaymentIndex: Int?) {
+            strFilterDate = date ?? ""
+            arrFilterCustIds = customerIds ?? [("","")]
+            arrFilterUserIds = userIds ?? [("","")]
+            strFilterPayment = paymentStatus ?? ""
+            self.isFilter = true
+            selectedPaymentStatusIndex = selectedPaymentIndex ?? -1
+            selectedDatefilterIndex = selectedDateIndex ?? -1
+            lblBadgeNumber.text = " \(filterBadgeCount) "
+            callShowCompletedOrderAPI(isFilter: true)
+            tblCompletedOrder.reloadData()
+         
+    }
+ 
     func editOrder(index: Int) {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddOrderVC") as! AddOrderVC
         VC.isEditCompletedOrder = true

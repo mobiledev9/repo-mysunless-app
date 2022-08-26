@@ -8,6 +8,14 @@
 import UIKit
 import Alamofire
 
+protocol FilterSalesReportProtocol {
+    func updateSalesReport(ReportDatas : (String,Int)?,
+                              userDatas : [(String,String)]?,
+                              CustomerDatas:[(String,String)]?,
+                              CategoryDatas :(String,Int)?,
+                              filterBadgeCount: Int)
+}
+
 class ProductReportVC: UIViewController {
     
     @IBOutlet var vw_searchBar: UIView!
@@ -20,8 +28,10 @@ class ProductReportVC: UIViewController {
     @IBOutlet var lblCostPrice: UILabel!
     @IBOutlet var lblPayableTax: UILabel!
     @IBOutlet var lblNetProfitLoss: UILabel!
+    @IBOutlet var lblBadgeCount: UILabel!
     @IBOutlet var vw_Main: UIView!
     
+    @IBOutlet weak var summaryViewHeight: NSLayoutConstraint!
     var arrProductReport = [ProductReport]()
     var arrFilterProductReport = [ProductReport]()
     var searching = false
@@ -30,6 +40,10 @@ class ProductReportVC: UIViewController {
     var arrCostPrice = [String]()
     var arrTax = [String]()
     var arrProfitLoss = [String]()
+    var valSelctedSalesDates : (String,Int) = ("",-1)
+    var valSelctedCategory : (String,Int) = ("",-1)
+    var arrSelctedCustomers = [(String,String)]()
+    var arrSelctedUsers = [(String,String)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +59,8 @@ class ProductReportVC: UIViewController {
     }
     
     func setInitially() {
+        summaryViewHeight.constant = 0
+        vw_summary.isHidden = true
         vw_searchBar.layer.borderWidth = 0.5
         vw_searchBar.layer.borderColor = UIColor.init("#15B0DA").cgColor
         vw_searchBar.layer.cornerRadius = 8.0
@@ -64,11 +80,29 @@ class ProductReportVC: UIViewController {
         
     }
     
-    func callviewProductSaleReportAPI() {
+    func callviewProductSaleReportAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
-        params = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if valSelctedSalesDates != ("",-1) {
+                dict["selectDateRange"] = valSelctedSalesDates.0
+            }
+            if arrSelctedUsers.count > 0 {
+                dict["selectuser"] = arrSelctedUsers.map{$0.1}.joined(separator:",")
+             }
+            if arrSelctedCustomers.count > 0 {
+                dict["selectcutomer"] = arrSelctedCustomers.map{$0.1}.joined(separator:",")
+            }
+            if valSelctedCategory != ("",-1) {
+                dict["Category"] = valSelctedCategory.0
+            }
+            params = dict as NSDictionary
+            
+        } else {
+            params = [:]
+        }
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -141,6 +175,16 @@ class ProductReportVC: UIViewController {
     }
     
     @IBAction func btnFilterClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "SalesReportFilterVC") as! SalesReportFilterVC
+        VC.isFromSalesReportList = true
+        VC.delegateSalesReportProtocol = self
+        VC.valSelctedSalesDates = valSelctedSalesDates
+        VC.arrSelctedUsers = arrSelctedUsers
+        VC.arrSelctedCustomers = arrSelctedCustomers
+        VC.valSelctedCategory = valSelctedCategory
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        self.present(VC, animated: true, completion: nil)
     }
 }
 
@@ -197,5 +241,19 @@ extension ProductReportVC: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
     }
+}
+
+//MARK:- Filter Delegate Methods
+extension ProductReportVC: FilterSalesReportProtocol {
+    func updateSalesReport(ReportDatas: (String, Int)?, userDatas: [(String, String)]?, CustomerDatas: [(String, String)]?, CategoryDatas: (String, Int)?, filterBadgeCount: Int) {
+        self.valSelctedSalesDates = ReportDatas ?? ("",-1)
+        self.arrSelctedUsers = userDatas ?? []
+        self.arrSelctedCustomers = CustomerDatas ?? []
+        self.valSelctedCategory = CategoryDatas ?? ("",-1)
+        lblBadgeCount.text = "\(filterBadgeCount)"
+        callviewProductSaleReportAPI(isFilter: true)
+    }
+    
+ 
 }
 

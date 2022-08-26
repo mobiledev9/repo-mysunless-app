@@ -178,6 +178,10 @@ extension EventListViewVC: UISearchBarDelegate {
 
 //MARK:- Protocol Methods
 extension EventListViewVC: PaymentHistoryCellProtocol {
+    func updatePaymentHistory(ReportDatas: (String, Int)?, userDatas: [(String, String)]?, CustomerDatas: [(String, String)]?, CategoryDatas: (String, Int)?, filterBadgeCount: Int) {
+        
+    }
+    
     func showUserDetail() {
     }
     

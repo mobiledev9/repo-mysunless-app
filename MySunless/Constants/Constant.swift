@@ -197,6 +197,7 @@ let filterDays = ["Today","Yesterday","Last 7 days","Last 30 Days","This Month",
 let monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 //let arrProductIds = ["23","24","25","19","21"]
 let arrProductIds = ["24","25","19","21"]
+let arrEventStatus = ["completed","pending","confirmed","canceled","pending-payment","in-progress"]
 
 
 //enum ProductType: String {

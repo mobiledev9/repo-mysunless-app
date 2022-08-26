@@ -104,8 +104,16 @@ class AppData: NSObject {
     }
     
     func showLoader() {
-        SVProgressHUD.show()
-        SVProgressHUD.setDefaultMaskType(.black)
+       SVProgressHUD.setInfoImage(UIImage(named: "MySunless_Symbol")!)
+       
+       // SVProgressHUD.show()
+        SVProgressHUD.setBackgroundColor(UIColor.clear)
+        SVProgressHUD.setImageViewSize(CGSize(width: 80.0, height: 80.0))
+        SVProgressHUD.setForegroundColor(UIColor.init("#15B0DA"))
+        SVProgressHUD.setDefaultMaskType(.none)
+        SVProgressHUD.showInfo(withStatus:"")
+       
+      
     }
     
     func dismissLoader() {

@@ -9,6 +9,11 @@ import UIKit
 import Alamofire
 import Kingfisher
 
+protocol FilterPerformanceListProtocol {
+    func updatePerformanceList(DateDatas : (String,Int)?,
+                               filterBadgeCount: Int)
+}
+
 class PerformanceListVC: UIViewController {
 
     //MARK:- Outlets
@@ -16,6 +21,7 @@ class PerformanceListVC: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblPerformanceList: UITableView!
     @IBOutlet var btnFilter: UIButton!
+    @IBOutlet weak var lblBadgeCount: UILabel!
     
     //MARK:- Variable Declarations
     var arrPerformanceList = [ShowPerformance]()
@@ -23,6 +29,7 @@ class PerformanceListVC: UIViewController {
     var token = String()
     var searching = false
     var model = ShowPerformance(dict: [:])
+    var valSelctedDates : (String,Int) = ("",-1)
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -45,11 +52,20 @@ class PerformanceListVC: UIViewController {
         btnFilter.layer.borderColor = UIColor.init("#15B0DA").cgColor
     }
     
-    func callShowPerformanceAPI() {
+    func callShowPerformanceAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
-        params = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if valSelctedDates != ("",-1) {
+                dict["date"] = valSelctedDates.0
+            }
+            
+            params = dict as NSDictionary
+        } else {
+            params = [:]
+        }
         
         APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + SHOW_PERFORMANCE, param: params, header: headers) { (respnse, error) in
             AppData.sharedInstance.dismissLoader()
@@ -115,6 +131,13 @@ class PerformanceListVC: UIViewController {
     
     //MARK:- Actions
     @IBAction func btnFilterClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentHistoryFilterVC") as! PaymentHistoryFilterVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        VC.isFromPerformanceList = true
+        VC.delegateOfPerformanceList = self
+        VC.valSelctedPaymentDate = self.valSelctedDates
+        self.present(VC, animated: true, completion: nil)
     }
 
 }
@@ -183,4 +206,14 @@ extension PerformanceListVC: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
     }
+}
+extension PerformanceListVC : FilterPerformanceListProtocol {
+    func updatePerformanceList(DateDatas: (String, Int)?, filterBadgeCount: Int) {
+        valSelctedDates = DateDatas ?? ("",-1)
+        self.lblBadgeCount.text = "\(filterBadgeCount)"
+        callShowPerformanceAPI(isFilter: true)
+        
+    }
+    
+    
 }

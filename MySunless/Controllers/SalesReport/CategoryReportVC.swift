@@ -30,6 +30,7 @@ class CategoryReportVC: UIViewController {
     var arrCostPrice = [Int]()
     var arrTax = [Double]()
     var arrProfitLoss = [String]()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()

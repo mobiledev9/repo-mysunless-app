@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 protocol UpdateLoginLog {
-    func updateLoginLogList(date: String, userId: Int, filterBadgeCount: Int)
+    func updateLoginLogList(dateDats:(String,Int), userDatas: (String,Int), filterBadgeCount: Int)
 }
 
 class LoginLogVC: UIViewController {
@@ -27,7 +27,10 @@ class LoginLogVC: UIViewController {
     var model = ShowLoginLog(dict: [:])
     var userID = Int()
     var daate = String()
-    
+    var valSelectedUserAndId :(String,Int) = ("",-1)
+    var valSelectedDate : (String,Int) = ("",-1)
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,12 +58,19 @@ class LoginLogVC: UIViewController {
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
         if filter {
-            params = ["SubscriberID": userID,
-                      "Date": daate
-            ]
+            var dict :[String:String] = [:]
+            if self.valSelectedDate != ("",-1) {
+                dict["Date"] = valSelectedDate.0
+            }
+            
+            if self.valSelectedUserAndId != ("",-1) {
+                dict["SubscriberID"] = "\(valSelectedUserAndId.1)"
+            }
+            params = dict as NSDictionary
         } else {
             params = [:]
         }
+        
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -150,6 +160,8 @@ class LoginLogVC: UIViewController {
         VC.modalTransitionStyle = .crossDissolve
         VC.isFromLoginLog = true
         VC.delegate = self
+        VC.valSelectedDate = self.valSelectedDate
+        VC.valSelectedUserAndId = self.valSelectedUserAndId
         self.present(VC, animated: true, completion: nil)
     }
     
@@ -243,9 +255,12 @@ extension LoginLogVC: UISearchBarDelegate {
 }
 
 extension LoginLogVC: UpdateLoginLog {
-    func updateLoginLogList(date: String, userId: Int, filterBadgeCount: Int) {
-        daate = date
-        userID = userId
+    
+    func updateLoginLogList(dateDats:(String,Int), userDatas: (String,Int), filterBadgeCount: Int) {
+        daate = dateDats.0
+        userID = 0
+        valSelectedUserAndId = userDatas
+        valSelectedDate = dateDats
         if filterBadgeCount == 0 {
             lblFilterBadgeCount.isHidden = true
         } else {

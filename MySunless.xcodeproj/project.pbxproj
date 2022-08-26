@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B58331728B74CB200D8C116 /* SalesReportFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */; };
+		2B78EC4B28B899D80074A7CC /* PaymentHistoryFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */; };
 		772097CC6DA15F5C973F8E72 /* Pods_MySunless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BEBBCC10B55A9F87EC8547A /* Pods_MySunless.framework */; };
 		880060DA275B1B330006E9DB /* AddNewEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880060D9275B1B330006E9DB /* AddNewEmployeeVC.swift */; };
 		880060DE275B23840006E9DB /* CompanyInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880060DD275B23840006E9DB /* CompanyInformationVC.swift */; };
@@ -243,6 +245,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportFilterVC.swift; sourceTree = "<group>"; };
+		2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryFilterVC.swift; sourceTree = "<group>"; };
 		386565BE1D6A4A7A9B43C8AC /* Pods-MySunless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySunless.debug.xcconfig"; path = "Target Support Files/Pods-MySunless/Pods-MySunless.debug.xcconfig"; sourceTree = "<group>"; };
 		7CC4FCC3C45C9AF2DC3BFB01 /* Pods-MySunless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySunless.release.xcconfig"; path = "Target Support Files/Pods-MySunless/Pods-MySunless.release.xcconfig"; sourceTree = "<group>"; };
 		880060D9275B1B330006E9DB /* AddNewEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEmployeeVC.swift; sourceTree = "<group>"; };
@@ -715,6 +719,7 @@
 			isa = PBXGroup;
 			children = (
 				8887FD9028165C6C00F3C75C /* PaymentHistoryVC.swift */,
+				2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */,
 			);
 			path = PaymentHistory;
 			sourceTree = "<group>";
@@ -830,6 +835,7 @@
 				88ECCF9B281261DF001F68B5 /* ProductReportVC.swift */,
 				88ECCF9C281261DF001F68B5 /* SalesProfitGraphVC.swift */,
 				88ECCF9E281261DF001F68B5 /* SalesReportVC.swift */,
+				2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */,
 			);
 			path = SalesReport;
 			sourceTree = "<group>";
@@ -1340,11 +1346,13 @@
 				880B8E212719619E00DEEFD1 /* ChoosePackageVC.swift in Sources */,
 				88D9DD2227C4FE5800E2796A /* CompletedOrderVC.swift in Sources */,
 				887393DC282CFF9D00C8B3B8 /* OverviewCell.swift in Sources */,
+				2B78EC4B28B899D80074A7CC /* PaymentHistoryFilterVC.swift in Sources */,
 				88ECDC582817D3F100DB89EF /* ProductsListVC.swift in Sources */,
 				88FD35DA27E2FF200085231A /* AppointmentCell.swift in Sources */,
 				88C88A5B2840CF8800557D4A /* SubscriptionPackageVC.swift in Sources */,
 				88B6B60A28115CC10025EB40 /* TemplatesVC.swift in Sources */,
 				88D9DD2E27C5123300E2796A /* CompletedOrderCell.swift in Sources */,
+				2B58331728B74CB200D8C116 /* SalesReportFilterVC.swift in Sources */,
 				8894E0EA27DC65AC00CF411B /* Archive_UserCell.swift in Sources */,
 				88D9DD2827C4FE8600E2796A /* SalesGraphVC.swift in Sources */,
 				88D86A2327CCCE450075B4E5 /* SelectPackageVC.swift in Sources */,
@@ -1580,8 +1588,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Jiyan Paladiya (9Y6C9C96GP)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
@@ -1592,7 +1600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.MySunlessApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = dev_mysunlessapp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1604,7 +1612,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Sunless Technologies (83MBL4M6HX)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sunless Technologies (83MBL4M6HX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;

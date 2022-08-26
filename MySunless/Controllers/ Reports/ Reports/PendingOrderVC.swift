@@ -9,6 +9,11 @@ import UIKit
 import Alamofire
 import Kingfisher
 
+protocol PendingOrderProtocol {
+    func updatedPendingOrderList(date: String?,selectedDateIndex : Int?, userIds: [(String,String)]?, customerIds:[(String,String)]?, filterBadgeCount: Int)
+    
+}
+
 class PendingOrderVC: UIViewController {
 
     //MARK:- Outlets
@@ -17,6 +22,7 @@ class PendingOrderVC: UIViewController {
     @IBOutlet var vw_searchBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblPendingOrder: UITableView!
+    @IBOutlet var lblBadgeNumber: UILabel!
     
     //MARK:- Variable Declarations
     var token = String()
@@ -24,6 +30,11 @@ class PendingOrderVC: UIViewController {
     var arrFilterPendingOrder = [ShowPendingOrder]()
     var searching = false
     var model = ShowPendingOrder(dict: [:])
+    var arrFilterUserIds = [(String,String)]()
+    var arrFilterCustIds = [(String,String)]()
+    var selectedDatefilterIndex : Int = -1
+    var isFilter = false
+    var strFilterDate  = ""
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -52,11 +63,28 @@ class PendingOrderVC: UIViewController {
         vw_searchBar.layer.borderColor = UIColor.init("#15B0DA").cgColor
     }
     
-    func callShowPendingOrderAPI() {
+    func callShowPendingOrderAPI(isFilter : Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization": token]
         var params = NSDictionary()
-        params = [:]
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if strFilterDate != "" {
+                dict["FilterDate"] = strFilterDate
+            }
+            if arrFilterUserIds.count > 0 {
+                dict["orderuser"] = arrFilterUserIds.map{$0.1}.joined(separator:",")
+               
+            }
+            if arrFilterCustIds.count > 0 {
+                dict["ordercustomer"] = arrFilterCustIds.map{$0.1}.joined(separator:",")
+            }
+            params = dict as NSDictionary
+            
+        } else {
+            params = [:]
+        }
+        
         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
@@ -81,7 +109,7 @@ class PendingOrderVC: UIViewController {
                             }
                         }
                     } else {
-                        if let resonse = res.value(forKey: "resonse") as? String {
+                        if let resonse = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: resonse, viewController: self)
                             self.arrPendingOrder.removeAll()
                             self.arrFilterPendingOrder.removeAll()
@@ -156,6 +184,16 @@ class PendingOrderVC: UIViewController {
     
     //MARK:- Actions
     @IBAction func btnFilterClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "LoginLogFilterVC") as! LoginLogFilterVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        VC.isFromPendingOrder = true
+        VC.delegateOfPendingOrder = self
+        VC.selectedDatefilterIndex = self.selectedDatefilterIndex
+        VC.arrSelectedCustIds = self.arrFilterCustIds
+        VC.arrSelectedUserIds = self.arrFilterUserIds
+        
+        self.present(VC, animated: true, completion: nil)
     }
     
     @IBAction func btnPaymentClick(_ sender: UIButton) {
@@ -269,8 +307,7 @@ extension PendingOrderVC: UITableViewDataSource {
         
         return cell
     }
-    
-    
+        
 }
 
 //MARK:- UITableview Delegate Methods
@@ -304,4 +341,20 @@ extension PendingOrderVC: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
     }
+}
+//MARK:- filter Delegate Methods
+extension PendingOrderVC : PendingOrderProtocol {
+    func updatedPendingOrderList(date: String?, selectedDateIndex: Int?, userIds: [(String, String)]?, customerIds: [(String, String)]?, filterBadgeCount: Int) {
+         strFilterDate = date ?? ""
+                arrFilterCustIds = customerIds ?? [("","")]
+                arrFilterUserIds = userIds ?? [("","")]
+                self.isFilter = true
+                
+                selectedDatefilterIndex = selectedDateIndex ?? -1
+                lblBadgeNumber.text = " \(filterBadgeCount) "
+               callShowPendingOrderAPI(isFilter: true)
+             
+    }
+    
+    
 }

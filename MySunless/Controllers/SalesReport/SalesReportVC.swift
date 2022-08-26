@@ -25,12 +25,12 @@ class SalesReportVC: UIViewController {
         
         return viewController
     }()
-    private lazy var secondViewController: CategoryReportVC = {
+    private lazy var secondViewController: OverviewVC = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "CategoryReportVC") as! CategoryReportVC
+        var viewController = storyboard.instantiateViewController(withIdentifier: "OverviewVC") as! OverviewVC
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
@@ -62,6 +62,10 @@ class SalesReportVC: UIViewController {
     }
     
     func setSegmentController() {
+        segmentedControl.setTitle("Sales Report", forSegmentAt: 0)
+        segmentedControl.setTitle("OverView", forSegmentAt: 1)
+        segmentedControl.setTitle("Sales/Profit Graph", forSegmentAt: 2)
+       
         let textAttributes = [NSAttributedString.Key.font : UIFont(name: "Roboto-Bold",size:16)!,
                               NSAttributedString.Key.foregroundColor:UIColor.init("#6D778E")
                              ]
