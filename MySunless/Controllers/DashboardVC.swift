@@ -40,7 +40,8 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     
     @IBOutlet var tblTopSellingList: UITableView!
     @IBOutlet var tblRecentTransctionList: UITableView!
-    @IBOutlet weak var revenueBarChatView: BarChartView!
+   // @IBOutlet weak var revenueBarChatView: BarChartView!
+    @IBOutlet weak var revenueLineChatView: LineChartView!
     @IBOutlet weak var productPieChartView: PieChartView!
     @IBOutlet var vw_container: UIView!
     @IBOutlet weak var vw_lock: UIView!
@@ -53,8 +54,9 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     var clients = Bool()
     var arrTopSellingProducts = [TopSellingProducts]()
     var arrRecentTransaction = [RecentTransaction]()
-    var arrRevenueReport = [RevenuReport]()
+    var arrRevenueReport = [EventLineChart]()
     var ProductSaleReport : ProductSalesReport?
+    
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -91,9 +93,9 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         vw_ToDoList.layer.borderWidth = 0.5
         vw_ToDoList.layer.borderColor = UIColor.init("#15B0DA").cgColor
         vw_ToDoList.layer.cornerRadius = 12
-        revenueBarChatView.layer.borderWidth = 0.5
-        revenueBarChatView.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        revenueBarChatView.layer.cornerRadius = 12
+        revenueLineChatView.layer.borderWidth = 0.5
+        revenueLineChatView.layer.borderColor = UIColor.init("#15B0DA").cgColor
+        revenueLineChatView.layer.cornerRadius = 12
         productPieChartView.layer.borderWidth = 0.5
         productPieChartView.layer.borderColor = UIColor.init("#15B0DA").cgColor
         productPieChartView.layer.cornerRadius = 12
@@ -111,6 +113,109 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         } else {
             vw_lock.isHidden = false
         }
+    }
+    
+    func customizeLineChart(arrChartData: [EventLineChart]) {
+        revenueLineChatView.delegate = self
+        revenueLineChatView.noDataText = "No data available."
+        var dataEntries: [ChartDataEntry] = []
+        let Months: [String] = arrChartData.map{ $0.month }
+        let Count: [String] = arrChartData.map{ $0.count }
+        let ProductPrice : [String] = arrChartData.map{ $0.productPrice }
+        let ServicePrice : [String] = arrChartData.map{ $0.servicePrice }
+        let GiftPrice : [String] = arrChartData.map{ $0.giftprice }
+        
+        //legend
+        let legend = revenueLineChatView.legend
+        legend.enabled = true
+        legend.horizontalAlignment = .right
+        legend.verticalAlignment = .top
+        legend.orientation = .vertical
+        legend.drawInside = true
+        legend.yOffset = 1.0
+        legend.xOffset = 10.0
+        legend.yEntrySpace = 0.5
+        
+        revenueLineChatView.setScaleEnabled(false)
+        revenueLineChatView.drawGridBackgroundEnabled = false
+        revenueLineChatView.xAxis.drawAxisLineEnabled = true
+        revenueLineChatView.xAxis.drawGridLinesEnabled = false
+        revenueLineChatView.leftAxis.drawAxisLineEnabled = true
+        revenueLineChatView.leftAxis.drawGridLinesEnabled = false
+        revenueLineChatView.rightAxis.drawAxisLineEnabled = false
+        revenueLineChatView.rightAxis.drawGridLinesEnabled = false
+        revenueLineChatView.legend.enabled = true
+        revenueLineChatView.xAxis.enabled = true
+        revenueLineChatView.xAxis.labelPosition = .bottom
+        revenueLineChatView.xAxis.valueFormatter = IndexAxisValueFormatter(values: Months)
+        revenueLineChatView.xAxis.setLabelCount(12, force: true)
+        revenueLineChatView.leftAxis.setLabelCount(5, force: true)
+        revenueLineChatView.leftAxis.axisMinimum = 0
+        revenueLineChatView.leftAxis.axisMaximum = 16
+        revenueLineChatView.leftAxis.enabled = true
+        revenueLineChatView.rightAxis.enabled = false
+        revenueLineChatView.xAxis.drawLabelsEnabled = true
+        
+        for i in 0..<Months.count {
+            let entryProductPrice = ProductPrice[i].doubleValue
+            let entryServicePrice = ServicePrice[i].doubleValue
+            let entryGiftPrice = GiftPrice[i].doubleValue
+            let dataEntryProductPrice = ChartDataEntry(x: Double(i) , y: entryProductPrice)
+            let dataEntryServicePrice = ChartDataEntry(x: Double(i) , y: entryServicePrice)
+            let dataEntryGiftPrice = ChartDataEntry(x: Double(i) , y: entryGiftPrice)
+            dataEntries.append(dataEntryProductPrice)
+            dataEntries.append(dataEntryServicePrice)
+            dataEntries.append(dataEntryGiftPrice)
+        }
+        
+        let line1 = LineChartDataSet(entries: dataEntries, label: "Product Sales")
+        let line2 = LineChartDataSet(entries: dataEntries, label: "Service Sales")
+        let line3 = LineChartDataSet(entries: dataEntries, label: "GiftCard Sales")
+        line1.colors = [UIColor.init("15B0DA")]
+        line1.mode = .cubicBezier
+        line1.cubicIntensity = 0.2
+        
+        line2.colors = [UIColor.init("A20E06")]
+        line2.mode = .cubicBezier
+        line2.cubicIntensity = 0.2
+        
+        line3.colors = [UIColor.init("296606")]
+        line3.mode = .cubicBezier
+        line3.cubicIntensity = 0.2
+        
+        
+        let gradient1 = getGradientFilling(gColor: UIColor.init("15B0DA"))
+        line1.fill = LinearGradientFill(gradient: gradient1, angle: 90.0)
+        line1.drawFilledEnabled = true
+        
+        let gradient2 = getGradientFilling(gColor: UIColor.init("A20E06"))
+        line2.fill = LinearGradientFill(gradient: gradient2, angle: 90.0)
+        line2.drawFilledEnabled = true
+        
+        let gradient3 = getGradientFilling(gColor: UIColor.init("296606"))
+        line3.fill = LinearGradientFill(gradient: gradient3, angle: 90.0)
+        line3.drawFilledEnabled = true
+        
+        
+        let data1 = LineChartData(dataSet: line1)
+        let data2 = LineChartData(dataSet: line2)
+        let data3 = LineChartData(dataSet: line3)
+        data1.append(line2)
+        data1.append(line3)
+        revenueLineChatView.data = data1
+        
+    }
+    private func getGradientFilling(gColor:UIColor) -> CGGradient {
+        // Setting fill gradient color
+//        let coloTop = UIColor(red: 141/255, green: 133/255, blue: 220/255, alpha: 1).cgColor
+//        let colorBottom = UIColor(red: 230/255, green: 155/255, blue: 210/255, alpha: 1).cgColor
+//        // Colors of the gradient
+//        let gradientColors = [coloTop, colorBottom] as CFArray
+        let gradientColors = [gColor.cgColor, UIColor.clear.cgColor]
+        // Positioning of the gradient
+        let colorLocations: [CGFloat] = [0.7, 0.0]
+        // Gradient Object
+        return CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors as CFArray, locations: colorLocations)!
     }
     
     func customizePieChart(productData: ProductSalesReport) {
@@ -138,7 +243,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         productPieChartView.data = pieChartData
     }
     
-    func customizeBarChart(arrChartData :[RevenuReport]) {
+   /* func customizeBarChart(arrChartData :[RevenuReport]) {
         // Do any additional setup after loading the view, typically from a nib.
         revenueBarChatView.delegate = self
         revenueBarChatView.noDataText = "No data available."
@@ -199,7 +304,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         revenueBarChatView.backgroundColor = UIColor.clear
         
     }
-    
+    */
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
         for _ in 0..<numbersOfColor {
@@ -306,9 +411,11 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrRevenueReport.removeAll()
                             for dict in response {
-                                self.arrRevenueReport.append(RevenuReport(dictionary: dict as NSDictionary)!)
+                                self.arrRevenueReport.append(EventLineChart(dict: dict))
+//                                self.arrRevenueReport.append(RevenuReport(dictionary: dict as NSDictionary)!)
                             }
-                            customizeBarChart(arrChartData: arrRevenueReport)
+                           // customizeBarChart(arrChartData: arrRevenueReport)
+                            customizeLineChart(arrChartData: arrRevenueReport)
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {

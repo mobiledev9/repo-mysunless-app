@@ -3980,10 +3980,16 @@ struct SalesGraph {
 struct EventLineChart {
     let month: String
     let count: String
+    let productPrice : String
+    let servicePrice : String
+    let giftprice : String
     
     init(dict: [String:Any]) {
         self.month = dict["month"] as? String ?? ""
         self.count = dict["count"] as? String ?? ""
+        self.productPrice = dict["Productprice"] as? String ?? ""
+        self.servicePrice = dict["serviceprice"] as? String ?? ""
+        self.giftprice = dict["Giftprice"] as? String ?? ""
     }
 }
 
