@@ -80,6 +80,11 @@ class AddNewServiceVC: UIViewController {
         vw_appointmentInstruction.layer.borderWidth = 0.5
         vw_appointmentInstruction.layer.borderColor = UIColor.init("15B0DA").cgColor
         txtDuration.optionArray = serviceDuration
+        txtDuration.didSelect { selectedText, index, id in
+            self.txtDuration.text = selectedText
+            self.txtDuration.selectText = selectedText
+            self.txtDuration.selectedIndex = index
+        }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(gesture(_:)))
         tap.numberOfTapsRequired = 1
@@ -122,8 +127,7 @@ class AddNewServiceVC: UIViewController {
                 for dict in res {
                     self.arrChooseUser.append(ChooseUser(dict: dict))
                 }
-            
-                self.didSelectUser()
+               self.didSelectUser()
                 
             }
         }
@@ -196,6 +200,8 @@ class AddNewServiceVC: UIViewController {
         self.txtUser.optionArray = self.arrChooseUser.map { $0.UserName }
         self.txtUser.optionIds = self.arrChooseUser.map { $0.id }
         self.txtUser.didSelect{(selectedText, index ,id) in
+            self.txtUser.text = selectedText
+            self.txtUser.selectText = selectedText
             self.txtUser.selectedIndex = index
             self.userCollectionView.isHidden = false
             self.selectedUser = selectedText
@@ -241,6 +247,13 @@ class AddNewServiceVC: UIViewController {
     @objc func closeUserCellClick(_ sender: UIButton) {
         arrUsers.remove(at: sender.tag)
         arrSelectedIds.remove(at: sender.tag)
+        userCollectionView.reloadData()
+        if arrUsers.count == 0{
+            txtUser.text = ""
+            txtUser.selectText = ""
+            txtUser.selectedIndex = 0
+            userCollectionView.isHidden = true
+        }
         userCollectionView.reloadData()
     }
 

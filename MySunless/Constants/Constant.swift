@@ -186,6 +186,9 @@ let VIEW_TASK_DETAIL = "ViewTaskDetail"
 let UPDATE_PREVIEW_DATA = "updatepreview"
 let POST_COMMENT = "AddOrUpdateComment"
 let DELETE_COMMENT = "DeleteChat"
+let PROGRESS_BAR = "progressbar"
+let DELETE_ACCOUNT = "deleteaccount"
+
 
 
 let stateList = ["Select a State","Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawai","Idaho","Illinois","Indiana","Lowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York,","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]

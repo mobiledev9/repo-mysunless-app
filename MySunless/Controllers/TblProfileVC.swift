@@ -19,12 +19,16 @@ class TblProfileVC: UIViewController {
     //MARK:- Variable Declarations
     var arrData = [Category]()
     var token = String()
+    var alertTitle = "Account Delete?"
+    var alertSubtitle = "Once Your account deleted, your current subscription will end and all data of your account will be delete!"
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
-        arrData = [Category(name: "My Account", image: UIImage(named: "user-profile")!, subcategories: []),Category(name: "Logout", image: UIImage(named: "logout")!, subcategories: [])]
+        arrData = [Category(name: "My Account", image: UIImage(named: "user-profile")!, subcategories: []),
+                   Category(name: "Logout", image: UIImage(named: "logout")!, subcategories: []),
+                   Category(name: "Delete Account", image: UIImage(named: "delete-user")!, subcategories: [])]
         tblProfile.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
         tblProfile.tableFooterView = UIView()
        // sidemenu.menuWidth = 100
@@ -44,6 +48,20 @@ class TblProfileVC: UIViewController {
         })
         alert.iconTintColor = UIColor.white
         alert.showSuccess(alertMainTitle, subTitle: alertTitle)
+    }
+    
+    func addDeleteAlert() {
+        let alert = SCLAlertView()
+        alert.addButton("Yes, delete it!", backgroundColor: UIColor.init("#0ABB9F"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, target: self, selector: #selector(deletePermanently))
+        alert.addButton("Cancel", backgroundColor: UIColor.init("#E95268"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, action: {
+            
+        })
+        alert.iconTintColor = UIColor.white
+        alert.showSuccess(alertTitle, subTitle: alertSubtitle)
+    }
+
+    @objc func deletePermanently() {
+        callDeleteUserAPI()
     }
     
     func callGetProfileAPI() {
@@ -96,6 +114,36 @@ class TblProfileVC: UIViewController {
             }
         }
     }
+    
+ func callDeleteUserAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization" : token]
+        var params = NSDictionary()
+        params = [:]
+        if (APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + DELETE_ACCOUNT, param: params, header: headers) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            if let res = response as? NSDictionary {
+                if let success = res.value(forKey: "success") as? Int {
+                    if success == 1 {
+                        if let message = res.value(forKey: "response") as? String {
+                            self.showSCLAlert(alertMainTitle: "", alertTitle: message)
+                        }
+                    } else {
+                        if let message = res.value(forKey: "message") as? String {
+                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: message)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 //MARK:- Tableview Datasource Methods
@@ -123,13 +171,16 @@ extension TblProfileVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-            case 0:
-                let VC = self.storyboard?.instantiateViewController(withIdentifier: "PrrofileVC") as! PrrofileVC
-                self.navigationController?.pushViewController(VC, animated: true)
-            case 1:
-                callLogoutAPI()
-            default:
-                print("Default")
+        case 0:
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "PrrofileVC") as! PrrofileVC
+            self.navigationController?.pushViewController(VC, animated: true)
+        case 1:
+            callLogoutAPI()
+        case 2:
+            addDeleteAlert()
+            
+        default:
+            print("Default")
         }
     }
     

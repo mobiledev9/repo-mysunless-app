@@ -11,6 +11,10 @@ class CompanyServiceVC: UIViewController {
     
     //MARK:- Outlets
     @IBOutlet var vw_Main: UIView!
+    @IBOutlet var vw_workingStartTime: UIView!
+    @IBOutlet var txtWorkingStartTime: UITextField!
+    @IBOutlet var vw_workingEndTime: UIView!
+    @IBOutlet var txtWorkingEndTime: UITextField!
     @IBOutlet var vw_service: UIView!
     @IBOutlet var txtService: UITextField!
     @IBOutlet var vw_price: UIView!
@@ -52,6 +56,10 @@ class CompanyServiceVC: UIViewController {
         vw_Main.layer.shadowRadius = 6.0
         vw_Main.layer.masksToBounds = false
         
+        vw_workingStartTime.layer.borderWidth = 0.5
+        vw_workingStartTime.layer.borderColor = UIColor.gray.cgColor
+        vw_workingEndTime.layer.borderWidth = 0.5
+        vw_workingEndTime.layer.borderColor = UIColor.gray.cgColor
         vw_service.layer.borderWidth = 0.5
         vw_service.layer.borderColor = UIColor.gray.cgColor
         vw_price.layer.borderWidth = 0.5
@@ -76,6 +84,9 @@ class CompanyServiceVC: UIViewController {
         txtPrice.delegate = self
         txtVwAppointmentInst.delegate = self
         txtLocalSalesRate.delegate = self
+        txtWorkingStartTime.delegate = self
+        txtWorkingEndTime.delegate = self
+        
         self.hideKeyboardWhenTappedAround()
         
         arrData = serviceDuration
@@ -110,7 +121,11 @@ class CompanyServiceVC: UIViewController {
     }
     
     func validation() -> Bool {
-        if txtService.text == "" {
+        if txtWorkingStartTime.text == "" {
+            AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter start time", viewController: self)
+        } else if txtWorkingEndTime.text == "" {
+            AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter end time", viewController: self)
+        } else if txtService.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter Service Name", viewController: self)
         } else if txtPrice.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter Service Price", viewController: self)
@@ -120,6 +135,28 @@ class CompanyServiceVC: UIViewController {
             return true
         }
         return false
+    }
+    
+    @objc func handleFromStartTime() {
+        if let datePicker = self.txtWorkingStartTime.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.amSymbol = "am"
+            dateFormatter.pmSymbol = "pm"
+            txtWorkingStartTime.text = dateFormatter.string(from: datePicker.date)
+        }
+        self.txtWorkingStartTime.resignFirstResponder()
+    }
+    
+    @objc func handleFromEndTime() {
+        if let datePicker = self.txtWorkingEndTime.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.amSymbol = "am"
+            dateFormatter.pmSymbol = "pm"
+            txtWorkingEndTime.text = dateFormatter.string(from: datePicker.date)
+        }
+        self.txtWorkingEndTime.resignFirstResponder()
     }
     
     //MARK:- Actions
@@ -157,7 +194,9 @@ class CompanyServiceVC: UIViewController {
 //        print("CompanyService:-",dict)
         
         if (self.validation()) {
-            UserDefaults.standard.setValue(txtService.text ?? "", forKey: "company_service")
+            UserDefaults.standard.setValue(txtWorkingStartTime.text ?? "", forKey: "starttime")
+            UserDefaults.standard.setValue(txtWorkingEndTime.text ?? "", forKey: "endtime")
+             UserDefaults.standard.setValue(txtService.text ?? "", forKey: "company_service")
             UserDefaults.standard.setValue(txtPrice.text ?? "", forKey: "service_price")
             UserDefaults.standard.setValue(txtServiceDuration.text ?? "", forKey: "service_duration")
             UserDefaults.standard.setValue(txtVwAppointmentInst.text ?? "", forKey: "instruction")
@@ -262,4 +301,14 @@ extension CompanyServiceVC: UITextFieldDelegate {
         txtLocalSalesRate.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtWorkingStartTime {
+            self.txtWorkingStartTime.setInputViewDatePicker(target: self, selector: #selector(handleFromStartTime),pickerMode: .time)
+        } else if textField == txtWorkingEndTime {
+            self.txtWorkingEndTime.setInputViewDatePicker(target: self, selector: #selector(handleFromEndTime), pickerMode: .time)
+        }
+        
+    }
 }
+

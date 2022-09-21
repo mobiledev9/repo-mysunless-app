@@ -443,7 +443,10 @@ class BookAppointmentVC: UIViewController {
                         if let response = res.value(forKey: "resonse") as? [[String:Any]] {
                             self.arrCustomer.removeAll()
                             for dict in response {
-                                self.arrCustomer.append(ChooseCustomer(dict: dict))
+                                let dic = ChooseCustomer(dict: dict)
+                                  if dic.FirstName != "" || dic.LastName != "" {
+                                      self.arrCustomer.append(ChooseCustomer(dict: dict))
+                                  }
                             }
                             DispatchQueue.main.async {
                                 self.tblCustomerListName.reloadData()

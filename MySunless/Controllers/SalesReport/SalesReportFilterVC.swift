@@ -300,7 +300,10 @@ class SalesReportFilterVC: UIViewController {
             if let res = response as? [[String:Any]] {
                 self.arrChooseCustomer.removeAll()
                 for dict in res {
-                    self.arrChooseCustomer.append(ChooseCustomerList(dict: dict))
+                    let dic = ChooseCustomer(dict: dict)
+                      if dic.FirstName != "" || dic.LastName != "" {
+                          self.arrChooseCustomer.append(ChooseCustomerList(dict: dict))
+                      }
                 }
                 self.chooseCustomerDropdown.optionArray = self.arrChooseCustomer.map { $0.FirstName + " " + $0.LastName }
                 self.chooseCustomerDropdown.optionIds = self.arrChooseCustomer.map{ $0.id }

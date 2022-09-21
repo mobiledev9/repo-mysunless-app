@@ -37,7 +37,7 @@ class SalesReportVC: UIViewController {
         
         return viewController
     }()
-    private lazy var thirdViewController: SalesProfitGraphVC = {
+   /* private lazy var thirdViewController: SalesProfitGraphVC = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
@@ -48,7 +48,19 @@ class SalesReportVC: UIViewController {
         self.add(asChildViewController: viewController)
         
         return viewController
-    }()
+    }() */
+    private lazy var thirdViewController: SalesGraphVC = {
+         // Load Storyboard
+         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+         
+         // Instantiate View Controller
+         var viewController = storyboard.instantiateViewController(withIdentifier: "SalesGraphVC") as! SalesGraphVC
+         
+         // Add View Controller as Child View Controller
+         self.add(asChildViewController: viewController)
+         
+         return viewController
+     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

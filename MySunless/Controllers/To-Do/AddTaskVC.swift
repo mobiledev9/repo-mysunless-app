@@ -55,6 +55,7 @@ class AddTaskVC: UIViewController {
     var model = NSDictionary()
     var userId = Int()
     var isTodoCat = false
+    var tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,6 +155,9 @@ class AddTaskVC: UIViewController {
         txtVwDesc.text = "Enter Task Description..."
         txtVwDesc.textColor = UIColor.init("#B3B3B4")
         txtVwDesc.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
+        self.view.isUserInteractionEnabled = true
+      // vw_innerbottom.addGestureRecognizer(tapGesture)
         
         colorPalette?.delegate = self
         colorPalette?.dataSource = self
@@ -346,6 +350,15 @@ class AddTaskVC: UIViewController {
         arrSelectedEmpId.remove(at: sender.tag)
         assignColview.reloadData()
     }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        print("Handle tap")
+        vw_datePicker.isHidden = true
+        lblAssign.isHidden = false
+        vw_assign.isHidden = false
+        lblRadioColorPicker.isHidden = false
+        colorStackView.isHidden = false
+        }
     
 }
 

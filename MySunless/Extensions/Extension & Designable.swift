@@ -118,6 +118,7 @@ extension String {
         }
         return CGFloat(doubleValue)
     }
+    
 }
 
 extension Float {
@@ -168,12 +169,12 @@ extension UITextField {
         self.inputAccessoryView = toolBar //9
     }
     
-    func setInputViewDatePicker(target: Any, selector: Selector) {
+    func setInputViewDatePicker(target: Any, selector: Selector,pickerMode : UIDatePicker.Mode? = .date) {
         // Create a UIDatePicker object and assign to inputView
         let screenWidth = UIScreen.main.bounds.width
         let screenheight = UIScreen.main.bounds.height
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: CGFloat(screenheight - 100.0), width: screenWidth, height: 216))//1
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = pickerMode ?? .date
         //2
         // iOS 14 and above
         if #available(iOS 14, *) {// Added condition for iOS 14
@@ -241,8 +242,40 @@ extension UILabel {
         attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
         self.attributedText = attribute
     }
+    
+    func strikeThrough(_ isStrikeThrough:Bool) {
+        if isStrikeThrough {
+            if let lblText = self.text {
+                let attributeString =  NSMutableAttributedString(string: lblText)
+                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0,attributeString.length))
+                self.attributedText = attributeString
+            }
+        } else {
+            if let attributedStringText = self.attributedText {
+                let txt = attributedStringText.string
+                self.attributedText = nil
+                self.text = txt
+                return
+            }
+        }
+        }
 }
-
+extension UIImageView {
+func setCheckImage(value:Int){
+    var img : UIImage  = UIImage()
+    if value == 1 {
+        img =  UIImage(systemName: "checkmark.circle.fill")!
+        img.withTintColor(UIColor.init("149A14"))
+        self.tintColor = UIColor.init("149A14")
+        self.image = img
+    } else {
+        img =  UIImage(systemName: "circle")!
+        img.withTintColor(UIColor.gray)
+        self.tintColor = UIColor.gray
+        self.image = img
+    }
+}
+}
 extension UITextView {
     func setHTMLFromString(htmlText: String) {
         let modifiedFont = String(format:"<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: \(self.font!.pointSize)\">%@</span>", htmlText)

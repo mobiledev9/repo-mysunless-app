@@ -10,16 +10,47 @@ import Alamofire
 import SideMenu
 import Charts
 import MBCircularProgressBar
+import AMProgressBar
+
 
 class DashboardVC: UIViewController, ChartViewDelegate {
-    
+    //2520 2120
+   // 560 0
     //MARK:- Outlets
+    @IBOutlet weak var heightOfMainView: NSLayoutConstraint!
+    @IBOutlet weak var heightOfChecklistView: NSLayoutConstraint!
     @IBOutlet var vw_progressView: UIView!
     @IBOutlet var vw_revenuView: UIView!
     @IBOutlet var vw_productSalesView: UIView!
     @IBOutlet var vw_topSellingView: UIView!
     @IBOutlet var vw_recentTransctionView: UIView!
+    @IBOutlet var vw_checklistView: UIView!
     
+    @IBOutlet var vw_clientView: UIView!
+    @IBOutlet var imgCheckClient: UIImageView!
+    @IBOutlet var btnClient: UIButton!
+    @IBOutlet var lblClient: UILabel!
+    
+    @IBOutlet var vw_productView: UIView!
+    @IBOutlet var imgCheckProduct: UIImageView!
+    @IBOutlet var btnProduct: UIButton!
+    @IBOutlet var lblProduct: UILabel!
+    
+    @IBOutlet var vw_eventView: UIView!
+    @IBOutlet var imgCheckEvent: UIImageView!
+    @IBOutlet var btnEvent: UIButton!
+    @IBOutlet var lblEvent: UILabel!
+    
+    @IBOutlet var vw_todoView: UIView!
+    @IBOutlet var imgCheckTodo: UIImageView!
+    @IBOutlet var btnTodo: UIButton!
+    @IBOutlet var lblTodo: UILabel!
+    
+    @IBOutlet var vw_orderView: UIView!
+    @IBOutlet var imgCheckOrder: UIImageView!
+    @IBOutlet var btnOrder: UIButton!
+    @IBOutlet var lblOrder: UILabel!
+     
     @IBOutlet weak var lblTotalClients: UILabel!
     @IBOutlet weak var progressBar_Clients: MBCircularProgressBarView!
     @IBOutlet weak var vw_Clients: UIView!
@@ -45,6 +76,8 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     @IBOutlet weak var productPieChartView: PieChartView!
     @IBOutlet var vw_container: UIView!
     @IBOutlet weak var vw_lock: UIView!
+    @IBOutlet weak var lblBadgeCount: UILabel!
+    @IBOutlet weak var vw_checklistProgressBar: UIView!
     
     //MARK:- Variable Declarations
    // var arrData = [Category]()
@@ -54,8 +87,12 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     var clients = Bool()
     var arrTopSellingProducts = [TopSellingProducts]()
     var arrRecentTransaction = [RecentTransaction]()
+    var arrProgressBar = [ProgressBar]()
     var arrRevenueReport = [EventLineChart]()
     var ProductSaleReport : ProductSalesReport?
+    var valSelctedDates : (String,Int) = ("",-1)
+    let checklistProgressBar = AMProgressBar()
+    var progressValue : CGFloat = 0.4
     
     
     //MARK:- ViewController LifeCycle
@@ -73,6 +110,8 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         callRecentTransactionAPI()
         callProductSalesReportAPI()
         callRevenueReportAPI()
+        callprogressbarAPI()
+        //setChecklistProgressBar(value: progressValue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,6 +144,24 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         tblRecentTransctionList.layer.borderWidth = 0.5
         tblRecentTransctionList.layer.borderColor = UIColor.init("#15B0DA").cgColor
         tblRecentTransctionList.layer.cornerRadius = 12
+        
+        vw_clientView.layer.borderWidth = 0.5
+        vw_clientView.layer.cornerRadius = 12
+        vw_productView.layer.borderWidth = 0.5
+        vw_productView.layer.cornerRadius = 12
+        
+        vw_eventView.layer.borderWidth = 0.5
+        vw_eventView.layer.cornerRadius = 12
+        
+        vw_todoView.layer.borderWidth = 0.5
+        vw_todoView.layer.cornerRadius = 12
+        
+        vw_orderView.layer.borderWidth = 0.5
+        vw_orderView.layer.cornerRadius = 12
+        
+        vw_checklistProgressBar.layer.borderWidth = 0.5
+        vw_checklistProgressBar.layer.cornerRadius = 12
+        vw_checklistProgressBar.addSubview(checklistProgressBar)
     }
     
     func lockView() {
@@ -114,18 +171,48 @@ class DashboardVC: UIViewController, ChartViewDelegate {
             vw_lock.isHidden = false
         }
     }
+    func setChecklistProgressBar(value:CGFloat = 0.1) {
+        checklistProgressBar.progressValue = value
+        checklistProgressBar.frame = vw_checklistProgressBar.bounds
+        checklistProgressBar.customize { bar in
+            bar.backgroundColor = UIColor.init("E9EAEC")
+            bar.cornerRadius = 2.0
+            bar.borderColor = UIColor.init("15B0DA")//UIColor.gray
+            bar.borderWidth = 0.5//4
+
+            bar.barCornerRadius = 0.5
+            bar.barColor = UIColor.init("15B0DA")
+            bar.barMode = AMProgressBarMode.determined.rawValue
+
+            bar.hideStripes = false
+            bar.stripesColor = UIColor.init("15C0DA").withAlphaComponent(0.5)
+            bar.stripesWidth = 6.0
+           // bar.stripesSpacing = 10
+            bar.stripesDelta = 0.0
+            bar.stripesMotion = AMProgressBarStripesMotion.right.rawValue
+            bar.stripesOrientation = AMProgressBarStripesOrientation.diagonalLeft.rawValue
+
+            bar.textColor = UIColor.white
+            bar.textFont = UIFont(name: "Roboto-Bold", size: 25)!
+            bar.textPosition = AMProgressBarTextPosition.topLeft.rawValue
+        }
+        
+    }
     
     func customizeLineChart(arrChartData: [EventLineChart]) {
         revenueLineChatView.delegate = self
         revenueLineChatView.noDataText = "No data available."
         var dataEntries: [ChartDataEntry] = []
+        var dataEntries1: [ChartDataEntry] = []
+        var dataEntries2: [ChartDataEntry] = []
+        var dataEntries3: [ChartDataEntry] = []
         let Months: [String] = arrChartData.map{ $0.month }
-        let Count: [String] = arrChartData.map{ $0.count }
-        let ProductPrice : [String] = arrChartData.map{ $0.productPrice }
-        let ServicePrice : [String] = arrChartData.map{ $0.servicePrice }
-        let GiftPrice : [String] = arrChartData.map{ $0.giftprice }
+        let Service: [String] = arrChartData.map{ $0.servicePrice }
+        let Product: [String] = arrChartData.map{ $0.productPrice }
+        let Package: [String] = arrChartData.map{ $0.memberPrice }
+        let Gift: [String] = arrChartData.map{ $0.giftprice }
         
-        //legend
+        //legendfrrsection
         let legend = revenueLineChatView.legend
         legend.enabled = true
         legend.horizontalAlignment = .right
@@ -136,91 +223,118 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         legend.xOffset = 10.0
         legend.yEntrySpace = 0.5
         
-        revenueLineChatView.setScaleEnabled(false)
-        revenueLineChatView.drawGridBackgroundEnabled = false
-        revenueLineChatView.xAxis.drawAxisLineEnabled = true
-        revenueLineChatView.xAxis.drawGridLinesEnabled = false
-        revenueLineChatView.leftAxis.drawAxisLineEnabled = true
-        revenueLineChatView.leftAxis.drawGridLinesEnabled = false
-        revenueLineChatView.rightAxis.drawAxisLineEnabled = false
-        revenueLineChatView.rightAxis.drawGridLinesEnabled = false
-        revenueLineChatView.legend.enabled = true
-        revenueLineChatView.xAxis.enabled = true
-        revenueLineChatView.xAxis.labelPosition = .bottom
-        revenueLineChatView.xAxis.valueFormatter = IndexAxisValueFormatter(values: Months)
-        revenueLineChatView.xAxis.setLabelCount(12, force: true)
-        revenueLineChatView.leftAxis.setLabelCount(5, force: true)
-        revenueLineChatView.leftAxis.axisMinimum = 0
-        revenueLineChatView.leftAxis.axisMaximum = 16
-        revenueLineChatView.leftAxis.enabled = true
+        let xaxis = revenueLineChatView.xAxis
+        // xaxis.valueFormatter = axisFormatDelegate
+        xaxis.setLabelCount(12, force: true)
+        xaxis.drawGridLinesEnabled = false
+        xaxis.labelPosition = .bottom
+        xaxis.centerAxisLabelsEnabled = false
+        xaxis.valueFormatter = IndexAxisValueFormatter(values: Months)
+        xaxis.granularity = 1
+        
+        let leftAxisFormatter = NumberFormatter()
+        leftAxisFormatter.maximumFractionDigits = 4
+        
+        let yaxis = revenueLineChatView.leftAxis
+        yaxis.setLabelCount(11, force: true)
+        yaxis.spaceTop = 0.35
+        yaxis.axisMinimum = 0
+       // yaxis.axisMaximum = 10
+        yaxis.drawGridLinesEnabled = false
+    
         revenueLineChatView.rightAxis.enabled = false
-        revenueLineChatView.xAxis.drawLabelsEnabled = true
         
         for i in 0..<Months.count {
-            let entryProductPrice = ProductPrice[i].doubleValue
-            let entryServicePrice = ServicePrice[i].doubleValue
-            let entryGiftPrice = GiftPrice[i].doubleValue
-            let dataEntryProductPrice = ChartDataEntry(x: Double(i) , y: entryProductPrice)
-            let dataEntryServicePrice = ChartDataEntry(x: Double(i) , y: entryServicePrice)
-            let dataEntryGiftPrice = ChartDataEntry(x: Double(i) , y: entryGiftPrice)
-            dataEntries.append(dataEntryProductPrice)
-            dataEntries.append(dataEntryServicePrice)
-            dataEntries.append(dataEntryGiftPrice)
+            let entry = Service[i].doubleValue
+            let dataEntry = ChartDataEntry(x: Double(i) , y: entry)
+            dataEntries.append(dataEntry)
+            
+            let entry1 = Product[i].doubleValue
+            let dataEntry1 = ChartDataEntry(x: Double(i) , y: entry1)
+            dataEntries1.append(dataEntry1)
+            
+            let entry2 = Package[i].doubleValue
+            let dataEntry2 = ChartDataEntry(x: Double(i) , y: entry2)
+            dataEntries2.append(dataEntry2)
+            
+            let entry3 = Gift[i].doubleValue
+            let dataEntry3 = ChartDataEntry(x: Double(i) , y: entry3)
+            dataEntries3.append(dataEntry3)
         }
         
-        let line1 = LineChartDataSet(entries: dataEntries, label: "Product Sales")
-        let line2 = LineChartDataSet(entries: dataEntries, label: "Service Sales")
-        let line3 = LineChartDataSet(entries: dataEntries, label: "GiftCard Sales")
-        line1.colors = [UIColor.init("15B0DA")]
-        line1.mode = .cubicBezier
-        line1.cubicIntensity = 0.2
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "Service")
+        let chartDataSet1 = LineChartDataSet(entries: dataEntries1, label: "Product")
+        let chartDataSet2 = LineChartDataSet(entries: dataEntries2, label: "Package")
+        let chartDataSet3 = LineChartDataSet(entries: dataEntries3, label: "Gift")
         
-        line2.colors = [UIColor.init("A20E06")]
-        line2.mode = .cubicBezier
-        line2.cubicIntensity = 0.2
+        chartDataSet.setCircleColor(UIColor.init("FF0004"))
+        chartDataSet.lineWidth = 3.0
+        chartDataSet.circleRadius = 5.0
+        chartDataSet.circleHoleColor = UIColor.init("FF0004")
+        chartDataSet.drawCircleHoleEnabled = true
         
-        line3.colors = [UIColor.init("296606")]
-        line3.mode = .cubicBezier
-        line3.cubicIntensity = 0.2
+        chartDataSet1.setCircleColor(UIColor.init("4A54AA"))
+        chartDataSet1.lineWidth = 3.0
+        chartDataSet1.circleRadius = 5.0
+        chartDataSet1.circleHoleColor = UIColor.init("4A54AA")
+        chartDataSet1.drawCircleHoleEnabled = true
+        
+        chartDataSet2.setCircleColor(UIColor.init("D9C13D"))
+        chartDataSet2.lineWidth = 3.0
+        chartDataSet2.circleRadius = 5.0
+        chartDataSet2.circleHoleColor = UIColor.init("D9C13D")
+        chartDataSet2.drawCircleHoleEnabled = true
+        
+        chartDataSet3.setCircleColor(UIColor.init("296606"))
+        chartDataSet3.lineWidth = 3.0
+        chartDataSet3.circleRadius = 5.0
+        chartDataSet3.circleHoleColor = UIColor.init("296606")
+        chartDataSet3.drawCircleHoleEnabled = true
+        
+        chartDataSet.colors = [UIColor.init("FF0004")]
+        chartDataSet1.colors = [UIColor.init("4A54AA")]
+        chartDataSet2.colors = [UIColor.init("D9C13D")]
+        chartDataSet3.colors = [UIColor.init("296606")]
+        chartDataSet.drawValuesEnabled = false
+        chartDataSet1.drawValuesEnabled = false
+        chartDataSet2.drawValuesEnabled = false
+        chartDataSet3.drawValuesEnabled = false
+        
+        let gradient1 = getGradientFilling(gColor: UIColor.init("FF0004"))
+        chartDataSet.fill = LinearGradientFill(gradient: gradient1, angle: 90.0)
+        chartDataSet.drawFilledEnabled = true
+        
+        let gradient2 = getGradientFilling(gColor: UIColor.init("4A54AA"))
+        chartDataSet1.fill = LinearGradientFill(gradient: gradient2, angle: 90.0)
+        chartDataSet1.drawFilledEnabled = true
+        
+        let gradient3 = getGradientFilling(gColor: UIColor.init("D9C13D"))
+        chartDataSet2.fill = LinearGradientFill(gradient: gradient3, angle: 90.0)
+        chartDataSet2.drawFilledEnabled = true
+        
+        let gradient4 = getGradientFilling(gColor: UIColor.init("296606"))
+        chartDataSet3.fill = LinearGradientFill(gradient: gradient4, angle: 90.0)
+        chartDataSet3.drawFilledEnabled = true
         
         
-        let gradient1 = getGradientFilling(gColor: UIColor.init("15B0DA"))
-        line1.fill = LinearGradientFill(gradient: gradient1, angle: 90.0)
-        line1.drawFilledEnabled = true
+        let dataSets: [LineChartDataSet] = [chartDataSet, chartDataSet1, chartDataSet2, chartDataSet3]
+        let chartData = LineChartData(dataSets: dataSets)
         
-        let gradient2 = getGradientFilling(gColor: UIColor.init("A20E06"))
-        line2.fill = LinearGradientFill(gradient: gradient2, angle: 90.0)
-        line2.drawFilledEnabled = true
-        
-        let gradient3 = getGradientFilling(gColor: UIColor.init("296606"))
-        line3.fill = LinearGradientFill(gradient: gradient3, angle: 90.0)
-        line3.drawFilledEnabled = true
-        
-        
-        let data1 = LineChartData(dataSet: line1)
-        let data2 = LineChartData(dataSet: line2)
-        let data3 = LineChartData(dataSet: line3)
-        data1.append(line2)
-        data1.append(line3)
-        revenueLineChatView.data = data1
-        
+        revenueLineChatView.notifyDataSetChanged()
+        revenueLineChatView.data = chartData
+        revenueLineChatView.backgroundColor = UIColor.clear
     }
+    
     private func getGradientFilling(gColor:UIColor) -> CGGradient {
-        // Setting fill gradient color
-//        let coloTop = UIColor(red: 141/255, green: 133/255, blue: 220/255, alpha: 1).cgColor
-//        let colorBottom = UIColor(red: 230/255, green: 155/255, blue: 210/255, alpha: 1).cgColor
-//        // Colors of the gradient
-//        let gradientColors = [coloTop, colorBottom] as CFArray
         let gradientColors = [gColor.cgColor, UIColor.clear.cgColor]
-        // Positioning of the gradient
         let colorLocations: [CGFloat] = [0.7, 0.0]
-        // Gradient Object
         return CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors as CFArray, locations: colorLocations)!
     }
     
     func customizePieChart(productData: ProductSalesReport) {
         let val1 = (((productData.product?.doubleValue ?? 0.0)/(productData.allsum?.doubleValue ?? 0.0)) * 100)
         let val2 = (((productData.service?.doubleValue ?? 0.0)/(productData.allsum?.doubleValue ?? 0.0)) * 100)
+        let val3 = (((productData.service?.doubleValue ?? 0.0)/(productData.allsum?.doubleValue ?? 0.0)) * 100)
      //   let total = productData.allsum?.doubleValue ?? 0.0
         let dataPoints = ["Product","Service"]
         let values = [val1,val2]
@@ -391,12 +505,20 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         }
     }
     
-    func callRevenueReportAPI() {
+    func callRevenueReportAPI(isFilter:Bool? = false) {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
-        params = [:]
-        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+        if isFilter! {
+            var dict :[String:String] = [:]
+            if valSelctedDates != ("",-1) {
+                dict["filterdata"] = valSelctedDates.0
+            }
+            params = dict as NSDictionary
+        } else {
+            params = [:]
+        }
+         if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
             AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
                 AppData.sharedInstance.dismissLoader()
             }
@@ -500,6 +622,128 @@ class DashboardVC: UIViewController, ChartViewDelegate {
             }
         }
     }
+    
+    func callprogressbarAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization" : token]
+        var params = NSDictionary()
+        params = [:]
+        if (APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + PROGRESS_BAR, param: params, header: headers) { (respnse, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
+                        if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            self.arrProgressBar.removeAll()
+                            for dict in response {
+                                self.arrProgressBar.append(ProgressBar(dict: dict))
+                            }
+                            DispatchQueue.main.async {
+                                if let progress = res.value(forKey: "progress") as? Int {
+                                    self.setCheckListView(progressValue: progress)
+                                }
+                            }
+                        }
+                       
+                    } else {
+                        if let response = res.value(forKey: "response") as? String {
+                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func setCheckListView(progressValue : Int) {
+        if progressValue == 100 {
+            vw_checklistView.isHidden = true
+            heightOfChecklistView.constant = 0.0
+            heightOfMainView.constant = 2120
+        } else {
+            vw_checklistView.isHidden = false
+            heightOfChecklistView.constant = 560
+            heightOfMainView.constant = 2520
+            self.setChecklistProgressBar(value: CGFloat(progressValue)/100)
+            
+            for progress in arrProgressBar {
+                switch progress.type {
+                case "client": imgCheckClient.setCheckImage(value:progress.data)
+                     progress.data == 1 ? lblClient.strikeThrough(true)       :lblClient.strikeThrough(false)
+                    if progress.data == 0 {
+                        self.btnClient.isEnabled = true
+                    } else {
+                        self.btnClient.isEnabled = false
+                    }
+                    break
+                    
+                case "product":
+                    imgCheckProduct.setCheckImage(value:progress.data)
+                    progress.data == 1 ? lblProduct.strikeThrough(true)       :lblProduct.strikeThrough(false)
+                    if progress.data == 0 {
+                        self.btnProduct.isEnabled = true
+                    } else {
+                        self.btnProduct.isEnabled = false
+                    }
+                    break
+                    
+                case "event":
+                    imgCheckEvent.setCheckImage(value:progress.data)
+                    progress.data == 1 ? lblEvent.strikeThrough(true)       :lblEvent.strikeThrough(false)
+                    if progress.data == 0{
+                        self.btnEvent.isEnabled = true
+                     } else {
+                       self.btnEvent.isEnabled = false
+                    }
+                    break
+                    
+                case "todo":
+                    imgCheckTodo.setCheckImage(value:progress.data)
+                    progress.data == 1 ? lblTodo.strikeThrough(true)       :lblTodo.strikeThrough(false)
+                    if progress.data == 0 {
+                        self.btnTodo.isEnabled = true
+                    } else {
+                        self.btnTodo.isEnabled = false
+                    }
+                    break
+                    
+                case "order":
+                    imgCheckOrder.setCheckImage(value:progress.data)
+                    progress.data == 1 ? lblOrder.strikeThrough(true)       :lblOrder.strikeThrough(false)
+                    if progress.data == 0 {
+                        self.btnOrder.isEnabled = true
+                     } else {
+                       self.btnOrder.isEnabled = false
+                    }
+                    break
+                default:
+                    print("Default")
+                }
+            }
+            
+            
+        }
+        
+    }
+    
+//    func setCheckImage(value:Int) -> UIImage {
+//        var img : UIImage  = UIImage()
+//        if value == 1 {
+//            img =  UIImage(systemName: "checkmark.circle.fill")!
+//            img.withTintColor(UIColor.darkGray)
+//        } else {
+//            img =  UIImage(systemName: "circle")!
+//            img.withTintColor(UIColor.green)
+//        }
+//        return img
+//    }
 
     //MARK:- Actions
     @IBAction func btnTotalClientsClick(_ sender: UIButton) {
@@ -518,8 +762,43 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func btnToDoListClick(_ sender: UIButton) {
+        
     }
     
+    @IBAction func btnFilterRevenuGraphClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentHistoryFilterVC") as! PaymentHistoryFilterVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+       VC.delegateOfRevenuGraphFromDashbord = self
+        VC.isRevenuGraphFromDashbord = true
+        VC.valSelctedPaymentDate = self.valSelctedDates
+        self.present(VC, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnClientClick(_ sender: Any) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "CustomerDetailsVC") as! CustomerDetailsVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func btnProductClick(_ sender: Any) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ProductsListVC") as! ProductsListVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func btnEventClick(_ sender: Any) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "EventsVC") as! EventsVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func btnTodoClick(_ sender: Any) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ToDoVC") as! ToDoVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func btnOrderClick(_ sender: Any) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddOrderVC") as! AddOrderVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
 }
 
 //MARK:- UITableView Datasource Methods
@@ -559,4 +838,21 @@ extension DashboardVC: UITableViewDelegate {
         }
         return UITableView.automaticDimension
     }
+}
+
+//MARK:- Filter on revenu graph
+extension DashboardVC: FilterdelegateOfRevenuGraphProtocol {
+    func filterRevenuGraph(DateDatas: (String, Int)?, filterBadgeCount: Int) {
+        valSelctedDates = DateDatas ?? ("",-1)
+        self.lblBadgeCount.text = "\(filterBadgeCount)"
+        self.callRevenueReportAPI(isFilter: true)
+        
+    }
+    
+    
+}
+
+protocol FilterdelegateOfRevenuGraphProtocol {
+    func filterRevenuGraph(DateDatas : (String,Int)?,
+                               filterBadgeCount: Int)
 }

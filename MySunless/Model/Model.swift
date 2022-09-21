@@ -3816,7 +3816,7 @@ struct ProductSalesReport {
     
     public init?(dictionary: NSDictionary) {
         month = dictionary["month"] as? String
-        service = dictionary["service"] as? String
+        service = dictionary["Service"] as? String
         product = dictionary["Product"] as? String
         package = dictionary["Package"] as? String
         gift = dictionary["Gift"] as? String
@@ -3983,6 +3983,8 @@ struct EventLineChart {
     let productPrice : String
     let servicePrice : String
     let giftprice : String
+    let memberPrice : String
+    
     
     init(dict: [String:Any]) {
         self.month = dict["month"] as? String ?? ""
@@ -3990,6 +3992,7 @@ struct EventLineChart {
         self.productPrice = dict["Productprice"] as? String ?? ""
         self.servicePrice = dict["serviceprice"] as? String ?? ""
         self.giftprice = dict["Giftprice"] as? String ?? ""
+        self.memberPrice = dict["MemberPrice"] as? String ?? ""
     }
 }
 
@@ -4275,5 +4278,15 @@ struct CommentData {
         self.lastname = dict["lastname"] as? String ?? ""
         self.username = dict["username"] as? String ?? ""
         self.userimg = dict["userimg"] as? String ?? ""
+    }
+}
+
+struct ProgressBar {
+    let type: String
+    let data: Int
+    
+    init(dict: [String:Any]) {
+        self.type = dict["type"] as? String ?? ""
+        self.data = dict["data"] as? Int ?? 0
     }
 }

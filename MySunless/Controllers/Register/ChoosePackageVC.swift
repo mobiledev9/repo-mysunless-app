@@ -113,7 +113,9 @@ class ChoosePackageVC: UIViewController {
     var packageDesc = String()
     var packageValidity = String()
     var validity = Int()
-    
+    var starttime = String()
+    var endtime = String()
+ 
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +173,8 @@ class ChoosePackageVC: UIViewController {
         service_duration = UserDefaults.standard.value(forKey: "service_duration") as? String ?? ""
         instruction = UserDefaults.standard.value(forKey: "instruction") as? String ?? ""
         tax_rate = UserDefaults.standard.value(forKey: "tax_rate") as? String ?? ""
-        
+        starttime = UserDefaults.standard.value(forKey: "starttime") as? String ?? ""
+        endtime = UserDefaults.standard.value(forKey: "endtime") as? String ?? ""
         package_id = UserDefaults.standard.value(forKey: "package_id") as? String ?? ""
         promocode = UserDefaults.standard.value(forKey: "promocode") as? String ?? ""
     }
@@ -445,7 +448,9 @@ class ChoosePackageVC: UIViewController {
             "tax_rate" : tax_rate,
             "package_id" : package_id,
             "promocode" : promocode,
-            "paymentstatus": paymentStatus
+            "paymentstatus": paymentStatus,
+            "starttime": starttime,
+            "endtime": endtime
         ]
         
         let imageData1 = UserDefaults.standard.data(forKey: "userimage")

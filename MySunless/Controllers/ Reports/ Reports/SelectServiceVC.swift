@@ -147,6 +147,8 @@ class SelectServiceVC: UIViewController {
                 self.txtService.didSelect{(selectedText, index, id) in
                     print("Selected String: \(selectedText) \n index: \(index), id: \(id)")
                     self.txtService.selectedIndex = index
+                    self.txtService.text = selectedText
+                    self.txtService.selectText = selectedText
                     self.selectedServiceId = id
                     self.callServiceProviderAPI(serviceID: id)
                 }
@@ -187,6 +189,8 @@ class SelectServiceVC: UIViewController {
                     self.txtServiceProvider.optionArray = self.arrServiceProviderName
                     self.txtServiceProvider.didSelect{(selectedText, index, id) in
                         self.txtServiceProvider.selectedIndex = index
+                        self.txtServiceProvider.selectText = selectedText
+                        self.txtServiceProvider.text = selectedText
                         self.selectedServiceProviderId = id
                         
                     }
@@ -281,8 +285,7 @@ extension SelectServiceVC: UITextFieldDelegate {
             vw_availableTimeHeight.constant = 200
             
         }
-        
-    }
+     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txtSelectTime.resignFirstResponder()

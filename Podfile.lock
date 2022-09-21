@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.4.3)
+  - AMProgressBar (0.1.0)
   - Charts (4.0.2):
     - Charts/Core (= 4.0.2)
   - Charts/Core (4.0.2):
@@ -80,6 +81,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AMProgressBar
   - Charts
   - ColorPalette
   - DKImagePickerController
@@ -104,6 +106,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AMProgressBar
     - Charts
     - ColorPalette
     - CropViewController
@@ -133,6 +136,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AMProgressBar: 3f4671c4af4cb4fc9864ddc0a688450c8c7d1561
   Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
   ColorPalette: f6b36af0c05d34ae35ec0edf257d3202e8ea5f09
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
@@ -160,6 +164,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TreeTableView: 869484f5db96b1b6b8cc35a639a485fade7e83bd
 
-PODFILE CHECKSUM: 8c0b7c8a592fe5d6dc74dca58cd2ed1d4e8f19c0
+PODFILE CHECKSUM: 7853b60104878b758fced858fc8a740ecf21648d
 
 COCOAPODS: 1.11.3

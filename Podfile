@@ -28,5 +28,6 @@ target 'MySunless' do
     pod 'OnlyPictures'
     pod 'ColorPalette'
     pod 'SwiftReorder'
+    pod "AMProgressBar"
 
 end

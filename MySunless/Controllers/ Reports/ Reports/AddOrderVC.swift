@@ -390,12 +390,18 @@ class AddOrderVC: UIViewController {
                         if let response = res.value(forKey: "resonse") as? [[String:Any]] {
                             self.arrCustomer.removeAll()
                             for dict in response {
-                                self.arrCustomer.append(ChooseCustomer(dict: dict))
+                              let dic = ChooseCustomer(dict: dict)
+                                if dic.FirstName != "" || dic.LastName != "" {
+                                    self.arrCustomer.append(ChooseCustomer(dict: dict))
+                                }
+                                
                             }
                             self.txtChooseClient.optionIds = self.arrCustomer.map{$0.id}
                             self.txtChooseClient.optionArray = self.arrCustomer.map{ $0.FirstName + " " + $0.LastName }
                             self.txtChooseClient.didSelect{(selectedText, index, id) in
                                 self.txtChooseClient.selectedIndex = index
+                                self.txtChooseClient.selectText = selectedText
+                                self.txtChooseClient.text = selectedText
                                 self.selectedClientId = id
                                 let arr = self.arrCustomer.filter{$0.id == id}
                                 self.setViewOnSelectClient()

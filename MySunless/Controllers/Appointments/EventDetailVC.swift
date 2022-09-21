@@ -99,7 +99,7 @@ class EventDetailVC: UIViewController {
     func setView() {
         let imgUrlCustomer = URL(string: self.appointment?.userimg ?? "" )
         imgViewCustomer.kf.setImage(with: imgUrlCustomer)
-        lblCustomerName.text = (self.appointment?.client_firstname)! + " " + (self.appointment?.client_Lastname)!
+        lblCustomerName.text = (self.appointment?.client_firstname) ?? " " + " " + (self.appointment?.client_Lastname ?? " ")
         
         let imgUrlServiceProvider = URL(string: self.appointment?.profileImg ?? "")
         imgViewServiceProvider.kf.setImage(with: imgUrlServiceProvider)

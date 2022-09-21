@@ -246,7 +246,7 @@ class OrderSummaryVC: UIViewController {
                   "ServiceName": arrServiceIds.joined(separator: ","),
                   "ServicProvider": arrServiceProviderIds.joined(separator: ","),
                   "ServiceDate": arrServiceStartDate.joined(separator: ","),
-                  "servicetime": arrServiceStartTime.joined(separator: ","),
+                  "servicetime": arrServiceStartTime.joined(separator: " , "),
                   "ServicePrice": arrServicePrice.joined(separator: ","),
                   "ServiceDiscount": arrServiceDiscount.joined(separator: ","),
                   "ServiceDiscoutInParentage": arrServiceDiscoutInParentage.joined(separator: ","),

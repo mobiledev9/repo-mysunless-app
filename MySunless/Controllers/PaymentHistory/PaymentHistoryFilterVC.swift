@@ -43,6 +43,7 @@ class PaymentHistoryFilterVC: UIViewController {
     var arrChooseCustomer = [ChooseCustomerList]()
     var delegateOfPaymentHistory : FilterPaymentHistoryProtocol?
     var delegateOfPerformanceList : FilterPerformanceListProtocol?
+    var delegateOfRevenuGraphFromDashbord : FilterdelegateOfRevenuGraphProtocol?
     var arr7Days = [String]()
     var valSelctedPaymentDate : (String,Int) = ("",-1)
     var arrSelctedCustomers = [(String,String)]()
@@ -50,6 +51,7 @@ class PaymentHistoryFilterVC: UIViewController {
     var arrSelctedPaymnetType = [(String,String)]()
     var isFromPaymentHistory : Bool = false
     var isFromPerformanceList : Bool = false
+    var isRevenuGraphFromDashbord : Bool = false
     var finaldate = String()
     var startdate = String()
     var enddate = String()
@@ -103,7 +105,7 @@ class PaymentHistoryFilterVC: UIViewController {
         case 6:
             self.chooseDateDropdown.selectText = AppData.sharedInstance.convertDateToString(date: Date().getPreviousYearDate) + " - " + Date.getCurrentDate()
         case 7:
-            if isFromPerformanceList {
+            if isFromPerformanceList || isRevenuGraphFromDashbord {
                 vw_mainHeightConstant.constant = 600
             }
             self.chooseDateDropdown.hideList()
@@ -198,6 +200,28 @@ class PaymentHistoryFilterVC: UIViewController {
         }
         
         if isFromPerformanceList {
+            vw_mainHeightConstant.constant = 200
+            vw_chooseUser.isHidden = true
+            vw_chooseCustomer.isHidden = true
+            vw_choosePayment.isHidden = true
+            if valSelctedPaymentDate != ("",-1) {
+                
+                chooseDateDropdown.selectedIndex = valSelctedPaymentDate.1
+                chooseDateDropdown.selectText = ""
+                if valSelctedPaymentDate.1 != 7 {
+                    setFilterDate(index: valSelctedPaymentDate.1)
+                    chooseDateDropdown.text =  chooseDateDropdown.selectText
+                } else {
+                    chooseDateDropdown.text = valSelctedPaymentDate.0
+                }
+            } else {
+                chooseDateDropdown.text = ""
+                chooseDateDropdown.selectText = ""
+                chooseDateDropdown.selectedIndex = -1
+            }
+        }
+        
+        if isRevenuGraphFromDashbord {
             vw_mainHeightConstant.constant = 200
             vw_chooseUser.isHidden = true
             vw_chooseCustomer.isHidden = true
@@ -346,7 +370,10 @@ class PaymentHistoryFilterVC: UIViewController {
             if let res = response as? [[String:Any]] {
                 self.arrChooseCustomer.removeAll()
                 for dict in res {
-                    self.arrChooseCustomer.append(ChooseCustomerList(dict: dict))
+                    let dic = ChooseCustomer(dict: dict)
+                      if dic.FirstName != "" || dic.LastName != "" {
+                          self.arrChooseCustomer.append(ChooseCustomerList(dict: dict))
+                      }
                 }
                 self.chooseCustomerDropdown.optionArray = self.arrChooseCustomer.map { $0.FirstName + " " + $0.LastName }
                 self.chooseCustomerDropdown.optionIds = self.arrChooseCustomer.map{ $0.id }
@@ -399,6 +426,10 @@ class PaymentHistoryFilterVC: UIViewController {
                 if self.isFromPerformanceList {
                     self.delegateOfPerformanceList?.updatePerformanceList(DateDatas: self.valSelctedPaymentDate, filterBadgeCount: self.filterBadgeCount)
                 }
+                
+                if self.isRevenuGraphFromDashbord {
+                    self.delegateOfRevenuGraphFromDashbord?.filterRevenuGraph(DateDatas: self.valSelctedPaymentDate, filterBadgeCount: self.filterBadgeCount)
+                }
             })
  }
     }
@@ -420,6 +451,9 @@ class PaymentHistoryFilterVC: UIViewController {
             if self.isFromPerformanceList {
                 self.delegateOfPerformanceList?.updatePerformanceList(DateDatas: self.valSelctedPaymentDate, filterBadgeCount: self.filterBadgeCount)
             }
+            if self.isRevenuGraphFromDashbord {
+                self.delegateOfRevenuGraphFromDashbord?.filterRevenuGraph(DateDatas: self.valSelctedPaymentDate, filterBadgeCount: self.filterBadgeCount)
+            }
             UserDefaults.standard.removeObject(forKey: "loginlogdate")
             UserDefaults.standard.removeObject(forKey: "loginloguser")
         }
@@ -427,7 +461,7 @@ class PaymentHistoryFilterVC: UIViewController {
     
     @IBAction func btnCloseDateRangeClick(_ sender: UIButton) {
         vw_popView.isHidden = true
-        if isFromPerformanceList {
+        if isFromPerformanceList || isRevenuGraphFromDashbord {
             vw_mainHeightConstant.constant = 200
         }
     }
@@ -444,7 +478,7 @@ class PaymentHistoryFilterVC: UIViewController {
     
     @IBAction func btnSubmitDateRangeClick(_ sender: UIButton) {
         if dateValidation() {
-            if isFromPerformanceList {
+            if isFromPerformanceList || isRevenuGraphFromDashbord {
                 vw_mainHeightConstant.constant = 200
             }
             chooseDateDropdown.text = (txtStartDate.text ?? "") + " - " + (txtEndDate.text ?? "")

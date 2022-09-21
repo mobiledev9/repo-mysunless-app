@@ -12,7 +12,7 @@ class SideMenuVC: UIViewController {
 
     var adminCategories: [Category] = [Category(name: "Dashboard", image: UIImage(named: "dashboard")!, subcategories: []),
                                   Category(name: "Clients", image: UIImage(named: "clients")!, subcategories: []),
-                                  Category(name: "Appointments", image: UIImage(named: "appointment")!, subcategories: []),
+                                  Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: []),
                                   Category(name: "Packages", image: UIImage(named: "package")!, subcategories: []),
                                   Category(name: "List of Subscribers", image: UIImage(named: "list")!, subcategories: []),
                                   Category(name: "Posts", image: UIImage(named: "post")!, subcategories: []),
@@ -56,7 +56,7 @@ class SideMenuVC: UIViewController {
     
     var subscriberCategories: [Category] = [Category(name: "Dashboard", image: UIImage(named: "dashboard")!, subcategories: []),
                                        Category(name: "Clients", image: UIImage(named: "clients")!, subcategories: []),
-                                       Category(name: "Appointments", image: UIImage(named: "appointment")!, subcategories: []),
+                                       Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: []),
                                        Category(name: "Order", image: UIImage(named: "sent")!, subcategories: []),
                                        Category(name: "Memberships", image: UIImage(named: "package")!, subcategories: []),
                                        Category(name: "ToDo", image: UIImage(named: "to-do")!, subcategories: []),
@@ -305,7 +305,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Email Templates":
                     cell.iconImageLeadingConstraint.constant = 35
                     cell.vw_lock.isHidden = true
-                case "Appointments":
+                case "Appointment Reminders":
                     cell.iconImageLeadingConstraint.constant = 16
                     if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
                         cell.vw_lock.isHidden = true
@@ -435,7 +435,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Clients":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "ClientsVC") as! ClientsVC
                     self.navigationController?.pushViewController(VC, animated: true)
-                case "Appointments":
+                case "Appointment Reminders":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "EventsVC") as! EventsVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Order":
@@ -521,7 +521,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Packages":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "PackagesListVC") as! PackagesListVC
                     self.navigationController?.pushViewController(VC, animated: true)
-             /*   case "Appointments":
+             /*   case "Appointment Reminders":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Packages":

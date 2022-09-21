@@ -268,11 +268,11 @@ extension ClientsVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if searching {
-            showClientProfileVC(id: filterdata[indexPath.row].id)
-        } else {
-            showClientProfileVC(id: arrClients[indexPath.row].id)
-        }
+//        if searching {
+//            showClientProfileVC(id: filterdata[indexPath.row].id)
+//        } else {
+//            showClientProfileVC(id: arrClients[indexPath.row].id)
+//        }
     }
 }
 
