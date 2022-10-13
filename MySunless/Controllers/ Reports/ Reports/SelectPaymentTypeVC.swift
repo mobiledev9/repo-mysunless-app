@@ -103,6 +103,10 @@ class SelectPaymentTypeVC: UIViewController {
         txtCashRecivedAmount.text = totalAmt.replacingOccurrences(of: "$", with: "")
         txtChequeRecivedAmount.text = totalAmt.replacingOccurrences(of: "$", with: "")
         txtSelectChequeStatus.optionArray = ["In Process (PROCESSING)", "Clear (CAPTURED)", "Bounce (FAILED)"]
+        txtSelectChequeStatus.didSelect { selectedText, index, id in
+            self.txtSelectChequeStatus.text = selectedText
+            self.txtSelectChequeStatus.selectText = selectedText
+        }
     }
     
     func setInitialHeight() {
@@ -288,7 +292,8 @@ class SelectPaymentTypeVC: UIViewController {
     }
     
     @IBAction func SetupCreditCardPaymentAPIClick(_ sender: UIButton) {
-        
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSetupVC") as! PaymentSetupVC
+        self.navigationController?.pushViewController(VC, animated: true)
     }
     
     @IBAction func CashClick(_ sender: UIButton) {

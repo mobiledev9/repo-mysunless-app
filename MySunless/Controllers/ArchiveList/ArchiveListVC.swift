@@ -45,6 +45,7 @@ class ArchiveListVC: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tblArchiveList: UITableView!
     @IBOutlet weak var archive_segmentedControl: ScrollableSegmentedControl!
+    @IBOutlet var lblNoArchiveData: UILabel!
    
     //MARK:- Variable Declarations
     var token = String()
@@ -205,6 +206,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrService.removeAll()
                             self.arrServiceIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrService.append(ShowServiceList(dict: dict))
                             }
@@ -219,6 +221,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterService.removeAll()
                             self.arrService.removeAll()
                             self.tblArchiveList.reloadData()
@@ -249,6 +252,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrMemPackage.removeAll()
                             self.arrMemPackageIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrMemPackage.append(ShowMembershipPackage(dict: dict))
                             }
@@ -263,6 +267,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterMemPackage.removeAll()
                             self.arrMemPackage.removeAll()
                             self.tblArchiveList.reloadData()
@@ -294,6 +299,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrProduct.removeAll()
                             self.arrProductIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrProduct.append(ShowProductList(dict: dict))
                             }
@@ -308,6 +314,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterProduct.removeAll()
                             self.arrProduct.removeAll()
                             self.tblArchiveList.reloadData()
@@ -338,6 +345,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrProductCat.removeAll()
                             self.arrProductCatIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrProductCat.append(ShowProductCategory(dict: dict))
                             }
@@ -352,6 +360,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterProductCat.removeAll()
                             self.arrProductCat.removeAll()
                             self.tblArchiveList.reloadData()
@@ -383,6 +392,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrClient.removeAll()
                             self.arrClientIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrClient.append(ShowClient(dict: dict))
                             }
@@ -398,6 +408,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterClient.removeAll()
                             self.arrClient.removeAll()
                             self.tblArchiveList.reloadData()
@@ -455,6 +466,7 @@ class ArchiveListVC: UIViewController {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
                             self.arrEvent.removeAll()
                             self.arrEventIds.removeAll()
+                            self.lblNoArchiveData.isHidden = true
                             for dict in response {
                                 self.arrEvent.append(ShowEventList(dict: dict))
                             }
@@ -470,6 +482,7 @@ class ArchiveListVC: UIViewController {
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            self.lblNoArchiveData.isHidden = false
                             self.arrFilterEvent.removeAll()
                             self.arrEvent.removeAll()
                             self.tblArchiveList.reloadData()

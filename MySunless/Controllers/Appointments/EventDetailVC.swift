@@ -39,7 +39,7 @@ class EventDetailVC: UIViewController {
     var alertTitle = "Temporary Delete?"
     var alertSubtitle = "Once deleted, it will move to Archive list!"
     var token = String()
-    var arrButtonText : [String] = ["pending", "pending-payment","confirmed","in-progress","canceled","completed"]
+    var arrButtonText : [String] = ["pending", "pending-payment","in-progress","confirmed","canceled","completed"]
     var downloadPdfUrl : String = ""
     var arrOption : [UIImage] = [ UIImage(named: "sticky-note") ?? UIImage(),
                                   UIImage(systemName: "square.and.pencil") ?? UIImage(),
@@ -210,26 +210,26 @@ class EventDetailVC: UIViewController {
     
     func setEventStatus(eventStatus:String) {
         switch eventStatus.lowercased() {
-            case "pending":
-                setSelectedButton(index: 0)
-                break
-            case "pending-payment":
-                setSelectedButton(index: 1)
-                break
-            case "confirmed":
-                setSelectedButton(index: 2)
-                break
-            case "in-progress":
-                setSelectedButton(index: 3)
-                break
-            case "canceled":
-                setSelectedButton(index: 4)
-                break
-            case "completed":
-                setSelectedButton(index: 5)
-                break
-            default:
-                print("nothing")
+        case "pending":
+            setSelectedButton(index: 0)
+            break
+        case "pending-payment":
+            setSelectedButton(index: 1)
+            break
+        case "in-progress":
+            setSelectedButton(index: 2)
+            break
+        case "confirmed":
+            setSelectedButton(index: 3)
+            break
+         case "canceled":
+            setSelectedButton(index: 4)
+            break
+        case "completed":
+            setSelectedButton(index: 5)
+            break
+        default:
+            print("nothing")
         }
     }
     

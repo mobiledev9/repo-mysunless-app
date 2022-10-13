@@ -209,7 +209,7 @@ class AddNewEmployeeVC: UIViewController {
     }
     
     @IBAction func btnAvatarImgClick(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
@@ -236,7 +236,10 @@ class AddNewEmployeeVC: UIViewController {
 //MARK:- ImagePickerController Delegate Methods
 extension AddNewEmployeeVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imgAvatar.contentMode = .scaleAspectFill
+            imgAvatar.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imgAvatar.contentMode = .scaleAspectFill
             imgAvatar.image = image
         }

@@ -43,6 +43,7 @@ class RequestedEventsCell: UITableViewCell {
     
     @IBAction func btnUpdateClick(_ sender: UIButton) {
         delegate?.callAcceptAppointmentAPI(id: model?.id ?? 0)
+        
     }
     
     @IBAction func btnCancelClick(_ sender: UIButton) {

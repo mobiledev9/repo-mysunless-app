@@ -110,7 +110,7 @@ class CustomerDetailsVC: UIViewController {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter Lastname", viewController: self)
         } else if txtPhoneNumber.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter PhoneNumber", viewController: self)
-        } else if txtEmail.text == "" {
+        }/* else if txtEmail.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter Email", viewController: self)
         } else if txtStreetAddress.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter StreetAddress", viewController: self)
@@ -120,7 +120,7 @@ class CustomerDetailsVC: UIViewController {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter City", viewController: self)
         } else if txtZipcode.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter Zipcode", viewController: self)
-        } else {
+        }*/ else {
             return true
         }
         return false
@@ -249,7 +249,7 @@ class CustomerDetailsVC: UIViewController {
     }
     
     @IBAction func btnSelectImgClick(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
@@ -276,7 +276,10 @@ class CustomerDetailsVC: UIViewController {
 //MARK:- ImagePickerController Delegate Methods
 extension CustomerDetailsVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imgProfile.contentMode = .scaleAspectFill
+            imgProfile.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imgProfile.contentMode = .scaleAspectFill
             imgProfile.image = image
         }

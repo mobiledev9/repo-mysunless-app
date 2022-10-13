@@ -161,27 +161,7 @@ class CompanyServiceVC: UIViewController {
     
     //MARK:- Actions
     @IBAction func btnDropdownClick(_ sender: UIButton) {
-        if (dropdownOpen == true) {
-            self.vw_dropdown.isHidden = false
-            imgDropdown.image = UIImage(named: "up-arrow")
-            
-            vw_appointmentInst.isHidden = true
-            vw_localSalesRate.isHidden = true
-            lblAppointmentInst.isHidden = true
-            lblLocalSalesTaxRate.isHidden = true
-            
-            dropdownOpen = false
-        } else {
-            self.vw_dropdown.isHidden = true
-            imgDropdown.image = UIImage(named: "down-arrow-1")
-            
-            vw_appointmentInst.isHidden = false
-            vw_localSalesRate.isHidden = false
-            lblAppointmentInst.isHidden = false
-            lblLocalSalesTaxRate.isHidden = false
-            
-            dropdownOpen = true
-        }
+      showHideDropDown()
     }
     
     @IBAction func btnPreviousClick(_ sender: UIButton) {
@@ -213,6 +193,30 @@ class CompanyServiceVC: UIViewController {
     
     @objc func doneAction(){
         self.txtVwAppointmentInst.resignFirstResponder()
+    }
+    
+    func showHideDropDown(){
+        if (dropdownOpen == true) {
+            self.vw_dropdown.isHidden = false
+            imgDropdown.image = UIImage(named: "up-arrow")
+            
+            vw_appointmentInst.isHidden = true
+            vw_localSalesRate.isHidden = true
+            lblAppointmentInst.isHidden = true
+            lblLocalSalesTaxRate.isHidden = true
+            
+            dropdownOpen = false
+        } else {
+            self.vw_dropdown.isHidden = true
+            imgDropdown.image = UIImage(named: "down-arrow-1")
+            
+            vw_appointmentInst.isHidden = false
+            vw_localSalesRate.isHidden = false
+            lblAppointmentInst.isHidden = false
+            lblLocalSalesTaxRate.isHidden = false
+            
+            dropdownOpen = true
+        }
     }
     
 }
@@ -254,8 +258,10 @@ extension CompanyServiceVC: UITableViewDelegate {
             let selectedCountry = arrData[indexPath.row]
             selected = selectedCountry
         }
-        
+        showHideDropDown()
         self.searchBar.searchTextField.endEditing(true)
+        
+        
         //  dropdownTblview.deselectRow(at: indexPath, animated: true)
     }
     

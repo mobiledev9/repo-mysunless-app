@@ -111,7 +111,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
         callProductSalesReportAPI()
         callRevenueReportAPI()
         callprogressbarAPI()
-        //setChecklistProgressBar(value: progressValue)
+        setChecklistProgressBar(value: progressValue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,18 +120,21 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     
     //MARK:- User-Defined Functions
     func setInitially() {
-        vw_Clients.layer.borderWidth = 0.5
-        vw_Clients.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        vw_Clients.layer.cornerRadius = 12
-        vw_Sales.layer.borderWidth = 0.5
-        vw_Sales.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        vw_Sales.layer.cornerRadius = 12
-        vw_UpcomingEvents.layer.borderWidth = 0.5
-        vw_UpcomingEvents.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        vw_UpcomingEvents.layer.cornerRadius = 12
-        vw_ToDoList.layer.borderWidth = 0.5
-        vw_ToDoList.layer.borderColor = UIColor.init("#15B0DA").cgColor
-        vw_ToDoList.layer.cornerRadius = 12
+//        vw_Clients.layer.borderWidth = 0.5
+//        vw_Clients.layer.borderColor = UIColor.init("#15B0DA").cgColor
+//        vw_Clients.layer.cornerRadius = 12
+//        vw_Sales.layer.borderWidth = 0.5
+//        vw_Sales.layer.borderColor = UIColor.init("#15B0DA").cgColor
+//        vw_Sales.layer.cornerRadius = 12
+//        vw_UpcomingEvents.layer.borderWidth = 0.5
+//        vw_UpcomingEvents.layer.borderColor = UIColor.init("#15B0DA").cgColor
+//        vw_UpcomingEvents.layer.cornerRadius = 12
+//        vw_ToDoList.layer.borderWidth = 0.5
+//        vw_ToDoList.layer.borderColor = UIColor.init("#15B0DA").cgColor
+//        vw_ToDoList.layer.cornerRadius = 12
+        vw_progressView.layer.borderWidth = 0.5
+        vw_progressView.layer.borderColor = UIColor.init("#15B0DA").cgColor
+        vw_progressView.layer.cornerRadius = 12
         revenueLineChatView.layer.borderWidth = 0.5
         revenueLineChatView.layer.borderColor = UIColor.init("#15B0DA").cgColor
         revenueLineChatView.layer.cornerRadius = 12
@@ -165,11 +168,11 @@ class DashboardVC: UIViewController, ChartViewDelegate {
     }
     
     func lockView() {
-        if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
-            vw_lock.isHidden = true
-        } else {
-            vw_lock.isHidden = false
-        }
+//        if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
+//            vw_lock.isHidden = true
+//        } else {
+//            vw_lock.isHidden = false
+//        }
     }
     func setChecklistProgressBar(value:CGFloat = 0.1) {
         checklistProgressBar.progressValue = value
@@ -192,7 +195,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
             bar.stripesMotion = AMProgressBarStripesMotion.right.rawValue
             bar.stripesOrientation = AMProgressBarStripesOrientation.diagonalLeft.rawValue
 
-            bar.textColor = UIColor.white
+            bar.textColor = UIColor.black
             bar.textFont = UIFont(name: "Roboto-Bold", size: 25)!
             bar.textPosition = AMProgressBarTextPosition.topLeft.rawValue
         }
@@ -447,23 +450,23 @@ class DashboardVC: UIViewController, ChartViewDelegate {
             print(respnse ?? "")
             if let res = respnse as? NSDictionary {
                 if let numberOfClient = res.value(forKey: "numberOfClient") as? Int {
-                    self.lblTotalClients.text = "\(numberOfClient)"
+                   // self.lblTotalClients.text = "\(numberOfClient)"
                 }
                 if let clientGoal = res.value(forKey: "clientGoal") as? Int {
                     self.progressBar_Clients.value = CGFloat(clientGoal)
                 }
                 if let totalSale = res.value(forKey: "totalSale") as? String {
-                    self.lblSales.text = totalSale
+                  //  self.lblSales.text = totalSale
                 }
                 if let salesGoalPer = res.value(forKey: "salesGoalPer") as? String {
                     self.progressBar_Sales.value = salesGoalPer.CGFloatValue() ?? 0.00
                 }
                 if let numberOfEvent = res.value(forKey: "numberOfEvent") as? Int {
-                    self.lblUpcomingEvents.text = "\(numberOfEvent)"
+                   // self.lblUpcomingEvents.text = "\(numberOfEvent)"
                     self.progressBar_UpcomingEvents.value = CGFloat(numberOfEvent)
                 }
                 if let numberOfTodo = res.value(forKey: "numberOfTodo") as? Int {
-                    self.lblTodoList.text = "\(numberOfTodo)"
+                   // self.lblTodoList.text = "\(numberOfTodo)"
                 }
                 if let todoPer = res.value(forKey: "todoPer") as? Int {
                     self.ProgressBar_ToDoList.value = CGFloat(todoPer)
@@ -816,12 +819,12 @@ extension DashboardVC: UITableViewDataSource {
         if tableView == tblTopSellingList {
             let cell = tblTopSellingList.dequeueReusableCell(withIdentifier: "TopSellingCell", for: indexPath) as! TopSellingCell
             cell.model = arrTopSellingProducts[indexPath.row]
-            cell.setCell()
+            cell.setCell(index: indexPath.row)
             return cell
         } else if tableView == tblRecentTransctionList {
             let cell = tblRecentTransctionList.dequeueReusableCell(withIdentifier: "RecentTransctionCell", for: indexPath) as! RecentTransctionCell
             cell.model = arrRecentTransaction[indexPath.row]
-            cell.setCell()
+            cell.setCell(index: indexPath.row)
             return cell
         }
         return UITableViewCell()
@@ -832,9 +835,9 @@ extension DashboardVC: UITableViewDataSource {
 extension DashboardVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == tblTopSellingList {
-            return 110
+            return UITableView.automaticDimension//110
         } else if tableView == tblRecentTransctionList {
-            return 186
+            return UITableView.automaticDimension//186
         }
         return UITableView.automaticDimension
     }

@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
@@ -31,10 +34,27 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zV4-RC-3jU">
-                        <rect key="frame" x="51" y="20" width="229" height="20"/>
+                        <rect key="frame" x="51" y="20" width="199" height="20"/>
                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
                         <color key="textColor" red="0.42745098039215684" green="0.46666666666666667" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4E-DA-Lap">
+                        <rect key="frame" x="260" y="20" width="20" height="20"/>
+                        <color key="backgroundColor" red="0.039215686274509803" green="0.73333333333333328" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="AGl-p4-RD7"/>
+                            <constraint firstAttribute="width" constant="20" id="Nd1-KN-tqo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="yhK-6W-tuh">
                         <rect key="frame" x="290" y="22.5" width="15" height="15"/>
@@ -50,13 +70,15 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="L4E-DA-Lap" firstAttribute="centerY" secondItem="zV4-RC-3jU" secondAttribute="centerY" id="0gb-Bb-lR5"/>
                     <constraint firstItem="axk-Rv-C8V" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2Il-bl-JFa"/>
                     <constraint firstAttribute="bottom" secondItem="fCu-UZ-K1R" secondAttribute="bottom" id="AHc-G5-6UR"/>
-                    <constraint firstItem="yhK-6W-tuh" firstAttribute="leading" secondItem="zV4-RC-3jU" secondAttribute="trailing" constant="10" id="Cfu-h0-YLh"/>
                     <constraint firstItem="zV4-RC-3jU" firstAttribute="centerY" secondItem="axk-Rv-C8V" secondAttribute="centerY" id="Dys-CO-v9I"/>
                     <constraint firstItem="fCu-UZ-K1R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FbU-fr-Hbp"/>
                     <constraint firstAttribute="trailing" secondItem="yhK-6W-tuh" secondAttribute="trailing" constant="15" id="HTa-r2-Wds"/>
                     <constraint firstItem="zV4-RC-3jU" firstAttribute="leading" secondItem="axk-Rv-C8V" secondAttribute="trailing" constant="13" id="M0Y-mL-buK"/>
+                    <constraint firstItem="yhK-6W-tuh" firstAttribute="leading" secondItem="L4E-DA-Lap" secondAttribute="trailing" constant="10" id="Q5K-Be-Z7H"/>
+                    <constraint firstItem="L4E-DA-Lap" firstAttribute="leading" secondItem="zV4-RC-3jU" secondAttribute="trailing" constant="10" id="fft-Yp-HCW"/>
                     <constraint firstItem="fCu-UZ-K1R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hkJ-la-ZtB"/>
                     <constraint firstAttribute="trailing" secondItem="fCu-UZ-K1R" secondAttribute="trailing" id="kHR-N8-W6l"/>
                     <constraint firstItem="axk-Rv-C8V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="njM-cj-uG7"/>
@@ -65,6 +87,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="countLabel" destination="L4E-DA-Lap" id="QLF-Fd-FDM"/>
                 <outlet property="expandImageView" destination="yhK-6W-tuh" id="CCQ-vY-CRe"/>
                 <outlet property="expandImgTrailingConstraint" destination="HTa-r2-Wds" id="Aq2-hD-DXn"/>
                 <outlet property="iconImageLeadingConstraint" destination="njM-cj-uG7" id="xBY-5S-Hhh"/>
@@ -72,7 +95,7 @@
                 <outlet property="titleLabel" destination="zV4-RC-3jU" id="ETN-7z-OB3"/>
                 <outlet property="vw_lock" destination="fCu-UZ-K1R" id="WLP-zc-2sU"/>
             </connections>
-            <point key="canvasLocation" x="-155.07246376811597" y="99.776785714285708"/>
+            <point key="canvasLocation" x="101" y="-7"/>
         </tableViewCell>
     </objects>
     <resources>

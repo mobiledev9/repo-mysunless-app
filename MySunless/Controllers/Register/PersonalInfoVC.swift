@@ -200,7 +200,7 @@ class PersonalInfoVC: UIViewController {
     }
     
     @IBAction func btnSelectImg(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
@@ -229,6 +229,14 @@ class PersonalInfoVC: UIViewController {
     }
     
     @IBAction func btnDropdown(_ sender: UIButton) {
+       showHideDropDown()
+    }
+    
+    @objc func doneAction(){
+        self.txtVwPrimaryAddress.resignFirstResponder()
+    }
+    
+    func showHideDropDown() {
         if (dropdownOpen == true) {
             self.vw_dropDown.isHidden = false
             imgDropdown.image = UIImage(named: "up-arrow")
@@ -253,10 +261,6 @@ class PersonalInfoVC: UIViewController {
             dropdownOpen = true
         
         }
-    }
-    
-    @objc func doneAction(){
-        self.txtVwPrimaryAddress.resignFirstResponder()
     }
 }
 
@@ -299,6 +303,7 @@ extension PersonalInfoVC: UITableViewDelegate {
         }
         
         self.searchBar.searchTextField.endEditing(true)
+        showHideDropDown()
       //  dropdownTblview.deselectRow(at: indexPath, animated: true)
     }
     
@@ -326,7 +331,10 @@ extension PersonalInfoVC: UISearchBarDelegate {
 
 extension PersonalInfoVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            profileImgview.contentMode = .scaleAspectFill
+            profileImgview.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileImgview.contentMode = .scaleAspectFill
             profileImgview.image = image
         }

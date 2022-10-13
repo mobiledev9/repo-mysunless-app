@@ -352,7 +352,9 @@ class BookAppointmentVC: UIViewController {
         }
         txtEvery.optionArray = arrEvery.map{ String($0) }
         txtEvery.didSelect { (selectedText, index, id) in
-            
+            self.txtEvery.selectText = selectedText
+            self.txtEvery.text = selectedText
+            self.txtEvery.selectedIndex = index
         }
         
         for i in 1...31 {
@@ -360,7 +362,10 @@ class BookAppointmentVC: UIViewController {
         }
         txtDay.optionArray = arrDay.map{ String($0) }
         txtDay.didSelect { (selectedText, index, id) in
-            
+            self.txtDay.selectText = selectedText
+            self.txtDay.text = selectedText
+            self.txtDay.selectedIndex = index
+
         }
         
         txtMonth.optionArray = monthArr
@@ -726,12 +731,15 @@ class BookAppointmentVC: UIViewController {
                     if success == "1" {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            //self.navigationController?.popViewController(animated: true)
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            
                         }
                     }
+
                 }
             }
         }
@@ -811,16 +819,7 @@ class BookAppointmentVC: UIViewController {
         })
     }
     
-    @objc func tappedTextField(_ sender: UITapGestureRecognizer) {
-        callAvailableTimeSlotsAPI()
-    }
-
-    //MARK:- Actions
-    @IBAction func btnBackClick(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func btnChooseServiceClick(_ sender: UIButton) {
+    func showHideChooseServiceDropDown () {
         if (serviceDropdownOpen == true) {
             self.vw_serviceDropdown.isHidden = false
             imgServiceDropdown.image = UIImage(named: "up-arrow")
@@ -860,7 +859,7 @@ class BookAppointmentVC: UIViewController {
         tblServiceProvider.reloadData()
     }
     
-    @IBAction func btnServiceProviderClick(_ sender: UIButton) {
+    func showHideServiceProviderDropDown() {
         if (serviceProviderDropdownOpen == true) {
             self.vw_serviceProviderDropdown.isHidden = false
             imgServiceProviderDropdown.image = UIImage(named: "up-arrow")
@@ -879,9 +878,53 @@ class BookAppointmentVC: UIViewController {
             lblAppointmentDateTime.isHidden = false
             vw_startDate.isHidden = false
             vw_selectTime.isHidden = false
-            
             serviceProviderDropdownOpen = true
         }
+    }
+    
+   func showHideCustomerListDropDown(){
+        if (customerListDropdownOpen == true) {
+            self.vw_customerListDropdown.isHidden = false
+            imgCustomerDropdown.setImage(UIImage(named: "up-arrow")!)
+            vw_customerListDropdownHeight.constant = 170
+            
+            vw_customerDetails.isHidden = true
+            vw_customerDetailsHeight.constant = 0
+            btnAddNote.isHidden = true
+            btnAddNote.isUserInteractionEnabled = false
+            
+            customerListDropdownOpen = false
+        } else {
+            self.vw_customerListDropdown.isHidden = true
+            imgCustomerDropdown.image = UIImage(named: "down-arrow-1")
+            vw_customerListDropdownHeight.constant = 0
+            
+            if getCustomerDetails == true {
+                vw_customerDetails.isHidden = false
+                vw_customerDetailsHeight.constant = 90
+                btnAddNote.isHidden = false
+                btnAddNote.isUserInteractionEnabled = true
+            }
+            
+            customerListDropdownOpen = true
+        }
+    }
+    
+    @objc func tappedTextField(_ sender: UITapGestureRecognizer) {
+        callAvailableTimeSlotsAPI()
+    }
+
+    //MARK:- Actions
+    @IBAction func btnBackClick(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func btnChooseServiceClick(_ sender: UIButton) {
+        showHideChooseServiceDropDown ()
+    }
+    
+    @IBAction func btnServiceProviderClick(_ sender: UIButton) {
+        showHideServiceProviderDropDown ()
     }
     
     @IBAction func segRepeatValueChanged(_ sender: UISegmentedControl) {
@@ -1131,31 +1174,7 @@ class BookAppointmentVC: UIViewController {
     }
     
     @IBAction func btnChooseCustomerClick(_ sender: UIButton) {
-        if (customerListDropdownOpen == true) {
-            self.vw_customerListDropdown.isHidden = false
-            imgCustomerDropdown.image = UIImage(named: "up-arrow")
-            vw_customerListDropdownHeight.constant = 170
-            
-            vw_customerDetails.isHidden = true
-            vw_customerDetailsHeight.constant = 0
-            btnAddNote.isHidden = true
-            btnAddNote.isUserInteractionEnabled = false
-            
-            customerListDropdownOpen = false
-        } else {
-            self.vw_customerListDropdown.isHidden = true
-            imgCustomerDropdown.image = UIImage(named: "down-arrow-1")
-            vw_customerListDropdownHeight.constant = 0
-            
-            if getCustomerDetails == true {
-                vw_customerDetails.isHidden = false
-                vw_customerDetailsHeight.constant = 90
-                btnAddNote.isHidden = false
-                btnAddNote.isUserInteractionEnabled = true
-            }
-            
-            customerListDropdownOpen = true
-        }
+      showHideCustomerListDropDown()
     }
     
     @IBAction func btnCloseCustomerDropdownClick(_ sender: UIButton) {
@@ -1184,9 +1203,12 @@ class BookAppointmentVC: UIViewController {
         if bookValidation() {
             if segmentRepeat.selectedSegmentIndex == 0 {
                 callBookAppointmentAPI()
+               // self.navigationController?.popViewController(animated: true)
             } else {
                 callDailyAPI()
+                self.navigationController?.popViewController(animated: true)
             }
+            
         }
     }
     
@@ -1355,17 +1377,17 @@ extension BookAppointmentVC: UITableViewDelegate {
                 btnServiceProvider.isHidden = false
                 lblAppointmentDateTime.isHidden = false
                 vw_startDate.isHidden = false
-                
-                serviceDropdownOpen = true
+                 //serviceDropdownOpen = true
+                 showHideChooseServiceDropDown()
                 self.searchBarService.searchTextField.endEditing(true)
-            
-            case tblServiceProvider:
+              case tblServiceProvider:
                 let cell = tblServiceProvider.cellForRow(at: indexPath) as! DropdownCell
                 txtServiceProvider.text = cell.lblName.text
                 
                 selectedServiceProviderID = arrServiceProvider[indexPath.row].id
                 
                 self.searchBarService.searchTextField.endEditing(true)
+                showHideServiceProviderDropDown()
                 
             case tblPrivateClientNotes:
                 print("didselect")
@@ -1379,6 +1401,7 @@ extension BookAppointmentVC: UITableViewDelegate {
                 callShowClientNoteAPI(isFromView: false)
                 
                 self.searchBarCustomerListName.searchTextField.endEditing(true)
+                showHideCustomerListDropDown()
             default:
                 print("default didselect")
         }

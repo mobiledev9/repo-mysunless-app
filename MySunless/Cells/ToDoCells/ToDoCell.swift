@@ -23,6 +23,7 @@ class ToDoCell: UITableViewCell {
     @IBOutlet var onlyPicturesView: OnlyHorizontalPictures!
     @IBOutlet weak var vw_leading: UIView!
     @IBOutlet weak var btnDidSelectCell: UIButton!
+    @IBOutlet var vw_dueDate: UIView!
     
     var delegate: ToDoProtocol?
     var arrImgs = [String]()
@@ -76,6 +77,24 @@ class ToDoCell: UITableViewCell {
         lblTaskDate.text = model.value(forKey: "newduedate") as? String
         lblTaskTitle.textColor = UIColor.init(colorcode ?? "")
         lblTaskDate.textColor = UIColor.init(colorcode ?? "")
+        let dueDate = model.value(forKey: "dueDate") as? String
+        if #available(iOS 15, *) {
+            let today = Date.now.timeIntervalSinceNow
+            if let duedateInterval = dueDate?.toDate()?.timeIntervalSinceNow {
+                if duedateInterval < today {
+                    vw_dueDate.isHidden = false
+                } else {
+                    vw_dueDate.isHidden = true
+                }
+            } else {
+                vw_dueDate.isHidden = true
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
+       
+     
     
         var arrUseData = [Usedata]()
         let usedata = model.value(forKey: "usedata") as? [[String:Any]] ?? []

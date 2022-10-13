@@ -117,6 +117,16 @@ class ContactClientVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btnSendSMSClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "SendSMSVC") as! SendSMSVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func btnSendMailClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "SendEmailVC") as! SendEmailVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+   
     @objc func callPullToRefresh() {
         DispatchQueue.main.async {
             self.callContactClientAPI(clientId: self.selectedClientId)

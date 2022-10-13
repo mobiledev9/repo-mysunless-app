@@ -137,13 +137,13 @@ class SelectProductVC: UIViewController {
     }
     
     @IBAction func btnManageProductClick(_ sender: UIButton) {
-//        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-//        let storyBoard = UIStoryboard(name:"Main", bundle: nil)
-//        if let conVC = storyBoard.instantiateViewController(withIdentifier: "ServicesListVC") as? ServicesListVC,
-//           let navController = window?.rootViewController as? UINavigationController {
-//            self.dismiss(animated: true, completion: nil)
-//            navController.pushViewController(conVC, animated: true)
-//        }
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let storyBoard = UIStoryboard(name:"Main", bundle: nil)
+        if let conVC = storyBoard.instantiateViewController(withIdentifier: "ProductsListVC") as? ProductsListVC,
+           let navController = window?.rootViewController as? UINavigationController {
+            self.dismiss(animated: true, completion: nil)
+            navController.pushViewController(conVC, animated: true)
+        }
     }
     
 }

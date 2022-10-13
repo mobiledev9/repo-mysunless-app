@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleSignIn
 
 let BASE_URL = "http://api.mysunless.com/api/"
 let LOGIN = "login"
@@ -189,7 +190,8 @@ let DELETE_COMMENT = "DeleteChat"
 let PROGRESS_BAR = "progressbar"
 let DELETE_ACCOUNT = "deleteaccount"
 
-
+let google_ClientID = "736014336399-2l206qtgakonioue3uq8gpfpbf2306im.apps.googleusercontent.com"
+let ios_url = "com.googleusercontent.apps.736014336399-2l206qtgakonioue3uq8gpfpbf2306im"
 
 let stateList = ["Select a State","Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawai","Idaho","Illinois","Indiana","Lowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York,","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
 let serviceDuration = ["Select Service Duration","0 Min","15 Min","30 Min","1 h","2 h","3 h","4 h","5 h","6 h","7 h","8 h","9 h","10 h","11 h","12 h"]
@@ -201,6 +203,11 @@ let monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 //let arrProductIds = ["23","24","25","19","21"]
 let arrProductIds = ["24","25","19","21"]
 let arrEventStatus = ["completed","pending","confirmed","canceled","pending-payment","in-progress"]
+
+let url_privacy_policy = "https://app.termly.io/document/privacy-policy/b45e020b-f3c9-470f-a5a0-e8c2348ec4c2"
+let url_terms_of_use = " https://app.termly.io/document/eula/eb3da85f-708f-490b-9f5a-c694feafa6f5"
+let dataNotFound = "data not found"
+let nodatafound = "no data found"
 
 
 //enum ProductType: String {

@@ -23,6 +23,7 @@ class ProductsListVC: UIViewController {
     @IBOutlet var btnFilter: UIButton!
     @IBOutlet var vw_sort: UIView!
     @IBOutlet var tblProductSort: UITableView!
+    @IBOutlet var vw_noProduct: UIView!
     
     var token = String()
     var arrShowProducts = [ShowProducts]()
@@ -88,12 +89,17 @@ class ProductsListVC: UIViewController {
                             }
                             self.arrFilterShowProducts = self.arrShowProducts
                             DispatchQueue.main.async {
+                                self.vw_noProduct.isHidden = true
+                                self.tblProductList.isHidden = false
                                 self.tblProductList.reloadData()
                             }
                         }
                         if let sales_tax = res.value(forKey: "sales_tax") as? String {
                             self.salesTax = sales_tax
                         }
+                    } else {
+                        self.vw_noProduct.isHidden = false
+                        self.tblProductList.isHidden = true
                     }
                 }
             }
@@ -149,6 +155,13 @@ class ProductsListVC: UIViewController {
             vw_sort.isHidden = false
         }
         sender.isSelected.toggle()
+    }
+    
+    @IBAction func btnGetStartedClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ProductBarcodeVC") as! ProductBarcodeVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
+        self.present(VC, animated: true, completion: nil)
     }
     
     @objc func callPullToRefresh() {

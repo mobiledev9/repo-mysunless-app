@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zG-Ba-W56" customClass="OnlyHorizontalPictures" customModule="OnlyPictures">
-                                <rect key="frame" x="137" y="161" width="303" height="40"/>
+                                <rect key="frame" x="167" y="161" width="273" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GVz-YF-HZj"/>
@@ -70,7 +70,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jun 22, 2022" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1B-Xl-uAy">
-                                <rect key="frame" x="17" y="176" width="110" height="25"/>
+                                <rect key="frame" x="47" y="176" width="110" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="SSC-fc-XeF"/>
                                     <constraint firstAttribute="height" constant="25" id="wjW-fJ-PXx"/>
@@ -140,6 +140,19 @@
                                     <constraint firstAttribute="width" constant="112" id="q6t-Sf-OcT"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPr-66-coo">
+                                <rect key="frame" x="17" y="176" width="25" height="25"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lPr-66-coo" secondAttribute="height" multiplier="1:1" id="ljs-6b-PVK"/>
+                                    <constraint firstAttribute="height" constant="25" id="sob-VP-QRp"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="CornerRadius">
+                                        <real key="value" value="12.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
                         <constraints>
@@ -151,10 +164,12 @@
                             <constraint firstAttribute="trailing" secondItem="hKq-nu-ai0" secondAttribute="trailing" id="DMC-KW-Nqf"/>
                             <constraint firstAttribute="trailing" secondItem="qhM-QB-HOF" secondAttribute="trailing" id="JhL-eA-uYj"/>
                             <constraint firstItem="qhM-QB-HOF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wd3-6I-G0s" secondAttribute="bottom" constant="100" id="LdU-aq-sME"/>
+                            <constraint firstItem="j1B-Xl-uAy" firstAttribute="leading" secondItem="lPr-66-coo" secondAttribute="trailing" constant="5" id="NtK-qg-ipp"/>
                             <constraint firstItem="wd3-6I-G0s" firstAttribute="leading" secondItem="AIP-ix-FSQ" secondAttribute="trailing" constant="5" id="Qpd-Vs-neA"/>
                             <constraint firstItem="PoW-bN-Gfs" firstAttribute="top" secondItem="mwe-nm-nAh" secondAttribute="top" id="QyK-fR-MET"/>
                             <constraint firstItem="B4J-nw-KIN" firstAttribute="top" secondItem="mwe-nm-nAh" secondAttribute="top" constant="10" id="VkF-pj-XdO"/>
                             <constraint firstItem="0zG-Ba-W56" firstAttribute="top" secondItem="qhM-QB-HOF" secondAttribute="bottom" constant="5" id="XXH-vc-qSF"/>
+                            <constraint firstItem="lPr-66-coo" firstAttribute="leading" secondItem="PoW-bN-Gfs" secondAttribute="trailing" constant="5" id="Yza-G1-C27"/>
                             <constraint firstItem="AIP-ix-FSQ" firstAttribute="leading" secondItem="mwe-nm-nAh" secondAttribute="leading" id="dNH-CF-hcx"/>
                             <constraint firstAttribute="trailing" secondItem="0zG-Ba-W56" secondAttribute="trailing" constant="5" id="e59-Kj-xum"/>
                             <constraint firstAttribute="bottom" secondItem="hKq-nu-ai0" secondAttribute="bottom" id="eXy-dx-ixg"/>
@@ -163,8 +178,8 @@
                             <constraint firstItem="qhM-QB-HOF" firstAttribute="leading" secondItem="PoW-bN-Gfs" secondAttribute="trailing" id="lpl-7H-fRY"/>
                             <constraint firstItem="PoW-bN-Gfs" firstAttribute="leading" secondItem="mwe-nm-nAh" secondAttribute="leading" id="nAR-rq-nq4"/>
                             <constraint firstAttribute="trailing" secondItem="wd3-6I-G0s" secondAttribute="trailing" constant="10" id="ncY-is-WUi"/>
+                            <constraint firstItem="lPr-66-coo" firstAttribute="centerY" secondItem="j1B-Xl-uAy" secondAttribute="centerY" id="pQE-TB-3OV"/>
                             <constraint firstItem="B4J-nw-KIN" firstAttribute="leading" secondItem="PoW-bN-Gfs" secondAttribute="trailing" constant="5" id="q4U-84-akm"/>
-                            <constraint firstItem="j1B-Xl-uAy" firstAttribute="leading" secondItem="PoW-bN-Gfs" secondAttribute="trailing" constant="5" id="t75-xZ-CNf"/>
                             <constraint firstAttribute="bottom" secondItem="0zG-Ba-W56" secondAttribute="bottom" constant="5" id="vJJ-BW-B4o"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -193,9 +208,10 @@
                 <outlet property="lblTaskDate" destination="j1B-Xl-uAy" id="QYs-F8-VoU"/>
                 <outlet property="lblTaskTitle" destination="wd3-6I-G0s" id="xvQ-SF-xYj"/>
                 <outlet property="onlyPicturesView" destination="0zG-Ba-W56" id="4AL-UC-MaM"/>
+                <outlet property="vw_dueDate" destination="lPr-66-coo" id="sZ4-3i-xkN"/>
                 <outlet property="vw_leading" destination="PoW-bN-Gfs" id="mpl-Bk-cMS"/>
             </connections>
-            <point key="canvasLocation" x="23.913043478260871" y="109.15178571428571"/>
+            <point key="canvasLocation" x="197.82608695652175" y="-40.178571428571423"/>
         </tableViewCell>
     </objects>
     <resources>
@@ -205,6 +221,9 @@
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 import Alamofire
 import SCLAlertView
+import GoogleSignIn
 
 class TblProfileVC: UIViewController {
 
@@ -26,7 +27,7 @@ class TblProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
-        arrData = [Category(name: "My Account", image: UIImage(named: "user-profile")!, subcategories: []),
+        arrData = [Category(name: "Account Settings", image: UIImage(named: "user-profile")!, subcategories: []),
                    Category(name: "Logout", image: UIImage(named: "logout")!, subcategories: []),
                    Category(name: "Delete Account", image: UIImage(named: "delete-user")!, subcategories: [])]
         tblProfile.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
@@ -104,6 +105,7 @@ class TblProfileVC: UIViewController {
                         if let message = res.value(forKey: "message") as? String {
                             self.showSCLAlert(alertMainTitle: "", alertTitle: message)
                             UserDefaults.standard.setValue(false, forKey: "currentSubscription")
+                            GIDSignIn.sharedInstance().signOut()
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {

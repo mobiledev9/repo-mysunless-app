@@ -33,6 +33,7 @@ class ToDoCollectionCell: UICollectionViewCell {
         
         tblToDo.tableFooterView = UIView()
         tblToDo.register(UINib(nibName: "ToDoHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "ToDoHeaderView")
+        tblToDo.register(UINib(nibName: "ToDoFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "ToDoFooterView")
         tblToDo.register(UINib(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
 //        let dummyViewHeight = CGFloat(40)
 //        tblToDo.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tblToDo.bounds.size.width, height: dummyViewHeight))
@@ -60,6 +61,18 @@ class ToDoCollectionCell: UICollectionViewCell {
 extension ToDoCollectionCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dict.todoTasks.count
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = tblToDo.dequeueReusableHeaderFooterView(withIdentifier: "ToDoFooterView") as! ToDoFooterView
+        if dict.catname == "To-do" {
+           parent.isToDoCat = true
+        } else {
+            parent.isToDoCat = false
+        }
+        footerView.btnAdd.tag = section
+        parent.selectedCatName = footerView.lblTitle.text ?? ""
+        footerView.btnAdd.addTarget(self, action: #selector(btnAddTask(_:)), for: .touchUpInside)
+        return footerView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -110,7 +123,9 @@ extension ToDoCollectionCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
-    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

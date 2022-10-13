@@ -153,33 +153,11 @@ class CompanyInfoVC: UIViewController {
     
     //MARK:- Actions
     @IBAction func btnDropdown(_ sender: UIButton) {
-        if (dropdownOpen == true) {
-            self.vw_dropdown.isHidden = false
-            imgDropdown.image = UIImage(named: "up-arrow")
-            vw_profileImgTopConstraint.constant = 100
-            
-            vw_companyCity.isHidden = true
-            vw_companyZipcode.isHidden = true
-            lblCompanyCity.isHidden = true
-            lblcompanyZipcode.isHidden = true
-            
-            dropdownOpen = false
-        } else {
-            self.vw_dropdown.isHidden = true
-            imgDropdown.image = UIImage(named: "down-arrow-1")
-            vw_profileImgTopConstraint.constant = 15
-            
-            vw_companyCity.isHidden = false
-            vw_companyZipcode.isHidden = false
-            lblCompanyCity.isHidden = false
-            lblcompanyZipcode.isHidden = false
-            
-            dropdownOpen = true
-        }
+        showHideDropDown()
     }
     
     @IBAction func btnSelectImg(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
@@ -210,6 +188,32 @@ class CompanyInfoVC: UIViewController {
     
     @objc func doneAction(){
         self.txtVwAddress.resignFirstResponder()
+    }
+    
+    func showHideDropDown() {
+        if (dropdownOpen == true) {
+            self.vw_dropdown.isHidden = false
+            imgDropdown.image = UIImage(named: "up-arrow")
+            vw_profileImgTopConstraint.constant = 100
+            
+            vw_companyCity.isHidden = true
+            vw_companyZipcode.isHidden = true
+            lblCompanyCity.isHidden = true
+            lblcompanyZipcode.isHidden = true
+            
+            dropdownOpen = false
+        } else {
+            self.vw_dropdown.isHidden = true
+            imgDropdown.image = UIImage(named: "down-arrow-1")
+            vw_profileImgTopConstraint.constant = 15
+            
+            vw_companyCity.isHidden = false
+            vw_companyZipcode.isHidden = false
+            lblCompanyCity.isHidden = false
+            lblcompanyZipcode.isHidden = false
+            
+            dropdownOpen = true
+        }
     }
 }
 
@@ -252,6 +256,7 @@ extension CompanyInfoVC: UITableViewDelegate {
         }
         
         self.searchBar.searchTextField.endEditing(true)
+        showHideDropDown()
     }
 }
 
@@ -277,7 +282,10 @@ extension CompanyInfoVC: UISearchBarDelegate {
 
 extension CompanyInfoVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            profileImgview.contentMode = .scaleAspectFill
+            profileImgview.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileImgview.contentMode = .scaleAspectFill
             profileImgview.image = image
         }

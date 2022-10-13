@@ -1,6 +1,12 @@
 PODS:
   - Alamofire (5.4.3)
   - AMProgressBar (0.1.0)
+  - AppAuth (1.5.0):
+    - AppAuth/Core (= 1.5.0)
+    - AppAuth/ExternalUserAgent (= 1.5.0)
+  - AppAuth/Core (1.5.0)
+  - AppAuth/ExternalUserAgent (1.5.0):
+    - AppAuth/Core
   - Charts (4.0.2):
     - Charts/Core (= 4.0.2)
   - Charts/Core (4.0.2):
@@ -57,6 +63,21 @@ PODS:
     - SDWebImage
     - SwiftyGif
   - FSCalendar (2.8.4)
+  - GoogleAPIClientForREST/Calendar (2.0.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Core (2.0.1):
+    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.3.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher/Core (1.7.2)
+  - GTMSessionFetcher/Full (1.7.2):
+    - GTMSessionFetcher/Core (= 1.7.2)
   - iOSDropDown (0.3.4)
   - IQKeyboardManager (6.5.9)
   - Kingfisher (7.1.1)
@@ -86,6 +107,8 @@ DEPENDENCIES:
   - ColorPalette
   - DKImagePickerController
   - FSCalendar
+  - GoogleAPIClientForREST/Calendar
+  - GoogleSignIn (~> 5.0)
   - iOSDropDown
   - IQKeyboardManager
   - Kingfisher
@@ -107,6 +130,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AMProgressBar
+    - AppAuth
     - Charts
     - ColorPalette
     - CropViewController
@@ -114,6 +138,10 @@ SPEC REPOS:
     - DKImagePickerController
     - DKPhotoGallery
     - FSCalendar
+    - GoogleAPIClientForREST
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
     - iOSDropDown
     - IQKeyboardManager
     - Kingfisher
@@ -137,6 +165,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AMProgressBar: 3f4671c4af4cb4fc9864ddc0a688450c8c7d1561
+  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
   ColorPalette: f6b36af0c05d34ae35ec0edf257d3202e8ea5f09
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
@@ -144,6 +173,10 @@ SPEC CHECKSUMS:
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
+  GoogleAPIClientForREST: 1c2743c7ed11d190f69617e1caa4f0cce24ea62e
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   iOSDropDown: c10a761f9a00c3f1cc9d3bce43ae504628e2f692
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
@@ -164,6 +197,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TreeTableView: 869484f5db96b1b6b8cc35a639a485fade7e83bd
 
-PODFILE CHECKSUM: 7853b60104878b758fced858fc8a740ecf21648d
+PODFILE CHECKSUM: 1b311d0f292a995edc7b6be5753f8f278f6ee119
 
 COCOAPODS: 1.11.3

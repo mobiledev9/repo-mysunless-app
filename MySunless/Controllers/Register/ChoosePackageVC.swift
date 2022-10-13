@@ -14,6 +14,9 @@ struct SelectPackage {
     let name: String
     let price: String
     let validity: String
+    var clientLimit: String = ""
+    var empLimit: String = ""
+    var description: String = ""
     
     init(id: String, name: String, price: String, validity: String) {
         self.id = id
@@ -27,6 +30,10 @@ struct SelectPackage {
         self.name = ""
         self.price = ""
         self.validity = ""
+        self.clientLimit = ""
+        self.empLimit = ""
+        self.description = ""
+        
     }
     
 //    init(dict: [String:Any]) {
@@ -629,6 +636,23 @@ class ChoosePackageVC: UIViewController {
         }
     }
     
+    @objc func btnExpandClick(_ sender: UIButton) {
+        let indexPath = IndexPath(row:sender.tag, section: 0)
+        let cell = tblView.dequeueReusableCell(withIdentifier: "ChoosePackageCell", for: indexPath) as! ChoosePackageCell
+       
+        if (cell.btnExpand.isSelected == true) {
+            cell.moreInfoView.isHidden = false
+            cell.btnExpand.setImage(UIImage(named: "up-arrow"), for: .normal)
+            cell.btnExpand.isSelected = false
+        } else {
+            cell.moreInfoView.isHidden = true
+            cell.btnExpand.setImage(UIImage(named: "up-arrow"), for: .normal)
+            cell.btnExpand.isSelected = true
+        }
+        
+       tblView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if view.frame.origin.y == 0 {
@@ -662,14 +686,30 @@ extension ChoosePackageVC: UITableViewDataSource {
         cell.lblPackageName.text = dict.name
         cell.lblPrice.text = dict.price
         cell.lblValidityDay.text = dict.validity
-        
+        cell.setCell()
         cell.btnRadio.tag = indexPath.row
+        cell.btnExpand.tag = indexPath.row
+        
         cell.btnRadio.addTarget(self, action: #selector(btnRadioClicckk(_:)), for: .touchUpInside)
+        cell.btnExpand.addTarget(self, action: #selector(btnExpandClick(_:)), for: .touchUpInside)
+        cell.model = dict
         
         if indexPath.row == selectedIndex {
             cell.btnRadio.isSelected = true
         } else {
             cell.btnRadio.isSelected = false
+        }
+        
+        if (cell.btnExpand.isSelected == true) {
+             cell.moreInfoView.isHidden = false
+            cell.btnExpand.setImage(UIImage(named: "minus.circle.fill"), for: .normal)
+            cell.btnExpand.tintColor = UIColor.red
+           // cell.btnExpand.isSelected = false
+        } else {
+            cell.moreInfoView.isHidden = true
+            cell.btnExpand.setImage(UIImage(named: "plus.circle.fill"), for: .normal)
+            cell.btnExpand.tintColor = UIColor.blue
+           // cell.btnExpand.isSelected = true
         }
         
         cell.btnRadio.setImage(UIImage(named: cell.btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)

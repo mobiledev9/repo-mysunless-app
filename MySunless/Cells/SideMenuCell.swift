@@ -14,6 +14,7 @@ class SideMenuCell: UITableViewCell {
     
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var countLabel: UILabel!
     @IBOutlet var expandImageView: UIImageView!
     @IBOutlet var iconImageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var expandImgTrailingConstraint: NSLayoutConstraint!

@@ -32,7 +32,7 @@ class SendSMSVC: UIViewController {
         hideKeyboardWhenTappedAround()
         txtTo.delegate = self
         txtBookingURL.delegate = self
-        txtVwAddMessage.delegate = self
+       // txtVwAddMessage.delegate = self
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         didSelectUser()
     }
@@ -48,7 +48,7 @@ class SendSMSVC: UIViewController {
         vw_BookingURL.layer.borderColor = UIColor.init("15B0DA").cgColor
         vw_txtVwAddMessage.layer.borderWidth = 0.5
         vw_txtVwAddMessage.layer.borderColor = UIColor.init("15B0DA").cgColor
-        txtBookingURL.text = "https://new.mysunless.com/crm/Book-now?ref=MTUyNw=="
+        txtBookingURL.text = "https://new.mysunless.com/crm/Book-now?ref=NA=="
         
         let tap = UITapGestureRecognizer(target: self, action: nil)
         tap.numberOfTapsRequired = 1
@@ -61,7 +61,7 @@ class SendSMSVC: UIViewController {
     }
     
     func validation() -> Bool {
-        if txtTo.text == "" {
+        if arrSMSClient.count < 0 {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please select at least one recipient", viewController: self)
         } else if txtVwAddMessage.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter message", viewController: self)
@@ -153,9 +153,10 @@ extension SendSMSVC: UITextFieldDelegate {
 
 //MARK:- TextView Delegate Methods
 extension SendSMSVC: UITextViewDelegate {
-    func textViewDidEndEditing(_ textView: UITextView) {
-        txtVwAddMessage.resignFirstResponder()
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        //txtVwAddMessage.resignFirstResponder()
     }
+    
 }
 
 //MARK:- Collection view Delegate Methods

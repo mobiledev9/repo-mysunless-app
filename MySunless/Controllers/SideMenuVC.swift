@@ -1,4 +1,5 @@
 import TreeTableView
+import Alamofire
 
 protocol SideMenuViewControllerDelegate {
         func selectedCell(_ row: Int)
@@ -9,10 +10,12 @@ class SideMenuVC: UIViewController {
     @IBOutlet private weak var treeTableView: TreeTableView!
     
     var delegate: SideMenuViewControllerDelegate?
+    var pendingRequest : String = "0"
+    var token = String()
 
     var adminCategories: [Category] = [Category(name: "Dashboard", image: UIImage(named: "dashboard")!, subcategories: []),
                                   Category(name: "Clients", image: UIImage(named: "clients")!, subcategories: []),
-                                  Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: []),
+                                  Category(name: "Appointments", image: UIImage(named: "appointment")!, subcategories: []),
                                   Category(name: "Packages", image: UIImage(named: "package")!, subcategories: []),
                                   Category(name: "List of Subscribers", image: UIImage(named: "list")!, subcategories: []),
                                   Category(name: "Posts", image: UIImage(named: "post")!, subcategories: []),
@@ -35,11 +38,11 @@ class SideMenuVC: UIViewController {
                                                                                   Category(name: "Tutorial Permission", image: UIImage(named: "help")!, subcategories: []),
                                                                                   Category(name: "Tutorials", image: UIImage(named: "help")!, subcategories: []),
                                                                                   Category(name: "Client", image: UIImage(named: "clients")!, subcategories: []),
-                                                                                  Category(name: "Appointment", image: UIImage(named: "appointment")!, subcategories: []),
+                                                                                  Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: []),
                                                                                   Category(name: "Product", image: UIImage(named: "salesReport")!, subcategories: []),
                                                                                   Category(name: "Services", image: UIImage(named: "services")!, subcategories: []),
                                                                                   Category(name: "Membership", image: UIImage(named: "membership")!, subcategories: []),
-                                                                                  Category(name: "Order", image: UIImage(named: "order")!, subcategories: [Category(name: "Order Settings", image: UIImage(named: "sent")!, subcategories: []),
+                                                                                  Category(name: "Order", image: UIImage(named: "shopping-cart")!, subcategories: [Category(name: "Order Settings", image: UIImage(named: "sent")!, subcategories: []),
                                                                                                                           Category(name: "List of Order", image: UIImage(named: "list")!, subcategories: [])
                                                                                   ]),
                                                                                   Category(name: "To-Do", image: UIImage(named: "to-do")!, subcategories: []),
@@ -56,9 +59,9 @@ class SideMenuVC: UIViewController {
     
     var subscriberCategories: [Category] = [Category(name: "Dashboard", image: UIImage(named: "dashboard")!, subcategories: []),
                                        Category(name: "Clients", image: UIImage(named: "clients")!, subcategories: []),
-                                       Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: []),
-                                       Category(name: "Order", image: UIImage(named: "sent")!, subcategories: []),
-                                       Category(name: "Memberships", image: UIImage(named: "package")!, subcategories: []),
+                                       Category(name: "Appointments", image: UIImage(named: "appointment")!, subcategories: []),
+                                       Category(name: "Order", image: UIImage(named: "shopping-cart")!, subcategories: []),
+                                       Category(name: "Member's Package", image: UIImage(named: "package")!, subcategories: []),
                                        Category(name: "ToDo", image: UIImage(named: "to-do")!, subcategories: []),
                                        Category(name: "Inventory", image: UIImage(named: "inventory")!, subcategories: []),
                                        Category(name: "Analytics", image: UIImage(named: "analytics")!, subcategories: [Category(name: "Orders", image: UIImage(named: "orderlist")!, subcategories: []),
@@ -68,13 +71,13 @@ class SideMenuVC: UIViewController {
                                        Category(name: "Company Settings", image: UIImage(named: "company-settings")!, subcategories: [Category(name: "Information", image: UIImage(named: "information")!, subcategories: []),
                                                                                                                               Category(name: "Website", image: UIImage(named: "website")!, subcategories: []),
                                                                                                                               Category(name: "List Of Services", image: UIImage(named: "list")!, subcategories: []),
-                                                                                                                              Category(name: "Member's Package", image: UIImage(named: "package")!, subcategories: []),
+                                                                                                                              /*Category(name: "Member's Package", image: UIImage(named: "package")!, subcategories: []),*/
                                                                                                                               Category(name: "Performance", image: UIImage(named: "performance")!, subcategories: []),
                                                                                                                               Category(name: "Login Log", image: UIImage(named: "login-log")!, subcategories: [])
                                        ]),
                                        Category(name: "Communication", image: UIImage(named: "sms-setup")!, subcategories: [Category(name: "Templates", image: UIImage(named: "list")!, subcategories: []),
                                                                                                                             Category(name: "Email Templates", image: UIImage(named: "email-setting")!, subcategories: []),
-                                                                                                                            Category(name: "Appointment", image: UIImage(named: "appointment")!, subcategories: [])
+                                                                                                                            Category(name: "Appointment Reminders", image: UIImage(named: "appointment")!, subcategories: [])
                                        ]),
                                        Category(name: "API Setting", image: UIImage(named: "api")!, subcategories: [Category(name: "Email", image: UIImage(named: "email-setting")!, subcategories: []),
                                                                                                                         Category(name: "SMS", image: UIImage(named: "sms-setup")!, subcategories: []),
@@ -101,6 +104,8 @@ class SideMenuVC: UIViewController {
         super.viewDidLoad()
         configureTreeTableView()
         usertype = UserDefaults.standard.value(forKey: "usertype") as? String ?? ""
+        token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
+        callRequestedEventListAPI()
         
     }
     
@@ -128,6 +133,41 @@ class SideMenuVC: UIViewController {
         }
     }
     
+    //MARK: - API Call
+    func callRequestedEventListAPI() {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization" : token]
+        var params = NSDictionary()
+        params = [:]
+        if(APIUtilities.sharedInstance.checkNetworkConnectivity() == "NoAccess") {
+            AppData.sharedInstance.alert(message: "Please check your internet connection.", viewController: self) { (alert) in
+                AppData.sharedInstance.dismissLoader()
+            }
+            return
+        }
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + REQUESTED_EVENT_LIST, param: params, header: headers) { (respnse, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? String {
+                   
+                    if success == "1" {
+                        if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            DispatchQueue.main.async {
+                                self.pendingRequest = "\(response.count)"
+                                self.treeTableView.reloadData()
+                            }
+                        }
+                    } else {
+                        if let response = res.value(forKey: "response") as? String {
+                        
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 //MARK: - TreeTableViewDataSource implementation
@@ -152,6 +192,12 @@ extension SideMenuVC: TreeTableViewDelegate {
     func treeTableView(_ treeTableView: TreeTableView, cellForRowAt indexPath: IndexPath, node: Node) -> UITableViewCell {
         let cell = treeTableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier, for: indexPath) as! SideMenuCell
         cell.titleLabel.text = node.name
+        cell.countLabel.isHidden = true
+        if node.name == "Appointments" {
+            cell.countLabel.isHidden = false
+            cell.countLabel.roundCorners(corners: .allCorners, radius: 10.0)
+            cell.countLabel.text = pendingRequest
+        }
         cell.iconImageView.image = node.image
         
         cell.expandImageView.isHidden = true
@@ -206,7 +252,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                         cell.isUserInteractionEnabled = false
                     }
                 case "Member's Package":
-                    cell.iconImageLeadingConstraint.constant = 35
+                    cell.iconImageLeadingConstraint.constant = 16//35
                     if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
                         cell.vw_lock.isHidden = true
                         cell.isUserInteractionEnabled = true
@@ -274,7 +320,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                         cell.vw_lock.isHidden = false
                         cell.isUserInteractionEnabled = false
                     }
-                case "Memberships":
+                case "Member's Package":
                     cell.iconImageLeadingConstraint.constant = 16
                     if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
                         cell.vw_lock.isHidden = true
@@ -305,7 +351,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Email Templates":
                     cell.iconImageLeadingConstraint.constant = 35
                     cell.vw_lock.isHidden = true
-                case "Appointment Reminders":
+                case "Appointments":
                     cell.iconImageLeadingConstraint.constant = 16
                     if UserDefaults.standard.bool(forKey: "currentSubscription") == true {
                         cell.vw_lock.isHidden = true
@@ -314,7 +360,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                         cell.vw_lock.isHidden = false
                         cell.isUserInteractionEnabled = false
                     }
-                case "Appointment":
+                case "Appointment Reminders":
                     cell.iconImageLeadingConstraint.constant = 35
                     cell.vw_lock.isHidden = true
                 case "SMS":
@@ -360,7 +406,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                     cell.iconImageLeadingConstraint.constant = 35
                 case "Client":
                     cell.iconImageLeadingConstraint.constant = 35
-                case "Appointment":
+                case "Appointment Reminders":
                     cell.iconImageLeadingConstraint.constant = 35
                 case "Product":
                     cell.iconImageLeadingConstraint.constant = 35
@@ -435,13 +481,13 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Clients":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "ClientsVC") as! ClientsVC
                     self.navigationController?.pushViewController(VC, animated: true)
-                case "Appointment Reminders":
+                case "Appointments":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "EventsVC") as! EventsVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Order":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddOrderVC") as! AddOrderVC
                     self.navigationController?.pushViewController(VC, animated: true)
-                case "Memberships":
+                case "Member's Package":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "MemberShipListVC") as! MemberShipListVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "ToDo":
@@ -483,7 +529,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Email Templates":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "EmailTemplateListVC") as! EmailTemplateListVC
                     self.navigationController?.pushViewController(VC, animated: true)
-                case "Appointment":
+                case "Appointment Reminders":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "EventReminderSettingVC") as! EventReminderSettingVC
                     self.navigationController?.pushViewController(VC, animated: true)
 //                case "Email":
@@ -521,7 +567,7 @@ extension SideMenuVC: TreeTableViewDelegate {
                 case "Packages":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "PackagesListVC") as! PackagesListVC
                     self.navigationController?.pushViewController(VC, animated: true)
-             /*   case "Appointment Reminders":
+             /*   case "Appointments":
                     let VC = self.storyboard?.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
                     self.navigationController?.pushViewController(VC, animated: true)
                 case "Packages":

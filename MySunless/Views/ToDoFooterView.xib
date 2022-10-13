@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iGi-0f-xnm" customClass="ToDoFooterView" customModule="MySunless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-Qg-weN">
+                    <rect key="frame" x="5" y="0.0" width="365" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlt-lx-0MP">
+                            <rect key="frame" x="0.0" y="0.0" width="365" height="50"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olF-94-l0k">
+                            <rect key="frame" x="147.5" y="12.5" width="70.5" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="qt8-pL-Md8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eBD-tf-3Dy">
+                            <rect key="frame" x="117.5" y="14.5" width="25" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="tZ7-BJ-LzM"/>
+                                <constraint firstAttribute="width" secondItem="eBD-tf-3Dy" secondAttribute="height" multiplier="1:1" id="zAF-hu-cN4"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.015686274510000001" green="0.3921568627" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="olF-94-l0k" firstAttribute="centerY" secondItem="sYs-Qg-weN" secondAttribute="centerY" id="CS5-Jc-EX1"/>
+                        <constraint firstItem="olF-94-l0k" firstAttribute="centerX" secondItem="sYs-Qg-weN" secondAttribute="centerX" id="Ehy-6k-unT"/>
+                        <constraint firstItem="eBD-tf-3Dy" firstAttribute="centerY" secondItem="olF-94-l0k" secondAttribute="centerY" id="Hz4-0t-LXP"/>
+                        <constraint firstItem="tlt-lx-0MP" firstAttribute="top" secondItem="sYs-Qg-weN" secondAttribute="top" id="Yy4-gD-sVQ"/>
+                        <constraint firstItem="olF-94-l0k" firstAttribute="leading" secondItem="eBD-tf-3Dy" secondAttribute="trailing" constant="5" id="lxm-B5-qA8"/>
+                        <constraint firstAttribute="trailing" secondItem="tlt-lx-0MP" secondAttribute="trailing" id="ugZ-CW-zdE"/>
+                        <constraint firstItem="tlt-lx-0MP" firstAttribute="leading" secondItem="sYs-Qg-weN" secondAttribute="leading" id="xFT-R0-90q"/>
+                        <constraint firstAttribute="bottom" secondItem="tlt-lx-0MP" secondAttribute="bottom" id="zSm-Vl-P2Y"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="odf-lA-gCi"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="sYs-Qg-weN" secondAttribute="trailing" constant="5" id="69x-MR-uSo"/>
+                <constraint firstItem="sYs-Qg-weN" firstAttribute="top" secondItem="iGi-0f-xnm" secondAttribute="top" id="B1g-cO-cvE"/>
+                <constraint firstItem="sYs-Qg-weN" firstAttribute="leading" secondItem="iGi-0f-xnm" secondAttribute="leading" constant="5" id="EVO-0Y-mxn"/>
+                <constraint firstAttribute="bottom" secondItem="sYs-Qg-weN" secondAttribute="bottom" id="rYE-Ly-zaw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnAdd" destination="tlt-lx-0MP" id="pvJ-e4-6XU"/>
+                <outlet property="cellView" destination="sYs-Qg-weN" id="Zyd-ff-JkD"/>
+                <outlet property="lblTitle" destination="olF-94-l0k" id="e7e-Mq-r5I"/>
+            </connections>
+            <point key="canvasLocation" x="-592.02898550724638" y="-135.26785714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

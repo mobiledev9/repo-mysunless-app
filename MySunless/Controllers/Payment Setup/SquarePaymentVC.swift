@@ -61,8 +61,12 @@ class SquarePaymentVC: UIViewController {
             switch index {
                 case 0:
                     self.type = 0
+                self.txtType.text = selectedText
+                self.txtType.selectText = selectedText
                 case 1:
                     self.type = 1
+                self.txtType.text = selectedText
+                self.txtType.selectText = selectedText
                 default:
                     print("Default")
             }

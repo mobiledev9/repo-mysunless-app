@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol chnageEventProtocol {
+    func callLoadCalenderView()
+    
+}
+
 class EventsVC: UIViewController {
     
     //MARK:- Outlets
@@ -20,7 +25,6 @@ class EventsVC: UIViewController {
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "EventCalendarVC") as! EventCalendarVC
-        
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
         
@@ -104,6 +108,7 @@ class EventsVC: UIViewController {
                 add(asChildViewController: thirdViewController)
                 remove(asChildViewController: firstViewController)
                 remove(asChildViewController: secondViewController)
+                thirdViewController.delegate = self
             default:
                 print("Default")
         }
@@ -126,4 +131,12 @@ class EventsVC: UIViewController {
     }
 
 }
+
+extension EventsVC : chnageEventProtocol {
+    func callLoadCalenderView() {
+        segmentedControl.selectedSegmentIndex = 0
+        updateView()
+    }
+}
+
 

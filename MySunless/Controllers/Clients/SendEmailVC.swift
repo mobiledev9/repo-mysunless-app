@@ -72,7 +72,7 @@ class SendEmailVC: UIViewController {
     func setValidation() -> Bool {
         if txtFrom.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter your email id", viewController: self)
-        } else if txtTo.text == "" {
+        } else if arrSMSClient.count == 0 {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please select at least one recipient", viewController: self)
         } else if txtSubject.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter email subject", viewController: self)
@@ -138,6 +138,7 @@ class SendEmailVC: UIViewController {
                                 for dic in self.arrTemplate {
                                     if id == dic.id {
                                         self.txtSubject.text = dic.Subject
+                                        self.txtTemplate.text = dic.Name
                                     }
                                 }
                             }

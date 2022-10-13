@@ -362,8 +362,12 @@ class OrderSummaryVC: UIViewController {
     }
     
     @IBAction func btnSaveForLaterClick(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "OrderListVC") as! OrderListVC
-        self.navigationController?.pushViewController(VC, animated: true)
+        AppData.sharedInstance.addCustomWithCheckBoxAlert(alertMainTitle: "Information!", subTitle: "Order has been moved to Orders page") {
+            
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "OrderListVC") as! OrderListVC
+            self.navigationController?.pushViewController(VC, animated: true)
+        
+        }
     }
     
     @IBAction func btnBackToOrderClick(_ sender: UIButton) {

@@ -23,6 +23,8 @@ class RequestedEventListVC: UIViewController {
     var arrRequestedList = [RequestedEventList]()
     var arrFilterRequestedList = [RequestedEventList]()
     var searching = false
+    var delegate : chnageEventProtocol?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,21 +62,25 @@ class RequestedEventListVC: UIViewController {
             print(respnse ?? "")
             if let res = respnse as? NSDictionary {
                 if let success = res.value(forKey: "success") as? String {
+                    self.arrRequestedList.removeAll()
+                    self.arrFilterRequestedList.removeAll()
                     if success == "1" {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
-                            self.arrRequestedList.removeAll()
-                            self.arrFilterRequestedList.removeAll()
-                            for dict in response {
+                           for dict in response {
                                 self.arrRequestedList.append(RequestedEventList(dictionary: dict)!)
                             }
                             self.arrFilterRequestedList = self.arrRequestedList
                             DispatchQueue.main.async {
                                 self.tblRequestedEventList.reloadData()
+                                
                             }
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            DispatchQueue.main.async {
+                                self.tblRequestedEventList.reloadData()
+                            }
                         }
                     }
                 }
@@ -158,6 +164,8 @@ extension RequestedEventListVC: RequestedEventProtocol {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
                             self.callRequestedEventListAPI()
+                            self.delegate?.callLoadCalenderView()
+                            
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
@@ -166,6 +174,7 @@ extension RequestedEventListVC: RequestedEventProtocol {
                     }
                 }
             }
+            
         }
     }
     
@@ -189,10 +198,12 @@ extension RequestedEventListVC: RequestedEventProtocol {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
                             self.callRequestedEventListAPI()
+                      
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            
                         }
                     }
                 }

@@ -77,7 +77,7 @@ class ListViewCell: UITableViewCell {
         let imgUrl = URL(string: modelAppointment.profileImg!)
         imgCustomer.kf.setImage(with: imgUrl)
         lblCustomerName.text = "\(modelAppointment.client_firstname ?? "") \(modelAppointment.client_Lastname ?? "")"
-        let strEventDate  = AppData().converterDateFromString(dateString: modelAppointment.eventDate!, withFormat: "dd-mm-yyyy")
+        let strEventDate  = AppData().converterDateFromString(dateString: modelAppointment.eventDate!, withFormat: "MM-dd-yyyy")
         let strStartTime = AppData().converterDateFromString(dateString: modelAppointment.eventDate!, withFormat: "h:mm a") ?? ""
         let strEndTime: String = AppData().converterDateFromString(dateString: modelAppointment.end_date!, withFormat: "h:mm a") ?? ""
         let weakDay: String = AppData().dayOfTheWeek(dateString: modelAppointment.eventDate!) ??  ""

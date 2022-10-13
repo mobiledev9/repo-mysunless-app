@@ -282,6 +282,7 @@ class AddProductVC: UIViewController {
                     if success == 1 {
                         if let message = res.value(forKey: "message") as? String {
                             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: message)
+                            self.navigationController?.popViewController(animated: true)
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {
@@ -395,7 +396,7 @@ class AddProductVC: UIViewController {
     }
      
     @IBAction func btnSelectImageClick(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
@@ -413,6 +414,13 @@ class AddProductVC: UIViewController {
         VC.modalTransitionStyle = .crossDissolve
         VC.delegate = self
       //  VC.delegateCatList = self
+        self.present(VC, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnAddNewBrandClick(_ sender: UIButton) {
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddBrandVC") as! AddBrandVC
+        VC.modalPresentationStyle = .overCurrentContext
+        VC.modalTransitionStyle = .crossDissolve
         self.present(VC, animated: true, completion: nil)
     }
     
@@ -566,7 +574,10 @@ extension AddProductVC: AddProductProtocol {
 //MARK:- ImagePickerController Delegate Methods
 extension AddProductVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imgProduct.contentMode = .scaleAspectFill
+            imgProduct.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imgProduct.contentMode = .scaleAspectFill
             imgProduct.image = image
         }

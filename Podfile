@@ -29,5 +29,10 @@ target 'MySunless' do
     pod 'ColorPalette'
     pod 'SwiftReorder'
     pod "AMProgressBar"
+    pod 'GoogleAPIClientForREST/Calendar'
+   # pod 'GoogleSignIn'
+   # pod 'GoogleSignIn', '~> 5.0'
+   pod 'GoogleSignIn', '>= 4.0.2'  pod 'GoogleSignIn', '< 5.0.0'
+   pod 'QCropper'
 
 end

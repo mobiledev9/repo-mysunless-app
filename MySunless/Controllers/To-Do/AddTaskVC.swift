@@ -155,12 +155,18 @@ class AddTaskVC: UIViewController {
         txtVwDesc.text = "Enter Task Description..."
         txtVwDesc.textColor = UIColor.init("#B3B3B4")
         txtVwDesc.delegate = self
-        self.view.addGestureRecognizer(tapGesture)
+      //  self.view.addGestureRecognizer(tapGesture)
         self.view.isUserInteractionEnabled = true
-      // vw_innerbottom.addGestureRecognizer(tapGesture)
+       vw_innerbottom.addGestureRecognizer(tapGesture)
         
-        colorPalette?.delegate = self
+        colorPalette = colorPalette.map({ view in
+            view.addGestureRecognizer(tapGesture)
+            print("*****")
+            return view
+        })
+        
         colorPalette?.dataSource = self
+        colorPalette?.delegate = self
         colorPalette?.reloadPalette()
         
         colorPalette.columnCount = 5
@@ -373,7 +379,7 @@ extension AddTaskVC: ColorPaletteViewDataSource {
 
 extension AddTaskVC: ColorPaletteViewDelegate {
     func colorPalette(_ colorPalette: ColorPaletteView, didSelect color: UIColor, at index: Int) {
-        // print("color at \(index) selected")
+         print("color at \(index) selected")
         selectedColorView?.backgroundColor = color
         vw_top.backgroundColor = color
         
@@ -455,13 +461,13 @@ extension AddTaskVC: UITextViewDelegate {
 }
 
 extension AddTaskVC: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let point = touch.location(in: assignColview)
-        if let indexPath = assignColview?.indexPathForItem(at: point),
-           let cell = assignColview?.cellForItem(at: indexPath) {
-            return touch.location(in: cell).y > 50
-        }
-        txtAssign.showList()
-        return false
-    }
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        let point = touch.location(in: assignColview)
+//        if let indexPath = assignColview?.indexPathForItem(at: point),
+//           let cell = assignColview?.cellForItem(at: indexPath) {
+//            return touch.location(in: cell).y > 50
+//        }
+//        txtAssign.showList()
+//        return false
+//    }
 }

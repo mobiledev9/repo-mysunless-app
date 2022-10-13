@@ -173,6 +173,8 @@ class SelectPackageVC: UIViewController {
                             self.txtChoosePackage.optionIds = self.arrPackageIds
                             self.txtChoosePackage.didSelect{(selectedText, index, id) in
                                 self.txtChoosePackage.selectedIndex = index
+                                self.txtChoosePackage.selectText = selectedText
+                                self.txtChoosePackage.text = selectedText
                                 self.selectedPackageId = id
                                 for item in self.arrViewPackage {
                                     if item.id == id {

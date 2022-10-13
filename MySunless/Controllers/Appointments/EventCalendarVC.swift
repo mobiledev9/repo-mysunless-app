@@ -8,8 +8,17 @@
 import UIKit
 import FSCalendar
 import Alamofire
+import GoogleSignIn
+import GoogleAPIClientForREST
 
-class EventCalendarVC: UIViewController {
+
+class EventCalendarVC: UIViewController, GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        //
+       getEvents(for:"primary")
+        
+    }
+    
     
     //MARK:- Outlets
     @IBOutlet weak var fsCalendar: FSCalendar!
@@ -27,9 +36,26 @@ class EventCalendarVC: UIViewController {
         return formatter
     }()
     
+    fileprivate lazy var calendarService: GTLRCalendarService? = {
+        let service = GTLRCalendarService()
+        service.shouldFetchNextPages = true
+
+        service.isRetryEnabled = true
+        service.maxRetryInterval = 15
+
+        guard let currentUser = GIDSignIn.sharedInstance().currentUser,
+            let authentication = currentUser.authentication else {
+                return nil
+        }
+
+        service.authorizer = authentication.fetcherAuthorizer()
+        return service
+    }()
+    
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        initGoogle()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         customizedCalendar()
         fsCalendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
@@ -100,6 +126,54 @@ class EventCalendarVC: UIViewController {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "BookAppointmentVC") as! BookAppointmentVC
         self.navigationController?.pushViewController(VC, animated: true)
     }
+    
+    
+    @IBAction func btnGSync(_ sender: UIButton) {
+     
+        GIDSignIn.sharedInstance().signIn()
+        //initGoogle()
+        
+}
+    func initGoogle() {
+        // Initialize sign-in
+        var configureError: NSError?
+       // GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+        GIDSignIn.sharedInstance().clientID = google_ClientID
+        GIDSignIn.sharedInstance().scopes = ["https://www.googleapis.com/auth/calendar"]
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+    }
+    
+    // you will probably want to add a completion handler here
+    func getEvents(for calendarId: String) {
+        guard let service = self.calendarService else {
+            return
+        }
+
+        // You can pass start and end dates with function parameters
+        let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()))
+        let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
+
+        let eventsListQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: calendarId)
+        eventsListQuery.timeMin = startDateTime
+        eventsListQuery.timeMax = endDateTime
+
+        _ = service.executeQuery(eventsListQuery, completionHandler: { (ticket, result, error) in
+            guard error == nil, let items = (result as? GTLRCalendar_Events)?.items else {
+                return
+            }
+
+            if items.count > 0 {
+                print(items)
+                // Do stuff with your events
+            } else {
+                // No events
+            }
+        })
+    }
+    
+    
 }
 
 //MARK:- FSCalendar Delegate and Datasource Methods

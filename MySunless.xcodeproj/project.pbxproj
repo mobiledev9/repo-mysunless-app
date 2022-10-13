@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2B58331728B74CB200D8C116 /* SalesReportFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */; };
 		2B78EC4B28B899D80074A7CC /* PaymentHistoryFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */; };
+		2BBD7FDE28EC6BEB00B6C0FE /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD7FDD28EC6BEB00B6C0FE /* test.m */; };
+		2BC83D5428EDB5F4000FBC81 /* GoogleCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC83D5328EDB5F4000FBC81 /* GoogleCalendarManager.swift */; };
+		2BCE7C2C28DDDF02000F7E14 /* ToDoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCE7C2A28DDDF01000F7E14 /* ToDoFooterView.swift */; };
+		2BCE7C2D28DDDF02000F7E14 /* ToDoFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BCE7C2B28DDDF01000F7E14 /* ToDoFooterView.xib */; };
 		772097CC6DA15F5C973F8E72 /* Pods_MySunless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BEBBCC10B55A9F87EC8547A /* Pods_MySunless.framework */; };
 		880060DA275B1B330006E9DB /* AddNewEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880060D9275B1B330006E9DB /* AddNewEmployeeVC.swift */; };
 		880060DE275B23840006E9DB /* CompanyInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880060DD275B23840006E9DB /* CompanyInformationVC.swift */; };
@@ -247,6 +251,12 @@
 /* Begin PBXFileReference section */
 		2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportFilterVC.swift; sourceTree = "<group>"; };
 		2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryFilterVC.swift; sourceTree = "<group>"; };
+		2BBD7FDB28EC6BEB00B6C0FE /* MySunless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MySunless-Bridging-Header.h"; sourceTree = "<group>"; };
+		2BBD7FDC28EC6BEB00B6C0FE /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		2BBD7FDD28EC6BEB00B6C0FE /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
+		2BC83D5328EDB5F4000FBC81 /* GoogleCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCalendarManager.swift; sourceTree = "<group>"; };
+		2BCE7C2A28DDDF01000F7E14 /* ToDoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoFooterView.swift; sourceTree = "<group>"; };
+		2BCE7C2B28DDDF01000F7E14 /* ToDoFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoFooterView.xib; sourceTree = "<group>"; };
 		386565BE1D6A4A7A9B43C8AC /* Pods-MySunless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySunless.debug.xcconfig"; path = "Target Support Files/Pods-MySunless/Pods-MySunless.debug.xcconfig"; sourceTree = "<group>"; };
 		7CC4FCC3C45C9AF2DC3BFB01 /* Pods-MySunless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySunless.release.xcconfig"; path = "Target Support Files/Pods-MySunless/Pods-MySunless.release.xcconfig"; sourceTree = "<group>"; };
 		880060D9275B1B330006E9DB /* AddNewEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEmployeeVC.swift; sourceTree = "<group>"; };
@@ -613,6 +623,7 @@
 		884D82C6270D5B5300854969 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2BC83D5328EDB5F4000FBC81 /* GoogleCalendarManager.swift */,
 				884D82C7270D5B9800854969 /* AppData.swift */,
 				887105B4270EC14C00A31D09 /* APIUtilities.swift */,
 				88638C2027635B0000EB981B /* Category.swift */,
@@ -641,6 +652,7 @@
 				D56947DB28755837006C6A31 /* ImportExportCell.xib */,
 				D59844AE28817CBA00846AA2 /* CommentCell.xib */,
 				D5F8B6B42893B2260078311E /* ImporttExportCell.xib */,
+				2BCE7C2B28DDDF01000F7E14 /* ToDoFooterView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -897,10 +909,13 @@
 		88FDA447270C164F008040E9 = {
 			isa = PBXGroup;
 			children = (
+				2BBD7FDC28EC6BEB00B6C0FE /* test.h */,
+				2BBD7FDD28EC6BEB00B6C0FE /* test.m */,
 				88FDA452270C164F008040E9 /* MySunless */,
 				88FDA451270C164F008040E9 /* Products */,
 				C67BA8CBD455A01EAB039C06 /* Pods */,
 				B14ED2135C4EA957066E7175 /* Frameworks */,
+				2BBD7FDB28EC6BEB00B6C0FE /* MySunless-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1065,6 +1080,7 @@
 			isa = PBXGroup;
 			children = (
 				D54AF03F28631F10004F7888 /* ToDoHeaderView.swift */,
+				2BCE7C2A28DDDF01000F7E14 /* ToDoFooterView.swift */,
 				D5D76B872862F1EF001B1D52 /* ToDoCell.swift */,
 				D512682028700F740078934A /* ToDoArchiveCell.swift */,
 				D59C0ADE2876EC5300D87C6D /* ToDoCollectionCell.swift */,
@@ -1109,6 +1125,7 @@
 				88FDA44D270C164F008040E9 /* Frameworks */,
 				88FDA44E270C164F008040E9 /* Resources */,
 				C21EF7486A1CE783061A2CBA /* [CP] Embed Pods Frameworks */,
+				51A119D7D781877F6981B4D0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1130,6 +1147,7 @@
 				TargetAttributes = {
 					88FDA44F270C164F008040E9 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -1171,6 +1189,7 @@
 				88FDA493270C52B0008040E9 /* Roboto-Regular.ttf in Resources */,
 				D56947DD28755837006C6A31 /* ImportExportCell.xib in Resources */,
 				88FDA497270C52B0008040E9 /* Roboto-LightItalic.ttf in Resources */,
+				2BCE7C2D28DDDF02000F7E14 /* ToDoFooterView.xib in Resources */,
 				88FDA4A127DB44DB0001498A /* Archive_ServiceCell.xib in Resources */,
 				8894E0EE27DC65AC00CF411B /* Archive_UserCell.xib in Resources */,
 				88FDA491270C52B0008040E9 /* Roboto-Medium.ttf in Resources */,
@@ -1198,6 +1217,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		51A119D7D781877F6981B4D0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		60CADC3C55D18F46CD56742A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1276,6 +1312,7 @@
 				88ECCFA1281261E0001F68B5 /* SalesProfitGraphVC.swift in Sources */,
 				882928292755E369000EF543 /* CustomerDetailsVC.swift in Sources */,
 				880060DA275B1B330006E9DB /* AddNewEmployeeVC.swift in Sources */,
+				2BBD7FDE28EC6BEB00B6C0FE /* test.m in Sources */,
 				D59047772875865500CD7D14 /* ExportVC.swift in Sources */,
 				88FDA458270C164F008040E9 /* ViewController.swift in Sources */,
 				88398BEB27ED941000FED89C /* OrderHistoryCell.swift in Sources */,
@@ -1283,6 +1320,7 @@
 				88D86A1A27CC8FA60075B4E5 /* SelectServiceVC.swift in Sources */,
 				88398BF927ED947800FED89C /* OrderHistoryVC.swift in Sources */,
 				88ECCFA3281261E0001F68B5 /* SalesReportVC.swift in Sources */,
+				2BC83D5428EDB5F4000FBC81 /* GoogleCalendarManager.swift in Sources */,
 				88039B3E27D20AD8005D8002 /* ServicesListCell.swift in Sources */,
 				D512682228700F740078934A /* ToDoArchiveCell.swift in Sources */,
 				884BC39227845CA500FFE32A /* EmailTemplateDetailVC.swift in Sources */,
@@ -1371,6 +1409,7 @@
 				8887FD9128165C6D00F3C75C /* PaymentHistoryVC.swift in Sources */,
 				88ECDC492817D3E400DB89EF /* ProductsListCell.swift in Sources */,
 				D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */,
+				2BCE7C2C28DDDF02000F7E14 /* ToDoFooterView.swift in Sources */,
 				88A4C2782826401F00F005D4 /* PaymentSetupVC.swift in Sources */,
 				D5C4708A287FF12600D9863E /* TaskPreviewAssignedCell.swift in Sources */,
 				88398BF627ED947800FED89C /* DocumentVC.swift in Sources */,
@@ -1588,9 +1627,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development: Jiyan Paladiya (9Y6C9C96GP)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -1598,9 +1638,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.MySunlessApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = dev_mysunlessapp;
+				SWIFT_OBJC_BRIDGING_HEADER = "MySunless-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1612,9 +1655,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sunless Technologies (83MBL4M6HX)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -1622,9 +1666,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.MySunlessApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = dist_mysunlessapp_27;
+				SWIFT_OBJC_BRIDGING_HEADER = "MySunless-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

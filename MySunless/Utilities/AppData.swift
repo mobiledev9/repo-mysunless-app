@@ -103,6 +103,17 @@ class AppData: NSObject {
         alert.showSuccess(alertMainTitle, subTitle: subTitle)
     }
     
+    func addCustomWithCheckBoxAlert(alertMainTitle: String, subTitle: String, completionHandler: @escaping () -> Void) {
+        let alert = SCLAlertView()
+        var isBtnselected = false
+//        alert.showCustom("Do not show again", subTitle: "", color: UIColor.gray, icon: UIImage(systemName: "checkmark.square")!)
+        alert.addButton("Do not show again", backgroundColor: UIColor.clear, textColor: UIColor.gray, font: UIFont(name: "Roboto", size: 15), image: UIImage(systemName: "checkmark.square"), showTimeout: nil, action:{isBtnselected = true
+            print("isBtnselected true")})
+        alert.addButton("OK", backgroundColor: UIColor.init("#0ABB9F"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, action:{} )
+        alert.iconTintColor = UIColor.white
+        alert.showSuccess(alertMainTitle, subTitle: subTitle)
+    }
+    
     func showLoader() {
        SVProgressHUD.setInfoImage(UIImage(named: "MySunless_Symbol")!)
        

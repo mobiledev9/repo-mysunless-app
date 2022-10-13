@@ -43,6 +43,8 @@ class MoveTaskVC: UIViewController {
         txtSelectCategory.optionIds = arrCategoryId
         txtSelectCategory.didSelect { selectedText, index, id in
             self.categoryId = id
+            self.txtSelectCategory.text = selectedText
+            self.txtSelectCategory.selectText = selectedText
         }
     }
     

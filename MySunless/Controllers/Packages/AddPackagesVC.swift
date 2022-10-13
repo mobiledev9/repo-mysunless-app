@@ -267,15 +267,15 @@ class AddPackagesVC: UIViewController {
 
 //MARK:- Textfield Delegate Methods
 extension AddPackagesVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        txtName.resignFirstResponder()
-         return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        //txtName.resignFirstResponder()
+//         return true
+//    }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.resignFirstResponder()
-        return false
-    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        self.resignFirstResponder()
+//        return false
+//    }
 }
 
 //MARK:- TextView Delegate Methods

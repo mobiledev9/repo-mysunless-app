@@ -95,52 +95,51 @@ class MyGoalsVC: UIViewController {
     }
     
     @IBAction func btnClientGoalClick(_ sender: UIButton) {
-        if (clientGoalDropdownOpen == true) {
-            self.vw_clientGoalDropdown.isHidden = false
-            imgClientGoalDropdown.image = UIImage(named: "up-arrow")
-            
-            lblSalesGoal.isHidden = true
-            vw_selectSalesGoal.isHidden = true
-            btnSalesGoal.isHidden = true
-            imgSalesGoalDropdown.isHidden = true
-            
-            clientGoalDropdownOpen = false
-        } else {
-            self.vw_clientGoalDropdown.isHidden = true
-            imgClientGoalDropdown.image = UIImage(named: "down-arrow-1")
-            
-            lblSalesGoal.isHidden = false
-            vw_selectSalesGoal.isHidden = false
-            btnSalesGoal.isHidden = false
-            imgSalesGoalDropdown.isHidden = false
-            
-            clientGoalDropdownOpen = true
-        }
+        showHideClientGoal()
     }
     
     @IBAction func btnSalesGoalClick(_ sender: UIButton) {
-        if (salesGoalDropdownOpen == true) {
-            self.vw_salesGoalDropdown.isHidden = false
-            imgSalesGoalDropdown.image = UIImage(named: "up-arrow")
-            
-            //            lblCity.isHidden = true
-            //            vw_city.isHidden = true
-            
-            salesGoalDropdownOpen = false
-        } else {
-            self.vw_salesGoalDropdown.isHidden = true
-            imgSalesGoalDropdown.image = UIImage(named: "down-arrow-1")
-            
-            //            lblCity.isHidden = false
-            //            vw_city.isHidden = false
-            
-            salesGoalDropdownOpen = true
-        }
+        showHideSalesGoal()
     }
     
     @IBAction func btnSaveMyGoalsClick(_ sender: UIButton) {
         if (self.saveGoalsValidation()) {
             callSaveGoalsAPI()
+        }
+    }
+    
+   func showHideClientGoal(){
+       if (clientGoalDropdownOpen == true) {
+        self.vw_clientGoalDropdown.isHidden = false
+        imgClientGoalDropdown.image = UIImage(named: "up-arrow")
+        
+        lblSalesGoal.isHidden = true
+        vw_selectSalesGoal.isHidden = true
+        btnSalesGoal.isHidden = true
+        imgSalesGoalDropdown.isHidden = true
+        
+        clientGoalDropdownOpen = false
+    } else {
+        self.vw_clientGoalDropdown.isHidden = true
+        imgClientGoalDropdown.image = UIImage(named: "down-arrow-1")
+        
+        lblSalesGoal.isHidden = false
+        vw_selectSalesGoal.isHidden = false
+        btnSalesGoal.isHidden = false
+        imgSalesGoalDropdown.isHidden = false
+        
+        clientGoalDropdownOpen = true
+    }}
+    
+    func showHideSalesGoal() {
+        if (salesGoalDropdownOpen == true) {
+            self.vw_salesGoalDropdown.isHidden = false
+            imgSalesGoalDropdown.image = UIImage(named: "up-arrow")
+            salesGoalDropdownOpen = false
+        } else {
+            self.vw_salesGoalDropdown.isHidden = true
+            imgSalesGoalDropdown.image = UIImage(named: "down-arrow-1")
+            salesGoalDropdownOpen = true
         }
     }
 
@@ -193,9 +192,11 @@ extension MyGoalsVC: UITableViewDelegate {
         if tableView == tblVwClientGoal {
             let cell = tblVwClientGoal.cellForRow(at: indexPath) as! CompanyTypeCell
             txtClientGoal.text = cell.lblTitle.text
+            showHideClientGoal()
         } else if tableView == tblVwSalesGoal {
             let cell = tblVwSalesGoal.cellForRow(at: indexPath) as! CompanyTypeCell
             txtSalesGoal.text = cell.lblTitle.text
+            showHideSalesGoal()
         }
     }
 }

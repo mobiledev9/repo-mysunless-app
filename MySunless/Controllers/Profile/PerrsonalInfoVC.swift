@@ -281,6 +281,40 @@ class PerrsonalInfoVC: UIViewController {
     }
     
     @IBAction func btnStateClick(_ sender: UIButton) {
+       showHideDropDown()
+    }
+    
+    @IBAction func btnUpdateProfileClick(_ sender: UIButton) {
+        if PersonalInfoValidation() {
+            callUpdateProfileAPI()
+        }
+    }
+    
+    @IBAction func btnPrivacyPolicyClick(_ sender: UIButton) {
+        guard let url = URL(string:url_privacy_policy) else {
+          return //be safe
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    @IBAction func btnTermsOfUseClick(_ sender: UIButton) {
+        guard let url = URL(string: url_terms_of_use) else {
+          return //be safe
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    func showHideDropDown() {
         if (stateDropdownOpen == true) {
             self.vw_stateDropdown.isHidden = false
             imgStateDropdown.image = UIImage(named: "up-arrow")
@@ -300,11 +334,6 @@ class PerrsonalInfoVC: UIViewController {
         }
     }
     
-    @IBAction func btnUpdateProfileClick(_ sender: UIButton) {
-        if PersonalInfoValidation() {
-            callUpdateProfileAPI()
-        }
-    }
 
 }
 
@@ -329,9 +358,10 @@ extension PerrsonalInfoVC: UITableViewDelegate {
             return 40
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cell = tblVwState.cellForRow(at: indexPath) as! CompanyTypeCell
-            txtState.text = cell.lblTitle.text
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let cell = tblVwState.cellForRow(at: indexPath) as! CompanyTypeCell
+        txtState.text = cell.lblTitle.text
+        showHideDropDown()
     }
 }
 
