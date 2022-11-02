@@ -40,6 +40,7 @@ class CustomerDetailsVC: UIViewController {
     var isForEdit = false
     var isFromClientDetail = false
     var selectedClientDetailID = Int()
+    var clientsLimit = ""
     
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
@@ -58,6 +59,7 @@ class CustomerDetailsVC: UIViewController {
         txtZipcode.delegate = self
         
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
+        clientsLimit = UserDefaults.standard.value(forKey: "clientsLimit") as? String ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -259,8 +261,14 @@ class CustomerDetailsVC: UIViewController {
         if (self.validation()) {
             if AppData.sharedInstance.isValidEmailAddress(emailAddressString: txtEmail.text ?? "") {
                 if txtZipcode.text!.count >= 5 {
-                    callSaveCustomerAPI()
-                } else {
+                    let clientsLimit = UserDefaults.standard.value(forKey: "clientsLimit") as? Int ?? 0
+                    let numOfClient = UserDefaults.standard.value(forKey: "numOfClient") as? Int ?? 0
+                    if (clientsLimit >= numOfClient) {
+                        callSaveCustomerAPI()
+                    } else {
+                        AppData.sharedInstance.showAlert(title: "Alert", message: "Client limit has been reached. Upgrade now to increase limit", viewController: self)
+                    }
+                 } else {
                     AppData.sharedInstance.showAlert(title: "", message: "Please enter 5 digits in Zipcode", viewController: self)
                 }
             } else {

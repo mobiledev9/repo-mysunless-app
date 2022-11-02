@@ -43,7 +43,7 @@ class CompanyInformationVC: UIViewController {
     @IBOutlet var vw_customerInstructions: UIView!
     @IBOutlet var txtVwCustomerInstructions: UITextView!
     @IBOutlet var txtVwImportant: UITextView!
-    
+    //https://new.mysunless.com/crm/Book-now?ref=Mzg=
     //MARK:- Variable Declarations
     var token = String()
     let imagePicker = UIImagePickerController()
@@ -51,7 +51,7 @@ class CompanyInformationVC: UIViewController {
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        txtBookingLink.text = "https://new.mysunless.com/crm/Book-now?ref=Mzg="
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         setInitially()
         hideKeyboardWhenTappedAround()

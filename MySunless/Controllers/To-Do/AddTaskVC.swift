@@ -160,8 +160,9 @@ class AddTaskVC: UIViewController {
        vw_innerbottom.addGestureRecognizer(tapGesture)
         
         colorPalette = colorPalette.map({ view in
+            view.isUserInteractionEnabled = true
+            tapGesture.numberOfTapsRequired = 2
             view.addGestureRecognizer(tapGesture)
-            print("*****")
             return view
         })
         

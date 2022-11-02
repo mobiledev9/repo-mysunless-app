@@ -20,6 +20,7 @@ class ChoosePackageCell: UITableViewCell {
     @IBOutlet var lblClientLimit: UILabel!
     @IBOutlet var lblDescription: UILabel!
     var model = SelectPackage()
+    var isExpand = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,21 +44,21 @@ class ChoosePackageCell: UITableViewCell {
     func setCell() {
         switch model.id {
         case "24":
-           lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit", subTitle: "0")
-            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit", subTitle: "50")
-            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description", subTitle: "Great for new technicians who started to grow their client base - 50 client profiles - Access to all Mysunless features")
+            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit: ", subTitle: "0")
+            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit: ", subTitle: "50")
+            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description: ", subTitle: "Great for new technicians who started to grow their client base - 50 client profiles - Access to all Mysunless features")
         case "25":
-            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit", subTitle: "0")
-            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit", subTitle: "125")
-            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description", subTitle: "Made for businesses with a strong list of clients. - 125 client limit - access to all Mysunless features")
+            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit: ", subTitle: "0")
+            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit: ", subTitle: "125")
+            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description: ", subTitle: "Made for businesses with a strong list of clients. - 125 client limit - access to all Mysunless features")
         case "19":
-            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit", subTitle: "Unlimited")
-            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit", subTitle: "Unlimited")
-            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description", subTitle: "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days.")
+            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit: ", subTitle: "Unlimited")
+            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit: ", subTitle: "Unlimited")
+            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description: ", subTitle: "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid for 30 days.")
         case "21":
-            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit", subTitle: "Unlimited")
-            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit", subTitle: "Unlimited")
-            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description", subTitle: "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid 365 days after purchase.")
+            lblEmpLimit.attributedText = setAttributedLabel(headTitle: "Employee Limit: ", subTitle: "Unlimited")
+            lblClientLimit.attributedText = setAttributedLabel(headTitle: "Clients Limit: ", subTitle: "Unlimited")
+            lblDescription.attributedText = setAttributedLabel(headTitle: "Package Description: ", subTitle: "- Full access to all features. - Unlimited Employees sub-accounts. - Unlimited customer profiles. Valid 365 days after purchase.")
         default:
             print("Default")
         }
@@ -71,7 +72,7 @@ class ChoosePackageCell: UITableViewCell {
             NSAttributedString.Key.foregroundColor: UIColor.darkGray
         ]
         let normalFontAttributes = [
-            NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 15)!,
+            NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 16)!,
             NSAttributedString.Key.foregroundColor: UIColor.lightGray
         ]
         let partOne = NSMutableAttributedString(string: headTitle, attributes: boldFontAttributes)

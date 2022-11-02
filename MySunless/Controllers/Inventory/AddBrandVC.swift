@@ -18,7 +18,7 @@ class AddBrandVC: UIViewController {
     @IBOutlet var vw_top: UIView!
     
     var token = String()
-    var delegate: ProductBrandListProtocol?
+    var delegateBrand: ProductBrandListProtocol?
     var isEdit = false
     var brandId = Int()
     var brandName = String()
@@ -54,9 +54,11 @@ class AddBrandVC: UIViewController {
     func showSCLAlert(alertMainTitle: String, alertTitle: String) {
         let alert = SCLAlertView()
         alert.addButton("OK", backgroundColor: UIColor.init("#0ABB9F"), textColor: UIColor.white, font: UIFont(name: "Roboto-Bold", size: 20), showTimeout: nil, action: {
-            self.dismiss(animated: true) {
-                self.delegate?.callShowProductBrandAPI()
-            }
+            self.delegateBrand?.updateProductBrandList!()
+//            self.dismiss(animated: true) {
+//               // self.delegate?.callShowProductBrandAPI()
+//                self.delegateBrand?.updateProductBrandList!()
+//            }
         })
         alert.iconTintColor = UIColor.white
         alert.showSuccess(alertMainTitle, subTitle: alertTitle)
@@ -87,6 +89,7 @@ class AddBrandVC: UIViewController {
                     if success == 1 {
                         if let response = res.value(forKey: "message") as? String {
                             self.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            
                         }
                     } else {
                         if let response = res.value(forKey: "message") as? String {

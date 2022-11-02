@@ -192,7 +192,9 @@ let DELETE_ACCOUNT = "deleteaccount"
 
 let google_ClientID = "736014336399-2l206qtgakonioue3uq8gpfpbf2306im.apps.googleusercontent.com"
 let ios_url = "com.googleusercontent.apps.736014336399-2l206qtgakonioue3uq8gpfpbf2306im"
-
+let merchantId = "merchant.com.demo.MySunlessApp.Merchant"
+let currencyCode = "USD"
+let countryCode = "US"
 let stateList = ["Select a State","Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawai","Idaho","Illinois","Indiana","Lowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York,","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
 let serviceDuration = ["Select Service Duration","0 Min","15 Min","30 Min","1 h","2 h","3 h","4 h","5 h","6 h","7 h","8 h","9 h","10 h","11 h","12 h"]
 let companyTypeList = ["Select Company Type","MOBILE_TANNING_BUSINESS","SALON_BASED_BUSINESS"]

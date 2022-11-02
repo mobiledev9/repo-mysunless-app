@@ -12,13 +12,7 @@ import GoogleSignIn
 import GoogleAPIClientForREST
 
 
-class EventCalendarVC: UIViewController, GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        //
-       getEvents(for:"primary")
-        
-    }
-    
+class EventCalendarVC: UIViewController {
     
     //MARK:- Outlets
     @IBOutlet weak var fsCalendar: FSCalendar!
@@ -29,6 +23,7 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
     var arrEventDate  = [String?]()
     var arrAppointment = [ShowAppointmentList]()
     var arrEvents = [ShowAppointmentList]()
+    let calendarId = "primary"
     
     fileprivate lazy var dateFormatter2: DateFormatter = {
         let formatter = DateFormatter()
@@ -36,10 +31,12 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
         return formatter
     }()
     
+   // private let scopes = [kGTLRAuthScopeCalendar]
+    
+    
     fileprivate lazy var calendarService: GTLRCalendarService? = {
         let service = GTLRCalendarService()
         service.shouldFetchNextPages = true
-
         service.isRetryEnabled = true
         service.maxRetryInterval = 15
 
@@ -47,7 +44,6 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
             let authentication = currentUser.authentication else {
                 return nil
         }
-
         service.authorizer = authentication.fetcherAuthorizer()
         return service
     }()
@@ -60,7 +56,7 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
         customizedCalendar()
         fsCalendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
         fsCalendar.reloadData()
-    }
+   }
     
     override func viewWillAppear(_ animated: Bool) {
         callShowListAppointment()
@@ -127,20 +123,77 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
         self.navigationController?.pushViewController(VC, animated: true)
     }
     
-    
     @IBAction func btnGSync(_ sender: UIButton) {
-     
         GIDSignIn.sharedInstance().signIn()
-        //initGoogle()
+    }
+    
+    //MARK:- Sync function
+    // Create an event to the Google Calendar's user
+    func addEventoToGoogleCalendar(summary : String, description :String, startTime : String, endTime : String) {
+        guard let service = self.calendarService else {
+            return
+        }
+
+        let calendarEvent = GTLRCalendar_Event()
         
-}
+        calendarEvent.summary = "\(summary)"
+        calendarEvent.descriptionProperty = "\(description)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        let startDate = dateFormatter.date(from: startTime)
+        let endDate = dateFormatter.date(from: endTime)
+        
+        guard let toBuildDateStart = startDate else {
+            print("Error getting start date")
+            return
+        }
+        guard let toBuildDateEnd = endDate else {
+            print("Error getting end date")
+            return
+        }
+        calendarEvent.start = buildDate(date: toBuildDateStart)
+        calendarEvent.end = buildDate(date: toBuildDateEnd)
+        
+        let insertQuery = GTLRCalendarQuery_EventsInsert.query(withObject: calendarEvent, calendarId: self.calendarId)
+        
+        calendarService?.executeQuery(insertQuery) { (ticket, object, error) in
+            if error == nil {
+                print("Event inserted")
+            } else {
+                print(error)
+            }
+        }
+    }
+    
+    func showAlert(title : String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertController.Style.alert
+        )
+        let ok = UIAlertAction(
+            title: "OK",
+            style: UIAlertAction.Style.default,
+            handler: nil
+        )
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func buildDate(date: Date) -> GTLRCalendar_EventDateTime {
+        let datetime = GTLRDateTime(date: date)
+        let dateObject = GTLRCalendar_EventDateTime()
+        dateObject.dateTime = datetime
+        return dateObject
+    }
+    
+    // Initialize sign-in
     func initGoogle() {
-        // Initialize sign-in
         var configureError: NSError?
-       // GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
         GIDSignIn.sharedInstance().clientID = google_ClientID
-        GIDSignIn.sharedInstance().scopes = ["https://www.googleapis.com/auth/calendar"]
+        GIDSignIn.sharedInstance().scopes = [kGTLRAuthScopeCalendar,kGTLRAuthScopeCalendarEvents]
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.presentingViewController = self
     }
@@ -150,34 +203,32 @@ class EventCalendarVC: UIViewController, GIDSignInDelegate {
         guard let service = self.calendarService else {
             return
         }
-
+        
         // You can pass start and end dates with function parameters
         let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()))
         let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
-
+        
         let eventsListQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: calendarId)
         eventsListQuery.timeMin = startDateTime
         eventsListQuery.timeMax = endDateTime
-
+        
         _ = service.executeQuery(eventsListQuery, completionHandler: { (ticket, result, error) in
             guard error == nil, let items = (result as? GTLRCalendar_Events)?.items else {
                 return
             }
-
+            
             if items.count > 0 {
                 print(items)
-                // Do stuff with your events
+                
             } else {
-                // No events
+                print("no event in google calendar")
             }
         })
     }
-    
-    
 }
 
 //MARK:- FSCalendar Delegate and Datasource Methods
-extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
+extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
@@ -187,20 +238,17 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         let dateString = self.dateFormatter2.string(from: date)
-        if arrEventDate.contains(dateString) {
-            let arr = arrAppointment.filter{$0.eventDate?.stringBefore(" ") == dateString}
-            let arrstr : [String] = arr.map{$0.title ?? " "}
-            return arrstr.joined(separator: ",")
-        }
+//        if arrEventDate.contains(dateString) {
+//            let arr = arrAppointment.filter{$0.eventDate?.stringBefore(" ") == dateString}
+//            let arrstr : [String] = arr.map{$0.title ?? " "}
+//            return arrstr.joined(separator: ",")
+    //    }
         return nil
     }
-    
-    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
-        return UIImage()
-    }
-    
+   
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell: FSCalendarCell = calendar.dequeueReusableCell(withIdentifier: "CELL", for: date, at: position)
+        cell.eventIndicator.color = UIColor.init("15B0DA")
         return cell;
     }
     
@@ -239,6 +287,15 @@ extension EventCalendarVC: FSCalendarDelegate,FSCalendarDataSource {
         }
         return 0
     }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        let dateString =  self.dateFormatter2.string(from: date)
+        if arrEventDate.contains(dateString) {
+            return [UIColor.init("15B0DA")]
+        }
+        return [UIColor.yellow]
+       
+    }
 }
 
 //MARK:- UITableview Delegate and Datasource Methods
@@ -268,6 +325,44 @@ extension EventCalendarVC : UITableViewDataSource, UITableViewDelegate {
     }
     
 }
+
+//MARK:- google sync
+extension EventCalendarVC : GIDSignInDelegate {
+    //MARK:Google SignIn Delegate
+        func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+            // myActivityIndicator.stopAnimating()
+        }
+        // Present a view that prompts the user to sign in with Google
+        func sign(_ signIn: GIDSignIn!,
+                  present viewController: UIViewController!) {
+                  self.present(viewController, animated: true, completion: nil)
+        }
+        
+        // Dismiss the "Sign in with Google" view
+        func sign(_ signIn: GIDSignIn!,
+                  dismiss viewController: UIViewController!) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        ////Google_signIn
+        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+                  withError error: Error!) {
+            if let error = error {
+                showAlert(title: "Authentication Error", message: error.localizedDescription)
+                self.calendarService?.authorizer = nil
+            } else {
+                self.calendarService?.authorizer = user.authentication.fetcherAuthorizer()
+                for item in arrEvents {
+                    addEventoToGoogleCalendar(summary: item.title ?? "",
+                                              description: item.description ?? "",
+                                              startTime: item.eventDate ?? "",
+                                              endTime: item.end_date ?? "")
+                }
+                
+            }
+            getEvents(for: calendarId)
+        }
+    }
+
 
 //MARK:- Calendar Tableview Cell
 class CalendarCell : UITableViewCell {

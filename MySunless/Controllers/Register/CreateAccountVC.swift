@@ -68,6 +68,7 @@ class CreateAccountVC: UIViewController, CAAnimationDelegate {
 //    }
     
     func validation() -> Bool {
+        
         if txtEmail.text == "" {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter email", viewController: self)
         } else if txtPassword.text == "" {
@@ -76,6 +77,8 @@ class CreateAccountVC: UIViewController, CAAnimationDelegate {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter confirm password", viewController: self)
         } else if txtPassword.text != txtConfirmPassword.text {
             AppData.sharedInstance.showAlert(title: "Alert", message: "Passwords do not match", viewController: self)
+        } else if !(txtEmail.text!.isValidEmail) {
+            AppData.sharedInstance.showAlert(title: "Alert", message: "Please enter valid email id", viewController: self)
         } else {
             return true
         }

@@ -8,9 +8,9 @@
 import UIKit
 import Alamofire
 
-protocol RequestedEventProtocol {
+@objc protocol RequestedEventProtocol {
     func callAcceptAppointmentAPI(id: Int)
-    func callNotAcceptAppointmentAPI(id: Int)
+    @objc optional func callNotAcceptAppointmentAPI(id: Int)
 }
 
 class RequestedEventListVC: UIViewController {

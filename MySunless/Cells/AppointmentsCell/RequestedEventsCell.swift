@@ -47,7 +47,7 @@ class RequestedEventsCell: UITableViewCell {
     }
     
     @IBAction func btnCancelClick(_ sender: UIButton) {
-        delegate?.callNotAcceptAppointmentAPI(id: model?.id ?? 0)
+        delegate?.callNotAcceptAppointmentAPI!(id: model?.id ?? 0)
     }
 
 }

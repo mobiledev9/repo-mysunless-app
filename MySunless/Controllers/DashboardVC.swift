@@ -498,8 +498,10 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
-                            self.arrRevenueReport.removeAll()
+                            if response != "No Product is there" {
+                                AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            }
+                             self.arrRevenueReport.removeAll()
                             
                         }
                     }
@@ -544,7 +546,9 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            if response != "No Product is there" {
+                                AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                            }
                             self.arrRevenueReport.removeAll()
                             
                         }
@@ -582,7 +586,10 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            if response != "No Product is there" {
+                                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            }
+                            
                         }
                     }
                 }
@@ -618,7 +625,10 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            if response != "No Product is there" {
+                                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            }
+                          
                         }
                     }
                 }
@@ -657,7 +667,10 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                        
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            if response != "No Product is there" {
+                                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: response)
+                            }
+                           
                         }
                     }
                 }
@@ -699,7 +712,7 @@ class DashboardVC: UIViewController, ChartViewDelegate {
                     
                 case "event":
                     imgCheckEvent.setCheckImage(value:progress.data)
-                    progress.data == 1 ? lblEvent.strikeThrough(true)       :lblEvent.strikeThrough(false)
+                    progress.data == 1 ? lblEvent.strikeThrough(true):lblEvent.strikeThrough(false)
                     if progress.data == 0{
                         self.btnEvent.isEnabled = true
                      } else {

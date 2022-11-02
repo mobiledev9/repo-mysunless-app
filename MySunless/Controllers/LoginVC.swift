@@ -7,6 +7,7 @@
 
 import UIKit
 import SCLAlertView
+import Alamofire
 
 class LoginVC: UIViewController {
     
@@ -123,6 +124,18 @@ class LoginVC: UIViewController {
                                 UserDefaults.standard.set(true, forKey: "currentSubscription")
                             }
                         }
+                        if let clientsLimit = res.value(forKey: "clientsLimit") as? Int {
+                            UserDefaults.standard.set(clientsLimit, forKey: "clientsLimit")
+                        }
+                        if let employeeLimit = res.value(forKey: "employeeLimit") as? Int {
+                            UserDefaults.standard.set(employeeLimit, forKey: "employeeLimit")
+                        }
+                        if let numOfClient = res.value(forKey: "numOfClient") as? Int {
+                            UserDefaults.standard.set(numOfClient, forKey: "numOfClient")
+                        }
+                        if let numOfEmployee = res.value(forKey: "numOfEmployee") as? Int {
+                            UserDefaults.standard.set(numOfEmployee, forKey: "numOfEmployee")
+                        }
                         UserDefaults.standard.set(true, forKey: "setUser")
 //                        if let resp = res.value(forKey: "data") as? NSDictionary {
                         
@@ -157,6 +170,7 @@ class LoginVC: UIViewController {
             }
         }
     }
+
     
     //MARK:- Actions
     @IBAction func btnHidePassClick(_ sender: UIButton) {

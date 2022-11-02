@@ -694,7 +694,7 @@ class BookAppointmentVC: UIViewController {
                       "ServiceProvider": selectedServiceProviderID,
                       "cid": selectedCustomerId,
                       "Location_radio": location,
-                      "Accepted": 1,
+                      "Accepted": "1",
                       "sync": 0
             ]
         } else {
@@ -719,7 +719,7 @@ class BookAppointmentVC: UIViewController {
                       "ServiceProvider": selectedServiceProviderID,
                       "cid": selectedCustomerId,
                       "Location_radio": location,
-                      "Accepted": 1,
+                      "Accepted": "1",
                       "sync": 0
             ]
         }
@@ -730,12 +730,15 @@ class BookAppointmentVC: UIViewController {
                 if let success = res.value(forKey: "success") as? String {
                     if success == "1" {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
-                            //self.navigationController?.popViewController(animated: true)
+                            AppData.sharedInstance.alert(message: response, viewController: self) { action in
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                           // AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                           
                         }
                     } else {
                         if let response = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
+                           AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
                             
                         }
                     }
@@ -1203,10 +1206,8 @@ class BookAppointmentVC: UIViewController {
         if bookValidation() {
             if segmentRepeat.selectedSegmentIndex == 0 {
                 callBookAppointmentAPI()
-               // self.navigationController?.popViewController(animated: true)
             } else {
                 callDailyAPI()
-                self.navigationController?.popViewController(animated: true)
             }
             
         }

@@ -62,6 +62,9 @@ extension ToDoCollectionCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dict.todoTasks.count
     }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = tblToDo.dequeueReusableHeaderFooterView(withIdentifier: "ToDoFooterView") as! ToDoFooterView
         if dict.catname == "To-do" {

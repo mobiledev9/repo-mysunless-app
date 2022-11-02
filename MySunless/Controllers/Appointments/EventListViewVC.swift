@@ -78,7 +78,9 @@ class EventListViewVC: UIViewController {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
                             self.arrAppointment.removeAll()
                             self.filterdata.removeAll()
-                            self.tblListView.reloadData()
+                            DispatchQueue.main.async {
+                                self.tblListView.reloadData()
+                            }
                         }
                     }
                 }
@@ -200,5 +202,9 @@ extension EventListViewVC: PaymentHistoryCellProtocol {
         VC.appointment = arrAppointment[index]
         navigationController?.pushViewController(VC, animated: true)
     }
+    
+    
+    
+    
 }
 

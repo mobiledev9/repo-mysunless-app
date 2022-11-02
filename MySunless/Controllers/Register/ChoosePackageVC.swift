@@ -105,6 +105,7 @@ class ChoosePackageVC: UIViewController {
     var package_id = String()
     var promocode = String()
     var selectedIndex = -1
+    var selectedIndexForBtnExpand = -1
     var selectedPackage = Bool()
     var token = String()
     var totalCompAddress = String()
@@ -149,8 +150,8 @@ class ChoosePackageVC: UIViewController {
         
         arrPackageIds = arrProductIds
         
-        self.dict = SelectPackage(id: "23", name: "Free Monthly Subscription", price: "$0.00", validity: "1 mth")
-        self.arrPackage.append(self.dict)
+//        self.dict = SelectPackage(id: "23", name: "Free Monthly Subscription", price: "$0.00", validity: "1 mth")
+//        self.arrPackage.append(self.dict)
         
         addProduct()
 //        arrPackage = [SelectPackage(id: "21", name: "Year of all access subscription", price: "$180", validity: "365Days"), SelectPackage(id: "19", name: "All access subscription", price: "$20", validity: "30Days"), SelectPackage(id: "25", name: "Established client base", price: "$10", validity: "30Days"), SelectPackage(id: "24", name: "New Business", price: "$5", validity: "30Days"), SelectPackage(id: "23", name: "Free monthly subscription", price: "$0", validity: "30Days")]
@@ -219,7 +220,7 @@ class ChoosePackageVC: UIViewController {
         SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
             if let product = result.retrievedProducts.first {
                 let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
+                print(" productId: \(productId) Product: \(product.localizedDescription), price: \(priceString)")
                 self.dict = SelectPackage(id: productId, name: product.localizedTitle, price: product.localizedPrice ?? "", validity: product.localizedSubscriptionPeriod)
                 self.arrPackage.append(self.dict)
                 
@@ -429,36 +430,67 @@ class ChoosePackageVC: UIViewController {
         }
     }
     
-    func callRegisterAPI() {
+    func callRegisterAPI(isFreeTrial :Bool? = false) {
         AppData.sharedInstance.showLoader()
         var params = NSDictionary()
-        params = [
-            "userid" : userid,
-            "firstname" : firstname,
-            "lastname" : lastname,
-            "username" : username,
-            "user_phone_number" : user_phone_number,
-            "user_primary_address" : user_primary_address,
-            "user_state" : user_state,
-            "user_city" : user_city,
-            "user_zipcode" : user_zipcode,
-            "company_name" : company_name,
-            "company_phone" : company_phone,
-            "company_address" : company_address,
-            "company_state" : company_state,
-            "company_city" : company_city,
-            "company_zipcode" : company_zipcode,
-            "company_service" : company_service,
-            "service_price" : service_price,
-            "service_duration" : service_duration,
-            "instruction" : instruction,
-            "tax_rate" : tax_rate,
-            "package_id" : package_id,
-            "promocode" : promocode,
-            "paymentstatus": paymentStatus,
-            "starttime": starttime,
-            "endtime": endtime
-        ]
+        if isFreeTrial! {
+            params = [
+                "userid" : userid,
+                "firstname" : firstname,
+                "lastname" : lastname,
+                "username" : username,
+                "user_phone_number" : user_phone_number,
+                "user_primary_address" : user_primary_address,
+                "user_state" : user_state,
+                "user_city" : user_city,
+                "user_zipcode" : user_zipcode,
+                "company_name" : company_name,
+                "company_phone" : company_phone,
+                "company_address" : company_address,
+                "company_state" : company_state,
+                "company_city" : company_city,
+                "company_zipcode" : company_zipcode,
+                "company_service" : company_service,
+                "service_price" : service_price,
+                "service_duration" : service_duration,
+                "instruction" : instruction,
+                "tax_rate" : tax_rate,
+              //  "package_id" : package_id,//No package for free
+                "promocode" : promocode,
+                "paymentstatus": paymentStatus,
+                "starttime": starttime,
+                "endtime": endtime
+            ]
+        } else {
+            params = [
+                "userid" : userid,
+                "firstname" : firstname,
+                "lastname" : lastname,
+                "username" : username,
+                "user_phone_number" : user_phone_number,
+                "user_primary_address" : user_primary_address,
+                "user_state" : user_state,
+                "user_city" : user_city,
+                "user_zipcode" : user_zipcode,
+                "company_name" : company_name,
+                "company_phone" : company_phone,
+                "company_address" : company_address,
+                "company_state" : company_state,
+                "company_city" : company_city,
+                "company_zipcode" : company_zipcode,
+                "company_service" : company_service,
+                "service_price" : service_price,
+                "service_duration" : service_duration,
+                "instruction" : instruction,
+                "tax_rate" : tax_rate,
+                "package_id" : package_id,
+                "promocode" : promocode,
+                "paymentstatus": paymentStatus,
+                "starttime": starttime,
+                "endtime": endtime
+            ]
+        }
+       
         
         let imageData1 = UserDefaults.standard.data(forKey: "userimage")
         let imageData2 = UserDefaults.standard.data(forKey: "company_logo")
@@ -606,6 +638,13 @@ class ChoosePackageVC: UIViewController {
 //        }
     }
     
+    @IBAction func btnSkipClick(_ sender: UIButton) {
+        getData()
+        paymentStatus = 1
+        UserDefaults.standard.setValue(true, forKey: "currentSubscription")
+        callRegisterAPI(isFreeTrial: true)
+      }
+    
     @objc func btnRadioClicckk(_ sender: UIButton) {
         let btnRadio = sender
         selectedIndex = sender.tag
@@ -637,20 +676,13 @@ class ChoosePackageVC: UIViewController {
     }
     
     @objc func btnExpandClick(_ sender: UIButton) {
-        let indexPath = IndexPath(row:sender.tag, section: 0)
-        let cell = tblView.dequeueReusableCell(withIdentifier: "ChoosePackageCell", for: indexPath) as! ChoosePackageCell
-       
-        if (cell.btnExpand.isSelected == true) {
-            cell.moreInfoView.isHidden = false
-            cell.btnExpand.setImage(UIImage(named: "up-arrow"), for: .normal)
-            cell.btnExpand.isSelected = false
+        if sender.tag == selectedIndexForBtnExpand {
+            selectedIndexForBtnExpand = -1
         } else {
-            cell.moreInfoView.isHidden = true
-            cell.btnExpand.setImage(UIImage(named: "up-arrow"), for: .normal)
-            cell.btnExpand.isSelected = true
+            selectedIndexForBtnExpand = sender.tag
         }
-        
-       tblView.reloadRows(at: [indexPath], with: .automatic)
+        tblView.reloadData()
+      
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -674,6 +706,7 @@ extension ChoosePackageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrPackage.count
     }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblView.dequeueReusableCell(withIdentifier: "ChoosePackageCell", for: indexPath) as! ChoosePackageCell
@@ -700,21 +733,20 @@ extension ChoosePackageVC: UITableViewDataSource {
             cell.btnRadio.isSelected = false
         }
         
-        if (cell.btnExpand.isSelected == true) {
-             cell.moreInfoView.isHidden = false
-            cell.btnExpand.setImage(UIImage(named: "minus.circle.fill"), for: .normal)
-            cell.btnExpand.tintColor = UIColor.red
-           // cell.btnExpand.isSelected = false
+        if indexPath.row == selectedIndexForBtnExpand {
+           cell.moreInfoView.isHidden = false
+           cell.btnExpand.setImage(UIImage(systemName:"minus.circle.fill"), for: .normal)
+           cell.btnExpand.tintColor = UIColor.init("#C61D27")
         } else {
             cell.moreInfoView.isHidden = true
-            cell.btnExpand.setImage(UIImage(named: "plus.circle.fill"), for: .normal)
-            cell.btnExpand.tintColor = UIColor.blue
-           // cell.btnExpand.isSelected = true
+            cell.btnExpand.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+            cell.btnExpand.tintColor = UIColor.init("#2952FC")
         }
         
         cell.btnRadio.setImage(UIImage(named: cell.btnRadio.isSelected ? "radio-on-button.png" : "radio-off-button.png"), for: .normal)
         cell.cellView.layer.cornerRadius = 12
-        cell.cellView.backgroundColor = cell.btnRadio.isSelected ? UIColor.init("#15B0DA") : UIColor.white
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.backgroundColor = cell.btnRadio.isSelected ? UIColor.init("#15B0DA") : UIColor.white
         
 //        if cell.btnRadio.isSelected == true {
 //            selectedPackage = true
@@ -729,7 +761,11 @@ extension ChoosePackageVC: UITableViewDataSource {
 //MARK:- TableView Delegate Methods
 extension ChoosePackageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if selectedIndexForBtnExpand == indexPath.row {
+            return UITableView.automaticDimension
+        } else {
+          return 100
+        }
     }
 }
 

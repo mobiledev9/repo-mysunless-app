@@ -49,7 +49,7 @@ class ListViewCell: UITableViewCell {
     }
     
     @objc func deletePermanently(_ sender: UIButton) {
-        //  delegate?.deleteClient(id: modelClient.id)
+         // delegate?.deleteClient(id: modelClient.id)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -89,6 +89,8 @@ class ListViewCell: UITableViewCell {
         lblContactNumber.text = modelAppointment.client_phone
         lblContactEmail.text = modelAppointment.client_email
         lblStatus.text = modelAppointment.eventstatus!
+        print("EventDate:\(modelAppointment.eventDate!)")
+        print("strEventDate:\(strEventDate)")
         
         btnEdit.tag = index
         btnDelete.tag = index

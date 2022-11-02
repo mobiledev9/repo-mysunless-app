@@ -10,6 +10,7 @@ import SideMenu
 import Alamofire
 import SCLAlertView
 import GoogleSignIn
+import PassKit
 
 class TblProfileVC: UIViewController {
 
@@ -29,7 +30,7 @@ class TblProfileVC: UIViewController {
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         arrData = [Category(name: "Account Settings", image: UIImage(named: "user-profile")!, subcategories: []),
                    Category(name: "Logout", image: UIImage(named: "logout")!, subcategories: []),
-                   Category(name: "Delete Account", image: UIImage(named: "delete-user")!, subcategories: [])]
+                   Category(name: "Delete Account", image: UIImage(named: "delete-user")!, subcategories: []),]
         tblProfile.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
         tblProfile.tableFooterView = UIView()
        // sidemenu.menuWidth = 100
@@ -59,6 +60,30 @@ class TblProfileVC: UIViewController {
         })
         alert.iconTintColor = UIColor.white
         alert.showSuccess(alertTitle, subTitle: alertSubtitle)
+    }
+    
+    func applePayAlert() {
+        let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
+        let paymentItem = PKPaymentSummaryItem.init(label: "Test Apple pay", amount: NSDecimalNumber(string: "100.0"))
+        if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks) {
+            let request = PKPaymentRequest()
+            request.currencyCode = "USD" // 1
+            request.countryCode = "US" // 2
+            request.merchantIdentifier = "merchant.com.demo.MySunlessApp.Merchant" // 3
+            request.merchantCapabilities = PKMerchantCapability.capability3DS // 4
+            request.supportedNetworks = paymentNetworks // 5
+            request.paymentSummaryItems = [paymentItem] // 6
+            guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: request) else {
+                
+                AppData.sharedInstance.showSCLAlert(alertMainTitle: "Error", alertTitle: "Unable to present Apple Pay authorization.")
+                return
+            }
+            paymentVC.delegate = self
+            self.present(paymentVC, animated: true, completion: nil)
+            
+        } else {
+            AppData.sharedInstance.showSCLAlert(alertMainTitle: "Error", alertTitle: "Unable to make Apple Pay transaction.")
+        }
     }
 
     @objc func deletePermanently() {
@@ -180,10 +205,25 @@ extension TblProfileVC: UITableViewDelegate {
             callLogoutAPI()
         case 2:
             addDeleteAlert()
+        case 3:
+            applePayAlert()
             
         default:
             print("Default")
         }
     }
+    
+}
+
+extension TblProfileVC: PKPaymentAuthorizationViewControllerDelegate {
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        dismiss(animated: true, completion: nil)
+        AppData.sharedInstance.showSCLAlert(alertMainTitle: "Success", alertTitle: "The Apple Pay transaction was complete")
+      }
+    
     
 }

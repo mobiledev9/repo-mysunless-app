@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B12B575290274990070ADB9 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12B574290274990070ADB9 /* AlertVC.swift */; };
 		2B58331728B74CB200D8C116 /* SalesReportFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */; };
 		2B78EC4B28B899D80074A7CC /* PaymentHistoryFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */; };
 		2BBD7FDE28EC6BEB00B6C0FE /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD7FDD28EC6BEB00B6C0FE /* test.m */; };
@@ -249,8 +250,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B12B574290274990070ADB9 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportFilterVC.swift; sourceTree = "<group>"; };
 		2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryFilterVC.swift; sourceTree = "<group>"; };
+		2B941D1E290A411F00DA34C9 /* MySunlessRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MySunlessRelease.entitlements; sourceTree = "<group>"; };
+		2B941D1F290A449F00DA34C9 /* MySunlessDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MySunlessDebug.entitlements; sourceTree = "<group>"; };
 		2BBD7FDB28EC6BEB00B6C0FE /* MySunless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MySunless-Bridging-Header.h"; sourceTree = "<group>"; };
 		2BBD7FDC28EC6BEB00B6C0FE /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		2BBD7FDD28EC6BEB00B6C0FE /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
@@ -875,6 +879,7 @@
 				88ECDC522817D3F100DB89EF /* AddBrandVC.swift */,
 				88ECDC532817D3F100DB89EF /* ProductCategoryListVC.swift */,
 				88ECDC542817D3F100DB89EF /* ProductBrandListVC.swift */,
+				2B12B574290274990070ADB9 /* AlertVC.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -930,6 +935,8 @@
 		88FDA452270C164F008040E9 /* MySunless */ = {
 			isa = PBXGroup;
 			children = (
+				2B941D1F290A449F00DA34C9 /* MySunlessDebug.entitlements */,
+				2B941D1E290A411F00DA34C9 /* MySunlessRelease.entitlements */,
 				88FDA453270C164F008040E9 /* AppDelegate.swift */,
 				88FDA455270C164F008040E9 /* SceneDelegate.swift */,
 				88FDA457270C164F008040E9 /* ViewController.swift */,
@@ -1343,6 +1350,7 @@
 				88B3E3DC27D233E4009E793E /* AddNewServiceVC.swift in Sources */,
 				88A4C27F282646CB00F005D4 /* StripePaymentVC.swift in Sources */,
 				88D16D6D27D61C2B00938792 /* BookingPageImageVC.swift in Sources */,
+				2B12B575290274990070ADB9 /* AlertVC.swift in Sources */,
 				88AFFC87278C531B005E3D7C /* PackagesListVC.swift in Sources */,
 				88ECDC562817D3F100DB89EF /* ProductBarcodeVC.swift in Sources */,
 				88469DAC27C8B34900C88700 /* AddOrderVC.swift in Sources */,
@@ -1628,9 +1636,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MySunless/MySunlessDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Jiyan Paladiya (9Y6C9C96GP)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 5.2;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -1656,9 +1665,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MySunless/MySunlessRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sunless Technologies (83MBL4M6HX)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 5.2;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -1669,7 +1679,7 @@
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.MySunlessApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dist_mysunlessapp_27;
+				PROVISIONING_PROFILE_SPECIFIER = dist_sunless_27Oct;
 				SWIFT_OBJC_BRIDGING_HEADER = "MySunless-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -223,7 +223,14 @@ class AddNewEmployeeVC: UIViewController {
     
     @IBAction func btnSubmitEmployeeClick(_ sender: UIButton) {
         if (self.validation()) {
-            callSaveEmployeeAPI()
+            let emplimit = UserDefaults.standard.value(forKey: "employeeLimit") as? Int ?? 0
+            let empcount = UserDefaults.standard.value(forKey: "numOfEmployee") as? Int ?? 0
+            if (emplimit >= empcount) {
+                callSaveEmployeeAPI()
+            } else {
+            AppData.sharedInstance.showAlert(title: "Alert", message: "Employee limit has been reached. Upgrade now to increase limit", viewController: self)
+            }
+            
         }
     }
     

@@ -69,8 +69,12 @@ class AddDocumentVC: UIViewController {
                 if let success = res.value(forKey: "success") as? String {
                     if (success == "1") {
                         if let message = res.value(forKey: "response") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                        }
+                           // AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            AppData.sharedInstance.alert(message: message, viewController: self) { action in
+                                self.dismiss(animated: true) {
+                                    self.delegate?.callShowDocumentAPI(clientId: self.selectedClientId)
+                                }
+                            }                        }
                     } else {
                         if let message = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)

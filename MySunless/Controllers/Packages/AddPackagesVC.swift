@@ -184,7 +184,10 @@ class AddPackagesVC: UIViewController {
                 if let success = res.value(forKey: "success") as? Int {
                     if (success == 1) {
                         if let message = res.value(forKey: "message") as? String {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                           // AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            AppData.sharedInstance.alert(message: message, viewController: self, completionHandler: { action in
+                                self.navigationController?.popViewController(animated: true)
+                            })
                         }
                     } else {
                         if let message = res.value(forKey: "message") as? String {

@@ -183,7 +183,7 @@ class AppData: NSObject {
     }
     func converterDateFromString(dateString: String, withFormat format: String) -> String? {
         let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-mm-dd h:mma"
+        inputFormatter.dateFormat = "yyyy-MM-dd h:mma"
         
         if let date = inputFormatter.date(from: dateString) {
             let outputFormatter = DateFormatter()

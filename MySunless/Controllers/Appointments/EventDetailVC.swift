@@ -106,7 +106,7 @@ class EventDetailVC: UIViewController {
         lblServiceProviderName.text = (self.appointment?.username)!
         
         lblAppointmentID.text = "\(self.appointment?.id! ?? 000)"
-        lblCustomerNameInDetail.text = (self.appointment?.firstName)! + " " + (self.appointment?.lastName)!
+        lblCustomerNameInDetail.text = (self.appointment?.firstName ?? "") + " " + (self.appointment?.lastName ?? "")
         lblServiceProviderNameInDetil.text = (self.appointment?.username)!
         lblDateTime.text = self.appointment?.eventDate
         lblService.text = self.appointment?.title

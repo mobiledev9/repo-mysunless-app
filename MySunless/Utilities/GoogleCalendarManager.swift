@@ -1,6 +1,7 @@
 //import Foundation
 //import GoogleSignIn
 //import GoogleAPIClientForREST
+//import EventKit
 //import UIKit
 //
 //enum GoogleCalendarManagerError: Error {
@@ -9,15 +10,13 @@
 //
 //class GoogleCalendarManager: NSObject {
 //    static let shared = GoogleCalendarManager()
-//     var PresntingVC : UIViewController = UIViewController()
 //
 //    override private init() {
 //        super.init()
 //
 //        GIDSignIn.sharedInstance().delegate = self
-//       // GIDSignIn.sharedInstance()?.uiDelegate = self
+//        GIDSignIn.sharedInstance().delegate = self
 //        GIDSignIn.sharedInstance().scopes = authorizationScope
-//        GIDSignIn.sharedInstance()?.presentingViewController = PresntingVC
 //    }
 //
 //    fileprivate let authorizationScope = [kGTLRAuthScopeCalendar]
@@ -70,12 +69,10 @@
 //                }
 //
 //                if events.isEmpty {
-//                    print()
 //                    print("GoogleCalendarManager - clearEvents - calendar has no events")
 //                    completion(true)
 //                    return
 //                } else {
-//                    //Logger.shared.pr
 //                    print("GoogleCalendarManager - clearEvents - Start deleting \(events.count) events")
 //                }
 //
@@ -127,6 +124,7 @@
 //                if success {
 //                    write(events: events, mode: mode)
 //                } else {
+//                   //print("GoogleCalendarManager - syncEventsToCalendar - clearEvents - failed")
 //                    print("GoogleCalendarManager - syncEventsToCalendar - clearEvents - failed")
 //                }
 //            }
@@ -140,7 +138,7 @@
 //
 //    func saveEventsToCalendar(events: [GTLRCalendar_Event]) {
 //        guard let calID = calendarID else { return }
-//        print("GoogleCalendarManager - saveEventsToCalendar - writing \(events.count) events to calendar")
+//         print("GoogleCalendarManager - saveEventsToCalendar - writing \(events.count) events to calendar")
 //        for event in events {
 //            let eventSaveQuery = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: calID)
 //            self.service.executeQuery(eventSaveQuery, completionHandler: nil)
@@ -149,6 +147,7 @@
 //
 //    func fetchEventsFromCalendar(completion: @escaping (_ calendarEvents: [GTLRCalendar_Event]) -> Void) {
 //        guard let calID = calendarID else {
+//          // print("GoogleCalendarManager - eventsFromCalendar - no calendar ID!")
 //            print("GoogleCalendarManager - eventsFromCalendar - no calendar ID!")
 //            completion([GTLRCalendar_Event]())
 //            return
@@ -168,6 +167,7 @@
 //                }
 //                completion(events)
 //            } catch {
+//                //print("GoogleCalendarManager - eventsFromCalendar - \(error.localizedDescription)")
 //                print("GoogleCalendarManager - eventsFromCalendar - \(error.localizedDescription)")
 //            }
 //        }
@@ -263,6 +263,7 @@
 //                    completion(false)
 //                }
 //            } catch {
+//               // print("GoogleCalendarManager - checkCalendar - error: \(error.localizedDescription)")
 //                print("GoogleCalendarManager - checkCalendar - error: \(error.localizedDescription)")
 //            }
 //        }
@@ -309,12 +310,14 @@
 //                self.service.executeQuery(insertCalendarEntryQuery, completionHandler: { (_, _, error) in
 //                    if let err = error {
 //                        completion(false)
+//                       // print("CalendarManager - createCalendar - error: \(err.localizedDescription)")
 //                        print("CalendarManager - createCalendar - error: \(err.localizedDescription)")
 //                    } else {
 //                        completion(true)
 //                    }
 //                })
 //            } catch {
+//              //  print("CalendarManager - createCalendar - error: \(error.localizedDescription)")
 //                print("CalendarManager - createCalendar - error: \(error.localizedDescription)")
 //            }
 //        }
@@ -335,7 +338,7 @@
 //}
 //
 //// MARK: GIDSignInUIDelegate
-//extension GoogleCalendarManager: GIDSignInDelegate {
+//extension GoogleCalendarManager: GIDSignInUIDelegate {
 //    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
 //        if var topController = UIApplication.shared.keyWindow?.rootViewController {
 //            while let presentedViewController = topController.presentedViewController {

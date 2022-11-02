@@ -8,9 +8,11 @@
 import UIKit
 import Alamofire
 import SCLAlertView
+import Kingfisher
 
-protocol ProductBrandListProtocol {
+@objc protocol ProductBrandListProtocol {
     func callShowProductBrandAPI()
+   @objc optional func updateProductBrandList()
     func editBrand(brandId: Int, brandName: String)
     func calldeleteProductBrandAPI(brandId: Int)
 }
@@ -78,7 +80,7 @@ class ProductBrandListVC: UIViewController {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddBrandVC") as! AddBrandVC
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
-        VC.delegate = self
+        VC.delegateBrand = self
         self.present(VC, animated: true, completion: nil)
     }
     
@@ -146,6 +148,10 @@ extension ProductBrandListVC: UISearchBarDelegate {
 }
  
 extension ProductBrandListVC: ProductBrandListProtocol {
+    func updateProductBrandList() {
+        callShowProductBrandAPI()
+    }
+    
     func callShowProductBrandAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
@@ -179,7 +185,9 @@ extension ProductBrandListVC: ProductBrandListProtocol {
                             AppData.sharedInstance.showAlert(title: "", message: response, viewController: self)
                             self.arrBrandList.removeAll()
                             self.arrFilterBrandList.removeAll()
-                            self.tblProductBrandList.reloadData()
+                            DispatchQueue.main.async {
+                                self.tblProductBrandList.reloadData()
+                            }
                         }
                     }
                 }
@@ -191,7 +199,7 @@ extension ProductBrandListVC: ProductBrandListProtocol {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "AddBrandVC") as! AddBrandVC
         VC.modalPresentationStyle = .overCurrentContext
         VC.modalTransitionStyle = .crossDissolve
-        VC.delegate = self
+        VC.delegateBrand = self
         VC.isEdit = true
         VC.brandId = brandId
         VC.brandName = brandName

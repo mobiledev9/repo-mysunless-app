@@ -9,6 +9,12 @@ import UIKit
 import iOSDropDown
 import Alamofire
 
+//MARK:- Protocol
+protocol showAlertDelegate {
+    func callShowAlert(isChecked:Bool)
+    
+}
+
 class OrderSummaryVC: UIViewController {
 
     @IBOutlet var vw_orderPriceData: UIView!
@@ -362,12 +368,20 @@ class OrderSummaryVC: UIViewController {
     }
     
     @IBAction func btnSaveForLaterClick(_ sender: UIButton) {
-        AppData.sharedInstance.addCustomWithCheckBoxAlert(alertMainTitle: "Information!", subTitle: "Order has been moved to Orders page") {
-            
+        
+        let isShow = UserDefaults.standard.value(forKey: "notShowOrderAlert") as? Bool ?? false
+        
+        if isShow {
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "OrderListVC") as! OrderListVC
             self.navigationController?.pushViewController(VC, animated: true)
-        
+        } else {
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "AlertVC") as! AlertVC
+            VC.modalTransitionStyle = .crossDissolve
+            VC.modalPresentationStyle = .overCurrentContext
+            VC.delegate = self
+            self.present(VC, animated: true, completion: nil)
         }
+        
     }
     
     @IBAction func btnBackToOrderClick(_ sender: UIButton) {
@@ -403,3 +417,16 @@ extension OrderSummaryVC: UITextFieldDelegate {
         txtEnterAmount.resignFirstResponder()
     }
 }
+
+extension OrderSummaryVC: showAlertDelegate {
+    func callShowAlert(isChecked: Bool) {
+        if isChecked {
+            UserDefaults.standard.set(true, forKey: "notShowOrderAlert")
+        } else {
+            UserDefaults.standard.set(false, forKey: "notShowOrderAlert")
+        }
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "OrderListVC") as! OrderListVC
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+}
+

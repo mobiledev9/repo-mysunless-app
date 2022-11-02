@@ -110,6 +110,7 @@ class ClientsVC: UIViewController {
                 if let success = res.value(forKey: "success") as? String {
                     if success == "1" {
                         if let response = res.value(forKey: "response") as? [[String:Any]] {
+                            UserDefaults.standard.set(response.count, forKey: "loginUserCount")
                             self.arrClients.removeAll()
                             for dict in response {
                                 self.arrClients.append(ClientList.init(dict: dict))
@@ -178,6 +179,8 @@ class ClientsVC: UIViewController {
 //        VC.headerTitle = "Import"
 //        VC.arrImportExport = arrImport
 //        self.navigationController?.pushViewController(VC, animated: true)
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ImportVC") as! ImportVC
+            self.navigationController?.pushViewController(VC, animated: true)
     }
     
     @IBAction func btnExportClick(_ sender: UIButton) {
@@ -185,6 +188,8 @@ class ClientsVC: UIViewController {
 //        VC.headerTitle = "Export"
 //        VC.arrImportExport = arrExport
 //        self.navigationController?.pushViewController(VC, animated: true)
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "ExportVC") as! ExportVC
+        self.navigationController?.pushViewController(VC, animated: true)
     }
     
     @IBAction func btnCheckAllImgClick(_ sender: UIButton) {

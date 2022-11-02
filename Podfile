@@ -30,6 +30,7 @@ target 'MySunless' do
     pod 'SwiftReorder'
     pod "AMProgressBar"
     pod 'GoogleAPIClientForREST/Calendar'
+    pod 'GoogleAPIClientForREST/PeopleService', '~> 1.3.4'
    # pod 'GoogleSignIn'
    # pod 'GoogleSignIn', '~> 5.0'
    pod 'GoogleSignIn', '>= 4.0.2'  pod 'GoogleSignIn', '< 5.0.0'
