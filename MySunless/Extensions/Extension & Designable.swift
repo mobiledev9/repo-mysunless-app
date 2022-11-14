@@ -136,6 +136,21 @@ extension String {
     
     
 }
+//Strip
+extension String {
+    func ifEmpty(replaceWith: String) -> String {
+        return isEmpty ? replaceWith : self
+    }
+
+    func chunk(by length: Int) -> [String] {
+        return stride(from: 0, to: count, by: length).map {
+            let start = index(startIndex, offsetBy: $0)
+            let end = index(start, offsetBy: length, limitedBy: endIndex) ?? endIndex
+            return String(self[start..<end])
+        }
+    }
+}
+
 
 extension Float {
     //remove zero after decimal

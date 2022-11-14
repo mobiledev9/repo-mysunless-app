@@ -68,6 +68,12 @@ PODS:
     - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
   - GoogleAPIClientForREST/Core (2.0.1):
     - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Drive (2.0.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
+  - GoogleAPIClientForREST/PeopleService (2.0.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
@@ -91,6 +97,26 @@ PODS:
   - SDWebImage/Core (5.12.1)
   - SideMenu (6.5.0)
   - StepView (1.0.5)
+  - Stripe (23.1.1):
+    - StripeApplePay (= 23.1.1)
+    - StripeCore (= 23.1.1)
+    - StripePayments (= 23.1.1)
+    - StripePaymentsUI (= 23.1.1)
+    - StripeUICore (= 23.1.1)
+  - StripeApplePay (23.1.1):
+    - StripeCore (= 23.1.1)
+  - StripeCore (23.1.1)
+  - StripePayments (23.1.1):
+    - StripeCore (= 23.1.1)
+    - StripePayments/Stripe3DS2 (= 23.1.1)
+  - StripePayments/Stripe3DS2 (23.1.1):
+    - StripeCore (= 23.1.1)
+  - StripePaymentsUI (23.1.1):
+    - StripeCore (= 23.1.1)
+    - StripePayments (= 23.1.1)
+    - StripeUICore (= 23.1.1)
+  - StripeUICore (23.1.1):
+    - StripeCore (= 23.1.1)
   - SVProgressHUD (2.2.5)
   - SwiftAlgorithms (1.0.0)
   - SwiftReorder (7.2.0)
@@ -108,7 +134,9 @@ DEPENDENCIES:
   - DKImagePickerController
   - FSCalendar
   - GoogleAPIClientForREST/Calendar
-  - GoogleSignIn (~> 5.0)
+  - GoogleAPIClientForREST/Drive
+  - GoogleAPIClientForREST/PeopleService
+  - GoogleSignIn (~> 5.0.0)
   - iOSDropDown
   - IQKeyboardManager
   - Kingfisher
@@ -119,6 +147,8 @@ DEPENDENCIES:
   - ScrollableSegmentedControl
   - SideMenu
   - StepView
+  - Stripe
+  - StripePaymentsUI
   - SVProgressHUD
   - SwiftReorder
   - SwiftSignatureView
@@ -153,6 +183,12 @@ SPEC REPOS:
     - SDWebImage
     - SideMenu
     - StepView
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripePayments
+    - StripePaymentsUI
+    - StripeUICore
     - SVProgressHUD
     - SwiftAlgorithms
     - SwiftReorder
@@ -188,6 +224,12 @@ SPEC CHECKSUMS:
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   StepView: e69413ca377b42c5777d446854bb036ff8e988fd
+  Stripe: ff389e265eeffb891b871b62b2fa644e30e69338
+  StripeApplePay: 4413b4f21c0206094df20775aa5e8e063b9c8b5d
+  StripeCore: 6318dff8f7e42125c6e8b671ac54a6e82804705a
+  StripePayments: 7e903765860f1cc914041069edc9cf5e202f5ef7
+  StripePaymentsUI: e4b2be5b5b5edb774fc8667a71429194c39ce2a4
+  StripeUICore: 149ba9dda3f48dff829d2ebb2e3d455bc59dc0ed
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftReorder: d687883abf5f2327268e006b038025a6fc515e34
@@ -197,6 +239,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TreeTableView: 869484f5db96b1b6b8cc35a639a485fade7e83bd
 
-PODFILE CHECKSUM: 1b311d0f292a995edc7b6be5753f8f278f6ee119
+PODFILE CHECKSUM: 7019da5745c7878afcfbbed29edf400788cc4f83
 
 COCOAPODS: 1.11.3

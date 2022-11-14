@@ -51,6 +51,8 @@
 	<string>${PRODUCT_NAME} need access to the location to get the current location for update address.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>${PRODUCT_NAME} need access to the photo library to select photos for product image </string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>${PRODUCT_NAME} need access to the photo library to select document for import contact.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

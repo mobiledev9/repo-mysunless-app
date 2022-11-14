@@ -7,6 +7,9 @@
 
 import UIKit
 import Alamofire
+import GoogleAPIClientForREST
+import GoogleSignIn
+import GTMSessionFetcher
 
 class ExportVC: UIViewController {
 
@@ -17,6 +20,12 @@ class ExportVC: UIViewController {
     var token = String()
     var userID = Int()
     var downloadPdfUrl = String()
+    let googleDriveService = GTLRDriveService()
+    var googleUser: GIDGoogleUser?
+    var uploadFolderID: String?
+    private let scopes = [kGTLRAuthScopeDrive,kGTLRAuthScopeDriveFile,kGTLRAuthScopeDriveAppdata]
+    private let service = GTLRDriveService()
+    var documentdireactoyPath : URL? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,31 +38,79 @@ class ExportVC: UIViewController {
         callExportClientSheetAPI()
     }
     
-    func saveCSVfile() {
+    func saveCSVfile(isNotNotify : Bool? = false) {
      //   let url = downloadPdfUrl.appending(".csv")
         let url = downloadPdfUrl
         let fileName = downloadPdfUrl.components(separatedBy: "/").last ?? "0000"
-        saveCSV(urlString: url, fileName: fileName)
+        saveCSV(urlString: url, fileName: fileName,isNotNotify :isNotNotify)
     }
     
-    func saveCSV(urlString:String, fileName:String) {
+    func saveCSV(urlString:String, fileName:String, isNotNotify: Bool? = false) {
         DispatchQueue.main.async {
             let url = URL(string: urlString)
             let pdfData = try? Data.init(contentsOf: url!)
             let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
             let pdfNameFromUrl = "\(fileName)"
             let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
-            do {
-                try pdfData?.write(to: actualPath, options: .atomic)
-                print("File Saved Location:\(actualPath)")
-                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "csv successfully saved")
-            } catch {
-                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "csv not saved")
+            self.documentdireactoyPath = actualPath
+            if isNotNotify! {
+                do {
+                    try pdfData?.write(to: actualPath, options: .atomic)
+                    print("File Saved Location:\(actualPath)")
+                } catch {
+                    AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "csv not saved")
+                }
+            } else {
+                do {
+                    try pdfData?.write(to: actualPath, options: .atomic)
+                    print("File Saved Location:\(actualPath)")
+                    AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "csv successfully saved")
+                } catch {
+                    AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "csv not saved")
+                }
             }
         }
     }
     
-    func callExportClientSheetAPI() {
+    func initGoogle () {
+        GIDSignIn.sharedInstance()?.signOut()
+        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance().clientID = google_ClientID
+        GIDSignIn.sharedInstance()?.scopes = scopes
+        GIDSignIn.sharedInstance().presentingViewController = self
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+    
+    func uploadFile(name: String,fileURL: URL,mimeType: String,service: GTLRDriveService) {
+        let file = GTLRDrive_File()
+        file.name = name
+        let uploadParameters = GTLRUploadParameters(fileURL: fileURL, mimeType: mimeType)
+        let query = GTLRDriveQuery_FilesCreate.query(withObject: file, uploadParameters: uploadParameters)
+        service.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
+           print("\(totalBytesUploaded)")
+        }
+         service.executeQuery(query) { (_, result, error) in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+             AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle: "export data successfully")
+            // Successful upload if no error is returned.
+        }
+    }
+    
+    func uploadMyFile() {
+         let fileURL = self.documentdireactoyPath
+         let fileName = downloadPdfUrl.components(separatedBy: "/").last ?? "0000"
+        let date = Date().description.doubleValue
+         uploadFile(
+            name: "MySunless_\(date).csv",
+            fileURL: fileURL!,
+            mimeType: "text/csv",
+            service: googleDriveService)
+    }
+    
+   func callExportClientSheetAPI() {
         AppData.sharedInstance.showLoader()
         let headers: HTTPHeaders = ["Authorization" : token]
         var params = NSDictionary()
@@ -72,6 +129,7 @@ class ExportVC: UIViewController {
                     if successs == 1 {
                         if let ExcelSheetLink = res.value(forKey: "ExcelSheetLink") as? String {
                             self.downloadPdfUrl = ExcelSheetLink
+                            self.saveCSVfile(isNotNotify:true)
                         }
                     } else {
                         
@@ -82,6 +140,7 @@ class ExportVC: UIViewController {
     }
     
     @IBAction func btnFilterClick(_ sender: UIButton) {
+        
     }
     
 }
@@ -115,15 +174,25 @@ extension ExportVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         case 0:
             saveCSVfile()
         case 1:
-            if let url = URL(string: "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&redirect_uri=https%3A%2F%2Fmysunless.com%2Fcrm%2Fgdrive%2F&client_id=462951383589-nfmd0m40bcf8tg31pg7sm1in9ucu9s04.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&access_type=offline&approval_prompt=force&flowName=GeneralOAuthFlow") {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
+            initGoogle()
         default:
             print("Default")
         }
     }
+}
+
+extension ExportVC : GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil {
+                    // Include authorization headers/values with each Drive API request.
+                    self.googleDriveService.authorizer = user.authentication.fetcherAuthorizer()
+                    self.googleUser = user
+                    uploadMyFile()
+                } else {
+                    self.googleDriveService.authorizer = nil
+                    self.googleUser = nil
+                }
+    }
+    
+    
 }

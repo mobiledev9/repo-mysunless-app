@@ -332,6 +332,22 @@ struct ClientList {
     }
 }
 
+
+struct GoogleClientList {
+    var contactName: String
+    var phone: String
+    var email: String
+    var profileUrl: String
+    init(contactName: String,phone: String,email: String,profileUrl: String) {
+        self.contactName = contactName
+        self.phone = phone
+        self.email = email
+        self.profileUrl = profileUrl
+        
+    }
+    
+}
+
 struct EmployeeList {
     let id: Int
     let adminId: Int

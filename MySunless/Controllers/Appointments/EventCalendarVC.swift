@@ -32,16 +32,14 @@ class EventCalendarVC: UIViewController {
     }()
     
    // private let scopes = [kGTLRAuthScopeCalendar]
-    
-    
     fileprivate lazy var calendarService: GTLRCalendarService? = {
         let service = GTLRCalendarService()
         service.shouldFetchNextPages = true
         service.isRetryEnabled = true
         service.maxRetryInterval = 15
 
-        guard let currentUser = GIDSignIn.sharedInstance().currentUser,
-            let authentication = currentUser.authentication else {
+        guard let currentUser = GIDSignIn.sharedInstance()?.currentUser,
+              let authentication: GIDAuthentication = currentUser.authentication else {
                 return nil
         }
         service.authorizer = authentication.fetcherAuthorizer()
@@ -51,7 +49,7 @@ class EventCalendarVC: UIViewController {
     //MARK:- ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initGoogle()
+       // initGoogle()
         token = UserDefaults.standard.value(forKey: "token") as? String ?? ""
         customizedCalendar()
         fsCalendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
@@ -117,6 +115,34 @@ class EventCalendarVC: UIViewController {
         }
     }
     
+    func callUpdateAppointmentStatusAPI(id: Int, sync: Int) {
+        AppData.sharedInstance.showLoader()
+        let headers: HTTPHeaders = ["Authorization": token]
+        var params = NSDictionary()
+        params = ["id": id,
+                  "sync": sync
+        ]
+        APIUtilities.sharedInstance.PpOSTAPICallWith(url: BASE_URL + CHANGE_APPOINTMENT_STATUS, param: params, header: headers) { (respnse, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(respnse ?? "")
+            
+            if let res = respnse as? NSDictionary {
+                if let success = res.value(forKey: "success") as? String {
+                    if success == "1" {
+                        if let message = res.value(forKey: "response") as? String {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    } else {
+                        if let message = res.value(forKey: "response") as? String {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //MARK:- Actions
     @IBAction func btnBookAppntsClick(_ sender: UIButton) {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "BookAppointmentVC") as! BookAppointmentVC
@@ -125,24 +151,26 @@ class EventCalendarVC: UIViewController {
     
     @IBAction func btnGSync(_ sender: UIButton) {
         GIDSignIn.sharedInstance().signIn()
+        
     }
     
     //MARK:- Sync function
     // Create an event to the Google Calendar's user
-    func addEventoToGoogleCalendar(summary : String, description :String, startTime : String, endTime : String) {
+    func addEventoToGoogleCalendar(summary : String, description :String, startTime : String, endTime : String, eventId:Int) {
         guard let service = self.calendarService else {
             return
         }
-
         let calendarEvent = GTLRCalendar_Event()
-        
         calendarEvent.summary = "\(summary)"
         calendarEvent.descriptionProperty = "\(description)"
-        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mma"
+     
         let startDate = dateFormatter.date(from: startTime)
-        let endDate = dateFormatter.date(from: endTime)
+         let endDate = dateFormatter.date(from: endTime)
+        print("startTime :\(startDate)")
+        print("endTime :\(endTime)")
         
         guard let toBuildDateStart = startDate else {
             print("Error getting start date")
@@ -159,6 +187,7 @@ class EventCalendarVC: UIViewController {
         
         calendarService?.executeQuery(insertQuery) { (ticket, object, error) in
             if error == nil {
+                self.callUpdateAppointmentStatusAPI(id: eventId, sync: 1)
                 print("Event inserted")
             } else {
                 print(error)
@@ -189,15 +218,16 @@ class EventCalendarVC: UIViewController {
     }
     
     // Initialize sign-in
-    func initGoogle() {
-        var configureError: NSError?
-        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
-        GIDSignIn.sharedInstance().clientID = google_ClientID
-        GIDSignIn.sharedInstance().scopes = [kGTLRAuthScopeCalendar,kGTLRAuthScopeCalendarEvents]
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-    }
-    
+//    func initGoogle() {
+//        var configureError: NSError?
+//        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+//
+//        GIDSignIn.sharedInstance.clientID = google_ClientID
+//        GIDSignIn.sharedInstance.scopes = [kGTLRAuthScopeCalendar,kGTLRAuthScopeCalendarEvents]
+//        GIDSignIn.sharedInstance.delegate = self
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+//    }
+//
     // you will probably want to add a completion handler here
     func getEvents(for calendarId: String) {
         guard let service = self.calendarService else {
@@ -205,12 +235,14 @@ class EventCalendarVC: UIViewController {
         }
         
         // You can pass start and end dates with function parameters
-        let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()))
+        let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for:Date()))
         let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
+        let oneMonthAfter = GTLRDateTime(date: Calendar.current.date(byAdding: .year, value: 1, to: Date()) ?? Date())
         
         let eventsListQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: calendarId)
-        eventsListQuery.timeMin = startDateTime
-        eventsListQuery.timeMax = endDateTime
+       // eventsListQuery.timeMin = oneMonthAfter
+      eventsListQuery.timeMax = oneMonthAfter
+        
         
         _ = service.executeQuery(eventsListQuery, completionHandler: { (ticket, result, error) in
             guard error == nil, let items = (result as? GTLRCalendar_Events)?.items else {
@@ -219,8 +251,7 @@ class EventCalendarVC: UIViewController {
             
             if items.count > 0 {
                 print(items)
-                
-            } else {
+             } else {
                 print("no event in google calendar")
             }
         })
@@ -328,40 +359,45 @@ extension EventCalendarVC : UITableViewDataSource, UITableViewDelegate {
 
 //MARK:- google sync
 extension EventCalendarVC : GIDSignInDelegate {
-    //MARK:Google SignIn Delegate
-        func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-            // myActivityIndicator.stopAnimating()
-        }
-        // Present a view that prompts the user to sign in with Google
-        func sign(_ signIn: GIDSignIn!,
-                  present viewController: UIViewController!) {
-                  self.present(viewController, animated: true, completion: nil)
-        }
-        
-        // Dismiss the "Sign in with Google" view
-        func sign(_ signIn: GIDSignIn!,
-                  dismiss viewController: UIViewController!) {
-            self.dismiss(animated: true, completion: nil)
-        }
-        ////Google_signIn
-        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-                  withError error: Error!) {
-            if let error = error {
-                showAlert(title: "Authentication Error", message: error.localizedDescription)
-                self.calendarService?.authorizer = nil
-            } else {
-                self.calendarService?.authorizer = user.authentication.fetcherAuthorizer()
-                for item in arrEvents {
-                    addEventoToGoogleCalendar(summary: item.title ?? "",
-                                              description: item.description ?? "",
-                                              startTime: item.eventDate ?? "",
-                                              endTime: item.end_date ?? "")
+    
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func sign(_ signIn: GIDSignIn!,
+              dismiss viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            showAlert(title: "Authentication Error", message: error.localizedDescription)
+            self.calendarService?.authorizer = nil
+        } else {
+            self.calendarService?.authorizer = user.authentication.fetcherAuthorizer()
+            // getEvents(for: calendarId)
+            let arrSyncItem : [ShowAppointmentList] = arrAppointment.filter{$0.sync == 0}
+            if arrSyncItem.count > 0 {
+                for item in arrSyncItem {
+                    if item.sync == 0 {
+                        addEventoToGoogleCalendar(summary: item.title ?? "",
+                                                  description: item.description ?? "",
+                                                  startTime: item.eventDate ?? "",
+                                                  endTime: item.end_date ?? "", eventId: item.id!)
+                    }
+                    
+                    if arrSyncItem.last!.id ==  item.id {
+                        AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle:"Events Synced Successfully with Google!")
+                    }
                 }
-                
+            } else {
+                AppData.sharedInstance.showSCLAlert(alertMainTitle: "", alertTitle:"No new event to Sync!")
             }
-            getEvents(for: calendarId)
         }
     }
+}
 
 
 //MARK:- Calendar Tableview Cell

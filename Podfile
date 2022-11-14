@@ -29,11 +29,14 @@ target 'MySunless' do
     pod 'ColorPalette'
     pod 'SwiftReorder'
     pod "AMProgressBar"
+    pod 'StripePaymentsUI'
+    pod "Stripe"
+    pod 'OneDriveSDK'
+   # pod 'XlsxReaderWriter'
     pod 'GoogleAPIClientForREST/Calendar'
-    pod 'GoogleAPIClientForREST/PeopleService', '~> 1.3.4'
-   # pod 'GoogleSignIn'
-   # pod 'GoogleSignIn', '~> 5.0'
-   pod 'GoogleSignIn', '>= 4.0.2'  pod 'GoogleSignIn', '< 5.0.0'
-   pod 'QCropper'
-
+    pod 'GoogleAPIClientForREST/PeopleService'
+    pod 'GoogleAPIClientForREST/Drive'
+    pod 'GoogleSignIn', '~> 5.0.0'
+    "pod'GoogleSignIn','>= 4.0.2" "pod 'GoogleSignIn','< 5.0.0'"
 end
+

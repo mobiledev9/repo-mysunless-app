@@ -211,7 +211,6 @@ let url_terms_of_use = " https://app.termly.io/document/eula/eb3da85f-708f-490b-
 let dataNotFound = "data not found"
 let nodatafound = "no data found"
 
-
 //enum ProductType: String {
 //   // case weekly = "com.example.app.weekly"
 //    case monthly = "23"

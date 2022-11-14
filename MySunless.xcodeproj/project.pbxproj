@@ -8,8 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2B12B575290274990070ADB9 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12B574290274990070ADB9 /* AlertVC.swift */; };
+		2B437685291BB0CE0012A090 /* GoogleContactListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B437684291BB0CE0012A090 /* GoogleContactListVC.swift */; };
+		2B437687291BBD4A0012A090 /* GoogleClientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B437686291BBD4A0012A090 /* GoogleClientListCell.swift */; };
 		2B58331728B74CB200D8C116 /* SalesReportFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */; };
 		2B78EC4B28B899D80074A7CC /* PaymentHistoryFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */; };
+		2B9685AE291A606000BEFA49 /* BackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9685AD291A606000BEFA49 /* BackCard.swift */; };
+		2B9685B0291A609900BEFA49 /* FrontCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9685AF291A609900BEFA49 /* FrontCard.swift */; };
+		2B9685B2291A60D000BEFA49 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9685B1291A60D000BEFA49 /* CardView.swift */; };
+		2B9685B4291A623200BEFA49 /* CardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9685B3291A623200BEFA49 /* CardHandler.swift */; };
 		2BBD7FDE28EC6BEB00B6C0FE /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD7FDD28EC6BEB00B6C0FE /* test.m */; };
 		2BC83D5428EDB5F4000FBC81 /* GoogleCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC83D5328EDB5F4000FBC81 /* GoogleCalendarManager.swift */; };
 		2BCE7C2C28DDDF02000F7E14 /* ToDoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCE7C2A28DDDF01000F7E14 /* ToDoFooterView.swift */; };
@@ -251,10 +257,16 @@
 
 /* Begin PBXFileReference section */
 		2B12B574290274990070ADB9 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		2B437684291BB0CE0012A090 /* GoogleContactListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleContactListVC.swift; sourceTree = "<group>"; };
+		2B437686291BBD4A0012A090 /* GoogleClientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleClientListCell.swift; sourceTree = "<group>"; };
 		2B58331628B74CB200D8C116 /* SalesReportFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportFilterVC.swift; sourceTree = "<group>"; };
 		2B78EC4A28B899D80074A7CC /* PaymentHistoryFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryFilterVC.swift; sourceTree = "<group>"; };
 		2B941D1E290A411F00DA34C9 /* MySunlessRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MySunlessRelease.entitlements; sourceTree = "<group>"; };
 		2B941D1F290A449F00DA34C9 /* MySunlessDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MySunlessDebug.entitlements; sourceTree = "<group>"; };
+		2B9685AD291A606000BEFA49 /* BackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackCard.swift; sourceTree = "<group>"; };
+		2B9685AF291A609900BEFA49 /* FrontCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontCard.swift; sourceTree = "<group>"; };
+		2B9685B1291A60D000BEFA49 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		2B9685B3291A623200BEFA49 /* CardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHandler.swift; sourceTree = "<group>"; };
 		2BBD7FDB28EC6BEB00B6C0FE /* MySunless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MySunless-Bridging-Header.h"; sourceTree = "<group>"; };
 		2BBD7FDC28EC6BEB00B6C0FE /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		2BBD7FDD28EC6BEB00B6C0FE /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
@@ -657,6 +669,10 @@
 				D59844AE28817CBA00846AA2 /* CommentCell.xib */,
 				D5F8B6B42893B2260078311E /* ImporttExportCell.xib */,
 				2BCE7C2B28DDDF01000F7E14 /* ToDoFooterView.xib */,
+				2B9685AD291A606000BEFA49 /* BackCard.swift */,
+				2B9685AF291A609900BEFA49 /* FrontCard.swift */,
+				2B9685B1291A60D000BEFA49 /* CardView.swift */,
+				2B9685B3291A623200BEFA49 /* CardHandler.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -705,6 +721,7 @@
 				88398BDB27ED911900FED89C /* ViewClientProfileCells */,
 				88FD35D527E2FEE90085231A /* UserDetailCell */,
 				88ECCF91281261A8001F68B5 /* SalesReportCells */,
+				2B437686291BBD4A0012A090 /* GoogleClientListCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1056,6 +1073,7 @@
 			children = (
 				D56947D728754F17006C6A31 /* ImportVC.swift */,
 				D59047762875865500CD7D14 /* ExportVC.swift */,
+				2B437684291BB0CE0012A090 /* GoogleContactListVC.swift */,
 			);
 			path = "Import-Export";
 			sourceTree = "<group>";
@@ -1132,7 +1150,7 @@
 				88FDA44D270C164F008040E9 /* Frameworks */,
 				88FDA44E270C164F008040E9 /* Resources */,
 				C21EF7486A1CE783061A2CBA /* [CP] Embed Pods Frameworks */,
-				51A119D7D781877F6981B4D0 /* [CP] Copy Pods Resources */,
+				841D880ED58089F5FBB68DB5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1224,23 +1242,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		51A119D7D781877F6981B4D0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		60CADC3C55D18F46CD56742A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1261,6 +1262,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		841D880ED58089F5FBB68DB5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MySunless/Pods-MySunless-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C21EF7486A1CE783061A2CBA /* [CP] Embed Pods Frameworks */ = {
@@ -1305,6 +1323,7 @@
 				88A4C27C282646A200F005D4 /* SquarePaymentVC.swift in Sources */,
 				D5D646F12850808C0003347A /* SubscriptionVC.swift in Sources */,
 				88566A4D27EB2BFE009B595C /* ClientDetailVC.swift in Sources */,
+				2B9685B0291A609900BEFA49 /* FrontCard.swift in Sources */,
 				D5D76B892862F1EF001B1D52 /* ToDoCell.swift in Sources */,
 				8880DF21283CDA4B0017B8FB /* ProductSortCell.swift in Sources */,
 				D5D646EB2850803F0003347A /* PerrsonalInfoVC.swift in Sources */,
@@ -1341,6 +1360,7 @@
 				88ECCFA0281261E0001F68B5 /* ProductReportVC.swift in Sources */,
 				D50FA3CB28546D2C004FDC35 /* AllSubscribersVC.swift in Sources */,
 				889ACA0628228B8000A6854C /* EventReminderSettingVC.swift in Sources */,
+				2B9685AE291A606000BEFA49 /* BackCard.swift in Sources */,
 				88FDA454270C164F008040E9 /* AppDelegate.swift in Sources */,
 				D55C0C322851B939005BBE8F /* SubscriptionInfoCell.swift in Sources */,
 				88FDA4AB27DB5F6F0001498A /* Archive_ClientsCell.swift in Sources */,
@@ -1419,6 +1439,7 @@
 				D5D646ED285080590003347A /* ChangeAvatarVC.swift in Sources */,
 				2BCE7C2C28DDDF02000F7E14 /* ToDoFooterView.swift in Sources */,
 				88A4C2782826401F00F005D4 /* PaymentSetupVC.swift in Sources */,
+				2B437685291BB0CE0012A090 /* GoogleContactListVC.swift in Sources */,
 				D5C4708A287FF12600D9863E /* TaskPreviewAssignedCell.swift in Sources */,
 				88398BF627ED947800FED89C /* DocumentVC.swift in Sources */,
 				D5F67CAB2857369500C953C9 /* SubscriberListCell.swift in Sources */,
@@ -1461,6 +1482,7 @@
 				88D86A2927CCDE7F0075B4E5 /* PerformanceListVC.swift in Sources */,
 				D5F8B6B52893B2260078311E /* ImporttExportCell.swift in Sources */,
 				88957D5F27D9F1BB00A578BF /* Archive_ServiceCell.swift in Sources */,
+				2B437687291BBD4A0012A090 /* GoogleClientListCell.swift in Sources */,
 				88E2173A2711689F00D66BA4 /* AccountVerifyVC.swift in Sources */,
 				884BE20527CDFEBD00C60DC6 /* LoginLogCell.swift in Sources */,
 				88104778280847AB00D70A9A /* OrderSummaryVC.swift in Sources */,
@@ -1472,6 +1494,7 @@
 				88FD74F927C0B49700EBA78B /* NotesListCell.swift in Sources */,
 				88FDA456270C164F008040E9 /* SceneDelegate.swift in Sources */,
 				D5FA407228607E3900E31D50 /* UserFilterCell.swift in Sources */,
+				2B9685B4291A623200BEFA49 /* CardHandler.swift in Sources */,
 				8894E0E827DC65AC00CF411B /* Archive_MembershipPackageCell.swift in Sources */,
 				8886854227466AE0007AC3E6 /* YPDrawSignatureView.swift in Sources */,
 				88D16D6A27D61C1200938792 /* WebSiteVC.swift in Sources */,
@@ -1487,6 +1510,7 @@
 				D5DE4CEB287C1EFB00125B53 /* TaskPreviewVC.swift in Sources */,
 				88F51ABF2716E989004DCD9D /* CompanyServiceVC.swift in Sources */,
 				88D16D7127D61C3300938792 /* ImageTitleAndDescVC.swift in Sources */,
+				2B9685B2291A60D000BEFA49 /* CardView.swift in Sources */,
 				88D9DD0527C4E92500E2796A /* BookAppointmentVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1639,7 +1663,7 @@
 				CODE_SIGN_ENTITLEMENTS = MySunless/MySunlessDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Jiyan Paladiya (9Y6C9C96GP)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5.2;
+				CURRENT_PROJECT_VERSION = 9.0;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -1668,7 +1692,7 @@
 				CODE_SIGN_ENTITLEMENTS = MySunless/MySunlessRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sunless Technologies (83MBL4M6HX)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5.2;
+				CURRENT_PROJECT_VERSION = 9.0;
 				DEVELOPMENT_TEAM = 83MBL4M6HX;
 				INFOPLIST_FILE = MySunless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;

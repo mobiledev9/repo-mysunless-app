@@ -923,8 +923,7 @@ extension UserDetailVC: ChangeAppointmentStatus {
                     } else {
                         if let message = res.value(forKey: "response") as? String {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                            
-                        }
+                         }
                     }
                 }
             }
